@@ -11,6 +11,7 @@ from streamlit_app.dashboard_data import (
     load_transactions,
     monthly_performance,
     statistical_snapshot,
+    top_products,
 )
 
 
@@ -68,6 +69,14 @@ class TestDashboardHelpers(unittest.TestCase):
         self.assertAlmostEqual(float(stats["return_rate"]), 345 / 3_922)
         self.assertLessEqual(float(stats["return_rate_ci_low"]), float(stats["return_rate"]))
         self.assertGreaterEqual(float(stats["return_rate_ci_high"]), float(stats["return_rate"]))
+
+    def test_complete_product_catalog_and_visual_asset(self):
+        products = top_products(self.data, limit=50)
+        product_image = PROJECT_ROOT / "assets" / "retail-product-collection.png"
+        self.assertEqual(len(products), 50)
+        self.assertEqual(products["category"].nunique(), 5)
+        self.assertTrue(product_image.exists())
+        self.assertGreater(product_image.stat().st_size, 100_000)
 
 
 if __name__ == "__main__":

@@ -30,14 +30,19 @@ def inject_dashboard_css() -> None:
           html, body, [class*="css"] { font-family: Inter, "Segoe UI", Arial, sans-serif; }
           .stApp {
             background:
-              radial-gradient(circle at 84% 3%, rgba(124,58,237,.10), transparent 24rem),
-              radial-gradient(circle at 18% 8%, rgba(37,99,235,.10), transparent 26rem),
-              #F4F7FC;
+              radial-gradient(circle at 88% 2%, rgba(124,58,237,.18), transparent 34rem),
+              radial-gradient(circle at 8% 42%, rgba(8,145,178,.13), transparent 30rem),
+              radial-gradient(circle at 62% 82%, rgba(37,99,235,.10), transparent 32rem),
+              linear-gradient(155deg,#F9FBFF 0%,#ECF4FF 48%,#F8F1FF 100%);
+            background-attachment:fixed;
           }
-          .block-container { max-width:100%; padding:1.2rem 2rem 2.5rem; }
+          .block-container { max-width:1540px; padding:1.2rem 1.55rem 2.5rem; }
           [data-testid="stSidebar"] {
-            background:linear-gradient(180deg,#0B1739 0%,#132A53 55%,#243B70 100%);
-            border-right:0; min-width:21rem; box-shadow:8px 0 30px rgba(15,23,42,.12);
+            background:
+              radial-gradient(circle at 10% 8%,rgba(56,189,248,.23),transparent 13rem),
+              linear-gradient(180deg,#101A42 0%,#1D3C86 58%,#5B21B6 125%);
+            border-right:1px solid rgba(255,255,255,.14); min-width:19rem;
+            box-shadow:9px 0 34px rgba(15,23,42,.18);
           }
           [data-testid="stSidebar"] label p,
           [data-testid="stSidebar"] .stCaption p,
@@ -54,6 +59,11 @@ def inject_dashboard_css() -> None:
           }
           [data-testid="stSidebar"]::-webkit-scrollbar { width:7px; }
           [data-testid="stSidebar"]::-webkit-scrollbar-thumb { background:#60A5FA; border-radius:999px; }
+          [data-testid="stSidebar"] details {
+            border:1px solid rgba(255,255,255,.15) !important; border-radius:14px !important;
+            background:rgba(255,255,255,.07) !important; margin-top:.45rem;
+          }
+          [data-testid="stSidebar"] details summary { color:#FFFFFF !important; font-weight:800; }
           .sidebar-brand {
             padding:1rem; margin:.2rem 0 1rem; border:1px solid rgba(255,255,255,.16);
             border-radius:16px; background:rgba(255,255,255,.09); box-shadow:0 12px 26px rgba(0,0,0,.14);
@@ -106,7 +116,7 @@ def inject_dashboard_css() -> None:
           }
           [data-testid="stSidebar"] div[data-testid="stRadio"] label {
             flex:0 0 auto; justify-content:flex-start; min-height:2.65rem; padding:.62rem .72rem;
-            background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.08);
+            background:rgba(255,255,255,.10); border:1px solid rgba(255,255,255,.13);
           }
           [data-testid="stSidebar"] div[data-testid="stRadio"] label p { color:#DCE7FF !important; font-size:.84rem; }
           [data-testid="stSidebar"] div[data-testid="stRadio"] label:has(input:checked) {
@@ -130,6 +140,29 @@ def inject_dashboard_css() -> None:
           div[data-testid="stHorizontalBlock"] > div:nth-child(7) div[data-testid="stMetric"]::before { background:#C65D8A; }
           div[data-testid="stMetricLabel"] p { color:#64748B; font-weight:700; font-size:.80rem; }
           div[data-testid="stMetricValue"] { color:#172033; font-weight:800; }
+          .kpi-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(145px,1fr)); gap:.72rem;
+            margin:.65rem 0 1rem;
+          }
+          .kpi-card {
+            position:relative; overflow:hidden; min-height:126px; padding:1rem 1rem .82rem 1.08rem;
+            border-radius:17px; background:linear-gradient(145deg,#FFFFFF,#F6F9FF);
+            border:1px solid #DCE5F2; box-shadow:0 11px 28px rgba(15,23,42,.075);
+            transition:.2s ease;
+          }
+          .kpi-card:hover { transform:translateY(-3px); box-shadow:0 17px 36px rgba(37,99,235,.14); }
+          .kpi-card::before {
+            content:""; position:absolute; inset:0 auto 0 0; width:6px; background:var(--accent,#2563EB);
+          }
+          .kpi-card::after {
+            content:""; position:absolute; width:74px; height:74px; border-radius:50%; right:-28px; top:-30px;
+            background:var(--accent,#2563EB); opacity:.08;
+          }
+          .kpi-card .kpi-top { display:flex; justify-content:space-between; align-items:center; gap:.45rem; }
+          .kpi-card .kpi-label { color:#64748B; font-size:.74rem; font-weight:800; line-height:1.25; }
+          .kpi-card .kpi-icon { font-size:1.05rem; }
+          .kpi-card strong { display:block; margin:.42rem 0 .2rem; color:#172033; font-size:1.42rem; line-height:1.1; }
+          .kpi-card small { color:#7B8799; font-size:.66rem; line-height:1.3; }
           .section-heading { margin:1.2rem 0 .65rem; }
           .section-heading h2 { margin:0; color:#172033; font-size:1.35rem; }
           .section-heading p { margin:.22rem 0 0; color:#64748B; font-size:.86rem; }
@@ -171,6 +204,33 @@ def inject_dashboard_css() -> None:
           }
           .dashboard-hub h3 { color:#172033; margin:0 0 .25rem; }
           .dashboard-hub p { color:#64748B; margin:0; font-size:.84rem; }
+          [data-testid="stImage"] {
+            overflow:hidden; border-radius:22px; border:1px solid #D8E4F5;
+            box-shadow:0 18px 42px rgba(37,99,235,.15); background:#FFFFFF;
+          }
+          [data-testid="stImage"] img { border-radius:22px; display:block; }
+          .category-grid {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:.78rem;
+            margin:.7rem 0 1.1rem;
+          }
+          .category-card {
+            position:relative; overflow:hidden; min-height:160px; padding:1rem;
+            border-radius:17px; background:linear-gradient(150deg,#FFFFFF,#F7FAFF);
+            border:1px solid #DFE7F3; box-shadow:0 10px 26px rgba(15,23,42,.07);
+            border-top:5px solid var(--accent,#2563EB); transition:.2s ease;
+          }
+          .category-card:hover { transform:translateY(-4px); box-shadow:0 17px 36px rgba(37,99,235,.13); }
+          .category-card .category-icon {
+            display:grid; place-items:center; width:44px; height:44px; border-radius:14px;
+            background:color-mix(in srgb,var(--accent,#2563EB) 14%,white); font-size:1.35rem;
+          }
+          .category-card h3 { margin:.58rem 0 .3rem; color:#172033; font-size:.92rem; }
+          .category-card strong { color:var(--accent,#2563EB); font-size:1.08rem; }
+          .category-card p { margin:.4rem 0 0; color:#64748B; font-size:.70rem; line-height:1.42; }
+          .catalog-note {
+            padding:.8rem 1rem; border-radius:14px; color:#354A6B; font-size:.78rem;
+            background:linear-gradient(105deg,#E8F2FF,#F1E9FF); border:1px solid #D7E3F5;
+          }
           .tech-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin:.7rem 0 1.2rem; }
           .tech-card {
             min-height:142px; padding:1rem; border-radius:16px; background:#FFFFFF; border:1px solid #E1E8F4;
@@ -220,6 +280,12 @@ def inject_dashboard_css() -> None:
             .pipeline-step::after { display:none; }
             [data-testid="stSidebar"] { min-width:18rem; }
           }
+          @media (max-width:640px) {
+            .kpi-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+            .kpi-card { min-height:116px; }
+            .category-grid { grid-template-columns:1fr; }
+            .scroll-nav a { flex:1 1 44%; }
+          }
         </style>
         """,
         unsafe_allow_html=True,
@@ -256,6 +322,22 @@ def section_heading(title: str, note: str, icon: str, anchor: str | None = None)
 def scroll_menu(items: list[tuple[str, str]]) -> None:
     links = "".join(f'<a href="#{anchor}">{label}</a>' for anchor, label in items)
     st.markdown(f'<nav class="scroll-nav">{links}</nav>', unsafe_allow_html=True)
+
+
+def kpi_cards(items: list[tuple[str, str, str, str, str]]) -> None:
+    cards = "".join(
+        f'<article class="kpi-card" style="--accent:{color}"><div class="kpi-top"><span class="kpi-label">{label}</span><span class="kpi-icon">{icon}</span></div><strong>{value}</strong><small>{note}</small></article>'
+        for label, value, note, icon, color in items
+    )
+    st.markdown(f'<div class="kpi-grid">{cards}</div>', unsafe_allow_html=True)
+
+
+def category_gallery_cards(items: list[tuple[str, str, str, str, str]]) -> None:
+    cards = "".join(
+        f'<article class="category-card" style="--accent:{color}"><div class="category-icon">{icon}</div><h3>{title}</h3><strong>{value}</strong><p>{detail}</p></article>'
+        for icon, title, value, detail, color in items
+    )
+    st.markdown(f'<div class="category-grid">{cards}</div>', unsafe_allow_html=True)
 
 
 def technology_cards(items: list[tuple[str, str, str, str, str]]) -> None:

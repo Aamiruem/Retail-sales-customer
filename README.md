@@ -29,6 +29,8 @@ This portfolio project demonstrates an end-to-end retail analytics workflow. It 
 
 ![Streamlit dashboard preview](reports/streamlit_dashboard_preview.png)
 
+![Products and returns page preview](reports/products_page_preview.png)
+
 ## Business Questions Answered
 
 - How are revenue, profit, margin and orders changing month by month?
@@ -121,11 +123,13 @@ The compiled PBIX must be saved in Power BI Desktop; the source kit is fully pro
 `streamlit_app/app.py`
 
 - Colorful responsive full-browser design with a professional sidebar and author panel for Aamir Husain Azad.
+- Responsive seven-KPI grid keeps Revenue, Profit, Margin, Orders, Customers, Return Rate and Average Order Value fully visible at desktop and mobile widths.
 - Global date, region, category, channel and customer-segment filters with one-click reset.
 - Executive Overview, Customer Intelligence, Products & Returns, Data Quality and Project & Technology pages.
 - Sticky in-page section navigation, page scroll progress, responsive layouts and a floating back-to-top control.
 - Customer recency-frequency scatter, RFM lifecycle analysis and deterministic K-Means ML customer clusters.
 - Statistics Lab with distribution, correlation, confidence-interval and discount-band analysis.
+- Offline-ready product collection image, visual category cards, top-product tiles and a complete 50-product category browser.
 - Technology showcase for Python, SQL/SQLite, Excel, Power BI, Power Query, DAX, ML, statistics and testing.
 - Connected download hub for filtered CSV, Excel, SQLite, Power BI DAX, Power Query and quality documentation.
 - SQLite-backed deterministic reads and clear empty/error states.

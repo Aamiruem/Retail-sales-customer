@@ -19,6 +19,7 @@ from streamlit_app.dashboard_data import (  # noqa: E402
     category_performance,
     load_transactions,
     monthly_performance,
+    top_products,
 )
 
 
@@ -33,7 +34,7 @@ NAVY = "#17365D"
 INK = "#1F2937"
 MUTED = "#64748B"
 GRID = "#E5E7EB"
-PAGE = "#F5F7FB"
+PAGE = "#EEF4FF"
 WHITE = "#FFFFFF"
 
 
@@ -231,5 +232,101 @@ def render(output_path: Path) -> None:
     plt.close(fig)
 
 
+def render_products_page(output_path: Path) -> None:
+    transactions = load_transactions(PROJECT_ROOT / "data" / "database" / "retail_analytics.db")
+    kpis = calculate_kpis(transactions)
+    category = category_performance(transactions)
+    products = top_products(transactions, limit=8).sort_values("revenue")
+    collection_image = plt.imread(PROJECT_ROOT / "assets" / "retail-product-collection.png")
+
+    plt.rcParams.update({"font.family": "DejaVu Sans", "axes.titleweight": "bold"})
+    fig = plt.figure(figsize=(16, 10.5), facecolor=PAGE)
+
+    sidebar = FancyBboxPatch(
+        (0.018, 0.035), 0.15, 0.93, transform=fig.transFigure,
+        boxstyle="round,pad=0.008,rounding_size=0.014", facecolor="#101A42", edgecolor="#101A42",
+    )
+    fig.patches.append(sidebar)
+    avatar = FancyBboxPatch(
+        (0.038, 0.885), 0.038, 0.054, transform=fig.transFigure,
+        boxstyle="round,pad=0.004,rounding_size=0.010", facecolor=PURPLE, edgecolor="#8B5CF6",
+    )
+    fig.patches.append(avatar)
+    fig.text(0.047, 0.903, "AA", fontsize=11, color=WHITE, weight="bold")
+    fig.text(0.038, 0.855, "Aamir Husain Azad", fontsize=9.4, color=WHITE, weight="bold")
+    fig.text(0.038, 0.835, "AI/ML & Data Analytics", fontsize=7.2, color="#BFD5FF")
+    fig.text(0.038, 0.790, "DASHBOARD NAVIGATION", fontsize=6.8, color="#8FB7FF", weight="bold")
+    nav_items = ["Executive Overview", "Customer Intelligence", "Products & Returns", "Data Quality", "Project & Technology"]
+    for index, label in enumerate(nav_items):
+        selected = label == "Products & Returns"
+        y = 0.742 - index * 0.057
+        nav = FancyBboxPatch(
+            (0.033, y), 0.119, 0.040, transform=fig.transFigure,
+            boxstyle="round,pad=0.004,rounding_size=0.007",
+            facecolor=BLUE if selected else "#1C356B", edgecolor="#5D8DE3" if selected else "#31518B", linewidth=0.8,
+        )
+        fig.patches.append(nav)
+        fig.text(0.043, y + 0.013, label, fontsize=6.8, color=WHITE, weight="bold" if selected else "normal")
+
+    fig.text(0.038, 0.420, "VISIBLE FEATURES", fontsize=6.8, color="#8FB7FF", weight="bold")
+    features = ["Visual category gallery", "Return & discount risk", "Top-product cards", "50-product browser", "Connected downloads"]
+    for index, label in enumerate(features):
+        fig.text(0.042, 0.385 - index * 0.044, f"•  {label}", fontsize=7.0, color="#E1EAFF")
+    fig.text(0.038, 0.120, "LOCAL PRODUCT IMAGE", fontsize=6.8, color="#8FB7FF", weight="bold")
+    fig.text(0.038, 0.091, "Offline-ready · no broken links", fontsize=7.0, color="#E1EAFF")
+    fig.text(0.038, 0.060, "SCROLL  •  FILTER  •  EXPLORE", fontsize=6.1, color="#7DD3FC", weight="bold")
+
+    hero = FancyBboxPatch(
+        (0.19, 0.875), 0.775, 0.09, transform=fig.transFigure,
+        boxstyle="round,pad=0.008,rounding_size=0.014", facecolor=NAVY, edgecolor=NAVY,
+    )
+    fig.patches.append(hero)
+    fig.text(0.212, 0.929, "Products & Returns Intelligence", fontsize=22, color=WHITE, weight="bold")
+    fig.text(0.212, 0.903, "Visual product discovery · performance · return risk · complete catalog", fontsize=9.4, color="#DCE6F8")
+    fig.text(0.79, 0.921, "5 categories · 50 products", fontsize=9, color=WHITE, weight="bold")
+    fig.text(0.79, 0.898, "4,180 validated order lines", fontsize=7.8, color="#BFD5FF")
+
+    cards = [
+        ("Revenue", f"₹{kpis['revenue'] / 1_000_000:.1f}M"), ("Profit", f"₹{kpis['profit'] / 1_000_000:.1f}M"),
+        ("Profit Margin", f"{kpis['profit_margin']:.1%}"), ("Orders", f"{kpis['orders']:,}"),
+        ("Customers", f"{kpis['customers']:,}"), ("Return Rate", f"{kpis['return_rate']:.1%}"),
+        ("Avg Order Value", f"₹{kpis['average_order_value']:,.0f}"),
+    ]
+    for index, (label, value) in enumerate(cards):
+        add_card(fig, 0.195 + index * 0.110, label, value, PALETTE[index])
+
+    image_ax = fig.add_axes([0.205, 0.365, 0.47, 0.355])
+    image_ax.imshow(collection_image)
+    image_ax.set_title("Visual Product Gallery", loc="left", fontsize=13, color=INK, pad=12, weight="bold")
+    image_ax.text(0, 1.015, "Local generated asset covering all five retail categories", transform=image_ax.transAxes, fontsize=8.5, color=MUTED)
+    image_ax.axis("off")
+
+    category_icons = {"Electronics":"TECH", "Home & Kitchen":"HOME", "Sports & Outdoors":"SPORT", "Fashion":"STYLE", "Beauty & Personal Care":"CARE"}
+    category_colors = {"Electronics":BLUE, "Home & Kitchen":GOLD, "Sports & Outdoors":CYAN, "Fashion":PURPLE, "Beauty & Personal Care":PINK}
+    for index, row in enumerate(category.itertuples(index=False)):
+        y = 0.652 - index * 0.070
+        card = FancyBboxPatch(
+            (0.70, y), 0.25, 0.055, transform=fig.transFigure,
+            boxstyle="round,pad=0.005,rounding_size=0.009", facecolor=WHITE, edgecolor="#D9E4F3", linewidth=0.9,
+        )
+        fig.patches.append(card)
+        fig.patches.append(FancyBboxPatch((0.70, y), 0.005, 0.055, transform=fig.transFigure, boxstyle="round,pad=0", facecolor=category_colors[row.category], edgecolor=category_colors[row.category]))
+        fig.text(0.715, y + 0.034, row.category, fontsize=8.0, color=INK, weight="bold")
+        fig.text(0.715, y + 0.014, f"{category_icons[row.category]}  ·  ₹{row.revenue / 1_000_000:.1f}M  ·  Margin {row.profit_margin:.1%}  ·  Returns {row.return_rate:.1%}", fontsize=6.7, color=MUTED)
+
+    ax = fig.add_axes([0.245, 0.075, 0.705, 0.205])
+    product_colors = [BLUE, PURPLE, CYAN, GOLD, ORANGE, OLIVE, PINK, BLUE]
+    bars = ax.barh(products["product_name"], products["revenue"] / 1_000_000, color=product_colors[:len(products)], edgecolor=WHITE)
+    style_axis(ax, "Top Products by Revenue", "INR million · eight highest-value products · exact catalog available in the live dashboard")
+    ax.set_xlabel("₹ million", color=MUTED, fontsize=9)
+    ax.bar_label(bars, fmt="%.1f", padding=4, fontsize=7.5, color=INK)
+    ax.set_xlim(0, products["revenue"].max() / 1_000_000 * 1.16)
+
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output_path, dpi=150, facecolor=fig.get_facecolor(), bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     render(PROJECT_ROOT / "reports" / "streamlit_dashboard_preview.png")
+    render_products_page(PROJECT_ROOT / "reports" / "products_page_preview.png")

@@ -38,9 +38,11 @@ from streamlit_app.ui_helpers import (  # noqa: E402
     PALETTE,
     PINK,
     PURPLE,
+    category_gallery_cards,
     chart_style,
     inject_dashboard_css,
     insight_cards,
+    kpi_cards,
     pipeline_steps,
     read_download_bytes,
     render_back_to_top,
@@ -64,6 +66,7 @@ EXCEL_PATH = PROJECT_ROOT / "excel" / "Retail_Sales_Customer_Insights_Dashboard.
 DAX_PATH = PROJECT_ROOT / "power_bi" / "dax" / "Measures.dax"
 POWER_QUERY_PATH = PROJECT_ROOT / "power_bi" / "power_query" / "Load_Star_Schema.m"
 QUALITY_REPORT_PATH = PROJECT_ROOT / "reports" / "data_quality_report.md"
+PRODUCT_COLLECTION_IMAGE = PROJECT_ROOT / "assets" / "retail-product-collection.png"
 PORTFOLIO_URL = "https://aamir-ai-ml-portfolio.aamirhussainazad786.chatgpt.site/"
 GITHUB_URL = "https://github.com/Aamiruem"
 
@@ -194,14 +197,17 @@ def render_sidebar(data: pd.DataFrame):
 
 def render_kpis(data: pd.DataFrame) -> dict[str, float | int]:
     kpis = calculate_kpis(data)
-    columns = st.columns(7)
-    columns[0].metric("Revenue", format_inr_millions(kpis["revenue"]))
-    columns[1].metric("Profit", format_inr_millions(kpis["profit"]))
-    columns[2].metric("Profit Margin", f"{kpis['profit_margin']:.1%}")
-    columns[3].metric("Orders", f"{kpis['orders']:,}")
-    columns[4].metric("Customers", f"{kpis['customers']:,}")
-    columns[5].metric("Return Rate", f"{kpis['return_rate']:.1%}")
-    columns[6].metric("Avg Order Value", f"₹{kpis['average_order_value']:,.0f}")
+    kpi_cards(
+        [
+            ("Revenue", format_inr_millions(float(kpis["revenue"])), "Sales after discount and returns", "💰", BLUE),
+            ("Profit", format_inr_millions(float(kpis["profit"])), "Revenue less recognized cost", "📈", PURPLE),
+            ("Profit Margin", f"{kpis['profit_margin']:.1%}", "Profit ÷ revenue", "🎯", CYAN),
+            ("Orders", f"{kpis['orders']:,}", "Distinct customer orders", "🧾", GOLD),
+            ("Customers", f"{kpis['customers']:,}", "Unique customers in scope", "👥", ORANGE),
+            ("Return Rate", f"{kpis['return_rate']:.1%}", "Returned orders ÷ orders", "↩️", OLIVE),
+            ("Avg Order Value", f"₹{kpis['average_order_value']:,.0f}", "Revenue ÷ distinct orders", "🛒", PINK),
+        ]
+    )
     return kpis
 
 
@@ -495,15 +501,18 @@ def render_customer_360(data: pd.DataFrame) -> None:
 
 def render_products(data: pd.DataFrame) -> None:
     category = category_performance(data)
-    products = top_products(data, limit=12)
+    all_products = top_products(data, limit=50)
+    products = all_products.head(12).copy()
     top_product = products.iloc[0]
     high_return_category = category.loc[category["return_rate"].idxmax()]
 
     scroll_menu(
         [
             ("product-summary", "Summary"),
+            ("product-gallery", "Visual Gallery"),
             ("product-risk", "Return & Discount Risk"),
-            ("product-leaders", "Leaderboard"),
+            ("product-leaders", "Products"),
+            ("product-catalog", "Full Catalog"),
             ("downloads", "Downloads"),
         ]
     )
@@ -519,6 +528,48 @@ def render_products(data: pd.DataFrame) -> None:
             ("Top-product margin", f"{top_product['profit_margin']:.1%}", "Profit ÷ revenue", OLIVE),
             ("Highest return category", str(high_return_category["category"]), f"{high_return_category['return_rate']:.1%}", ORANGE),
             ("Units sold", f"{int(data['quantity'].sum()):,}", "Filtered line quantity", PURPLE),
+        ]
+    )
+
+    section_heading(
+        "Visual Product Gallery",
+        "A quick visual guide to the five product families represented in the retail model.",
+        "🖼️",
+        "product-gallery",
+    )
+    if PRODUCT_COLLECTION_IMAGE.exists():
+        st.image(
+            str(PRODUCT_COLLECTION_IMAGE),
+            caption="Representative collection covering Electronics, Home & Kitchen, Sports & Outdoors, Fashion, and Beauty & Personal Care.",
+            width="stretch",
+        )
+    else:
+        st.warning("The local product collection image is unavailable. The analytical product views remain active.")
+
+    category_icons = {
+        "Electronics": "💻",
+        "Home & Kitchen": "🏠",
+        "Sports & Outdoors": "⚽",
+        "Fashion": "👟",
+        "Beauty & Personal Care": "🧴",
+    }
+    category_colors = {
+        "Electronics": BLUE,
+        "Home & Kitchen": GOLD,
+        "Sports & Outdoors": CYAN,
+        "Fashion": PURPLE,
+        "Beauty & Personal Care": PINK,
+    }
+    category_gallery_cards(
+        [
+            (
+                category_icons.get(str(row.category), "🛍️"),
+                str(row.category),
+                format_inr_millions(float(row.revenue)),
+                f"Margin {row.profit_margin:.1%} · Return rate {row.return_rate:.1%} · {int(row.orders):,} orders",
+                category_colors.get(str(row.category), BLUE),
+            )
+            for row in category.itertuples(index=False)
         ]
     )
 
@@ -556,9 +607,21 @@ def render_products(data: pd.DataFrame) -> None:
 
     section_heading(
         "Product Leaderboard",
-        "Revenue-ranked products with exact profit, margin, unit and return values.",
+        "Visual cards rank the 12 highest-revenue products and show the business context behind each result.",
         "🏅",
         "product-leaders",
+    )
+    category_gallery_cards(
+        [
+            (
+                category_icons.get(str(row.category), "📦"),
+                str(row.product_name),
+                format_inr_millions(float(row.revenue)),
+                f"{row.category} · Margin {row.profit_margin:.1%} · {int(row.units):,} units · {int(row.returned_lines):,} returned lines",
+                category_colors.get(str(row.category), BLUE),
+            )
+            for row in products.itertuples(index=False)
+        ]
     )
     product_table = products.copy()
     product_table.insert(0, "rank", range(1, len(product_table) + 1))
@@ -566,6 +629,32 @@ def render_products(data: pd.DataFrame) -> None:
     product_table["profit"] = product_table["profit"].map(lambda value: f"₹{value:,.0f}")
     product_table["profit_margin"] = product_table["profit_margin"].map(lambda value: f"{value:.1%}")
     st.table(product_table.rename(columns=str.title))
+
+    section_heading(
+        "Complete Product Catalog",
+        "Choose a category to inspect every product in the validated 50-product catalog.",
+        "📚",
+        "product-catalog",
+    )
+    catalog_category = st.selectbox(
+        "Browse products by category",
+        sorted(all_products["category"].unique()),
+        key="catalog_category",
+    )
+    catalog = all_products.loc[all_products["category"].eq(catalog_category)].copy()
+    catalog.insert(0, "rank", range(1, len(catalog) + 1))
+    catalog["revenue"] = catalog["revenue"].map(lambda value: f"₹{value:,.0f}")
+    catalog["profit"] = catalog["profit"].map(lambda value: f"₹{value:,.0f}")
+    catalog["profit_margin"] = catalog["profit_margin"].map(lambda value: f"{value:.1%}")
+    st.markdown(
+        f'<div class="catalog-note"><strong>{catalog_category}</strong> · {len(catalog)} products · sorted by filtered revenue. Select another category to browse the complete catalog.</div>',
+        unsafe_allow_html=True,
+    )
+    st.table(
+        catalog[["rank", "product_name", "revenue", "profit", "profit_margin", "units", "returned_lines"]].rename(
+            columns=str.title
+        )
+    )
 
 
 def render_quality(data: pd.DataFrame) -> None:
