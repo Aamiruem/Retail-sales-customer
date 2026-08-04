@@ -119,9 +119,11 @@ The compiled PBIX must be saved in Power BI Desktop; the source kit is fully pro
 
 `streamlit_app/app.py`
 
-- Global date, region, category, channel and customer-segment filters.
-- Executive Overview, Customer RFM, Products & Returns and Data Quality tabs.
-- KPI cards, Matplotlib/Seaborn charts, bounded detail tables and CSV download.
+- Colorful responsive full-browser design with top navigation and an author panel for Aamir Husain Azad.
+- Global date, region, category, channel and customer-segment filters with one-click reset.
+- Executive Overview, Customer 360, Products & Returns and Data Quality navigation pages.
+- Customer recency-frequency scatter, RFM lifecycle analysis, product visuals and bounded detail tables.
+- Connected download hub for filtered CSV, Excel, SQLite, Power BI DAX, Power Query and quality documentation.
 - SQLite-backed deterministic reads and clear empty/error states.
 
 ## Repository Structure

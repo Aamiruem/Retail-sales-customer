@@ -3,8 +3,10 @@ from pathlib import Path
 
 from streamlit_app.dashboard_data import (
     apply_filters,
+    business_segment_performance,
     calculate_kpis,
     category_performance,
+    customer_rfm_profile,
     load_transactions,
     monthly_performance,
 )
@@ -46,7 +48,13 @@ class TestDashboardHelpers(unittest.TestCase):
         self.assertEqual(len(monthly_performance(self.data)), 24)
         self.assertEqual(len(category_performance(self.data)), 5)
 
+    def test_customer_360_tables_are_customer_grain(self):
+        profile = customer_rfm_profile(self.data)
+        segments = business_segment_performance(self.data)
+        self.assertEqual(profile["customer_id"].nunique(), len(profile))
+        self.assertGreaterEqual(len(profile), 20)
+        self.assertGreaterEqual(len(segments), 3)
+
 
 if __name__ == "__main__":
     unittest.main()
-

@@ -23,8 +23,12 @@ from streamlit_app.dashboard_data import (  # noqa: E402
 
 
 BLUE = "#2563EB"
+PURPLE = "#7C3AED"
+CYAN = "#0891B2"
 GOLD = "#D4A72C"
 ORANGE = "#E57A32"
+OLIVE = "#7B8B3A"
+PINK = "#C65D8A"
 NAVY = "#17365D"
 INK = "#1F2937"
 MUTED = "#64748B"
@@ -33,10 +37,13 @@ PAGE = "#F5F7FB"
 WHITE = "#FFFFFF"
 
 
-def add_card(fig: plt.Figure, x: float, label: str, value: str) -> None:
+PALETTE = [BLUE, PURPLE, CYAN, GOLD, ORANGE, OLIVE, PINK]
+
+
+def add_card(fig: plt.Figure, x: float, label: str, value: str, color: str) -> None:
     card = FancyBboxPatch(
         (x, 0.765),
-        0.145,
+        0.124,
         0.085,
         transform=fig.transFigure,
         boxstyle="round,pad=0.008,rounding_size=0.012",
@@ -45,8 +52,18 @@ def add_card(fig: plt.Figure, x: float, label: str, value: str) -> None:
         linewidth=1.0,
     )
     fig.patches.append(card)
-    fig.text(x + 0.012, 0.824, label, fontsize=9.5, color=MUTED, weight="medium")
-    fig.text(x + 0.012, 0.785, value, fontsize=18, color=INK, weight="bold")
+    accent = FancyBboxPatch(
+        (x, 0.765),
+        0.006,
+        0.085,
+        transform=fig.transFigure,
+        boxstyle="round,pad=0,rounding_size=0.004",
+        facecolor=color,
+        edgecolor=color,
+    )
+    fig.patches.append(accent)
+    fig.text(x + 0.012, 0.824, label, fontsize=8.6, color=MUTED, weight="medium")
+    fig.text(x + 0.012, 0.785, value, fontsize=15.5, color=INK, weight="bold")
 
 
 def style_axis(ax: plt.Axes, title: str, subtitle: str) -> None:
@@ -79,25 +96,28 @@ def render(output_path: Path) -> None:
         edgecolor=NAVY,
     )
     fig.patches.append(hero)
-    fig.text(0.058, 0.925, "Retail Sales & Customer Insights", fontsize=24, color=WHITE, weight="bold")
+    fig.text(0.058, 0.929, "Retail Sales & Customer Insights", fontsize=24, color=WHITE, weight="bold")
     fig.text(
         0.058,
-        0.895,
-        "Executive overview · 1 Jan 2024–31 Dec 2025 · Synthetic portfolio data",
-        fontsize=10.5,
+        0.903,
+        "Connected browser dashboard · 1 Jan 2024–31 Dec 2025 · Synthetic portfolio data",
+        fontsize=9.6,
         color="#DCE6F8",
     )
+    fig.text(0.77, 0.921, "Built by Aamir Husain Azad", fontsize=10, color=WHITE, weight="bold")
+    fig.text(0.77, 0.898, "AI/ML & Data Analytics Portfolio", fontsize=8.5, color="#BFD5FF")
 
     cards = [
         ("Revenue", f"₹{kpis['revenue'] / 1_000_000:.1f}M"),
         ("Profit", f"₹{kpis['profit'] / 1_000_000:.1f}M"),
         ("Profit Margin", f"{kpis['profit_margin']:.1%}"),
         ("Orders", f"{kpis['orders']:,}"),
+        ("Customers", f"{kpis['customers']:,}"),
         ("Return Rate", f"{kpis['return_rate']:.1%}"),
         ("Avg Order Value", f"₹{kpis['average_order_value']:,.0f}"),
     ]
     for index, (label, value) in enumerate(cards):
-        add_card(fig, 0.04 + index * 0.158, label, value)
+        add_card(fig, 0.04 + index * 0.1335, label, value, PALETTE[index])
 
     grid = fig.add_gridspec(2, 2, left=0.055, right=0.955, bottom=0.09, top=0.69, hspace=0.40, wspace=0.22)
 
@@ -112,7 +132,8 @@ def render(output_path: Path) -> None:
 
     ax = fig.add_subplot(grid[0, 1])
     ranked = category.sort_values("revenue")
-    bars = ax.barh(ranked["category"], ranked["revenue"] / 1_000_000, color=BLUE, edgecolor="#1D4ED8")
+    category_colors = [BLUE, PURPLE, CYAN, GOLD, PINK][: len(ranked)]
+    bars = ax.barh(ranked["category"], ranked["revenue"] / 1_000_000, color=category_colors, edgecolor=WHITE)
     style_axis(ax, "Revenue by Product Category", "INR million · all validated transactions")
     ax.set_xlabel("₹ million", color=MUTED, fontsize=9)
     ax.bar_label(bars, labels=[f"{value:.1f}" for value in ranked["revenue"] / 1_000_000], padding=4, fontsize=8, color=INK)
@@ -120,7 +141,7 @@ def render(output_path: Path) -> None:
 
     ax = fig.add_subplot(grid[1, 0])
     ax.bar(x, monthly["target_revenue"] / 1_000_000, color="#DCE6F8", edgecolor="#9DB7E4", label="Target")
-    ax.plot(x, monthly["revenue"] / 1_000_000, color=BLUE, linewidth=2.2, marker="o", markersize=3.8, label="Actual")
+    ax.plot(x, monthly["revenue"] / 1_000_000, color=PURPLE, linewidth=2.2, marker="o", markersize=3.8, label="Actual")
     style_axis(ax, "Monthly Revenue versus Target", "INR million · actual sales compared with monthly plan")
     ax.set_xticks(x[::2], monthly["year_month"].iloc[::2], rotation=45, ha="right")
     ax.set_ylabel("₹ million", color=MUTED, fontsize=9)
@@ -128,7 +149,8 @@ def render(output_path: Path) -> None:
 
     ax = fig.add_subplot(grid[1, 1])
     returns = category.sort_values("return_rate")
-    bars = ax.barh(returns["category"], returns["return_rate"] * 100, color=ORANGE, edgecolor="#B85A1E")
+    return_colors = ["#FDBA74", "#FB923C", ORANGE, PINK, PURPLE][: len(returns)]
+    bars = ax.barh(returns["category"], returns["return_rate"] * 100, color=return_colors, edgecolor=WHITE)
     style_axis(ax, "Order Return Rate by Category", "Returned distinct orders ÷ distinct orders")
     ax.set_xlabel("% of orders", color=MUTED, fontsize=9)
     ax.bar_label(bars, labels=[f"{value:.1%}" for value in returns["return_rate"]], padding=4, fontsize=8, color=INK)

@@ -140,10 +140,46 @@ def customer_segment_summary(data: pd.DataFrame) -> pd.DataFrame:
     )
 
 
+def customer_rfm_profile(data: pd.DataFrame) -> pd.DataFrame:
+    """Return customer-grain value, activity and recency metrics for the active scope."""
+    profile = (
+        data.groupby(["customer_id", "customer_name", "customer_segment", "rfm_segment"], as_index=False)
+        .agg(
+            revenue=("revenue", "sum"),
+            profit=("profit", "sum"),
+            orders=("order_id", "nunique"),
+            last_order=("order_date", "max"),
+        )
+    )
+    returned = (
+        data.loc[data["return_flag"].eq(1)]
+        .groupby("customer_id")["order_id"]
+        .nunique()
+        .rename("returned_orders")
+    )
+    profile = profile.merge(returned, how="left", left_on="customer_id", right_index=True)
+    profile["returned_orders"] = profile["returned_orders"].fillna(0).astype(int)
+    reference_date = data["order_date"].max()
+    profile["recency_days"] = (reference_date - profile["last_order"]).dt.days.astype(int)
+    profile["profit_margin"] = profile["profit"] / profile["revenue"].replace(0, np.nan)
+    return profile.sort_values("revenue", ascending=False)
+
+
+def business_segment_performance(data: pd.DataFrame) -> pd.DataFrame:
+    """Summarize customer business segments for the Customer 360 page."""
+    result = data.groupby("customer_segment", as_index=False).agg(
+        customers=("customer_id", "nunique"),
+        orders=("order_id", "nunique"),
+        revenue=("revenue", "sum"),
+        profit=("profit", "sum"),
+    )
+    result["profit_margin"] = result["profit"] / result["revenue"].replace(0, np.nan)
+    return result.sort_values("revenue", ascending=False)
+
+
 def top_products(data: pd.DataFrame, limit: int = 12) -> pd.DataFrame:
     result = data.groupby(["product_id", "product_name", "category"], as_index=False).agg(
         revenue=("revenue", "sum"), profit=("profit", "sum"), units=("quantity", "sum"), returned_lines=("return_flag", "sum")
     )
     result["profit_margin"] = result["profit"] / result["revenue"].replace(0, np.nan)
     return result.sort_values("revenue", ascending=False).head(limit)
-
