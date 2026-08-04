@@ -1,0 +1,51 @@
+product_key,product_id,product_name,category,subcategory
+1,P001,Nova 5G Smartphone,Electronics,Smartphones
+2,P002,Apex Pro Laptop,Electronics,Laptops
+3,P003,Wireless Earbuds,Electronics,Accessories
+4,P004,Smart Fitness Watch,Electronics,Accessories
+5,P005,Ultra HD Smart TV,Electronics,Television
+6,P006,StudyPad Tablet,Electronics,Tablets
+7,P007,Noise-Cancel Headphones,Electronics,Accessories
+8,P008,Mirrorless Camera,Electronics,Cameras
+9,P009,Portable SSD,Electronics,Accessories
+10,P010,Bluetooth Speaker,Electronics,Audio
+11,P011,Frost-Free Refrigerator,Home & Kitchen,Appliances
+12,P012,Front-Load Washer,Home & Kitchen,Appliances
+13,P013,Convection Microwave,Home & Kitchen,Appliances
+14,P014,Premium Cookware Set,Home & Kitchen,Cookware
+15,P015,Ergonomic Office Chair,Home & Kitchen,Furniture
+16,P016,Modular Study Desk,Home & Kitchen,Furniture
+17,P017,Air Purifier,Home & Kitchen,Appliances
+18,P018,Mixer Grinder,Home & Kitchen,Appliances
+19,P019,Designer Floor Lamp,Home & Kitchen,Home Decor
+20,P020,Memory Foam Mattress,Home & Kitchen,Bedding
+21,P021,Classic Formal Shirt,Fashion,Clothing
+22,P022,Denim Jacket,Fashion,Clothing
+23,P023,Running Shoes,Fashion,Footwear
+24,P024,Leather Office Shoes,Fashion,Footwear
+25,P025,Travel Backpack,Fashion,Bags
+26,P026,Premium Handbag,Fashion,Bags
+27,P027,Winter Hoodie,Fashion,Clothing
+28,P028,Ethnic Kurta Set,Fashion,Clothing
+29,P029,Polarized Sunglasses,Fashion,Accessories
+30,P030,Leather Wallet,Fashion,Accessories
+31,P031,Vitamin C Skin Serum,Beauty & Personal Care,Skincare
+32,P032,Hydrating Face Cream,Beauty & Personal Care,Skincare
+33,P033,Professional Hair Dryer,Beauty & Personal Care,Grooming
+34,P034,Cordless Grooming Kit,Beauty & Personal Care,Grooming
+35,P035,Aroma Wellness Set,Beauty & Personal Care,Wellness
+36,P036,Daily Sunscreen SPF50,Beauty & Personal Care,Skincare
+37,P037,Keratin Haircare Pack,Beauty & Personal Care,Haircare
+38,P038,Signature Perfume,Beauty & Personal Care,Fragrance
+39,P039,Electric Massager,Beauty & Personal Care,Wellness
+40,P040,Makeup Essentials Kit,Beauty & Personal Care,Cosmetics
+41,P041,Adjustable Dumbbell Set,Sports & Outdoors,Fitness
+42,P042,Premium Yoga Mat,Sports & Outdoors,Fitness
+43,P043,All-Weather Camping Tent,Sports & Outdoors,Outdoor
+44,P044,Performance Track Suit,Sports & Outdoors,Sportswear
+45,P045,Urban Hybrid Bicycle,Sports & Outdoors,Cycling
+46,P046,Foldable Treadmill,Sports & Outdoors,Fitness
+47,P047,Professional Cricket Kit,Sports & Outdoors,Cricket
+48,P048,Trekking Backpack,Sports & Outdoors,Outdoor
+49,P049,Badminton Racquet Set,Sports & Outdoors,Sports
+50,P050,Resistance Training Kit,Sports & Outdoors,Fitness

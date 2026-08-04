@@ -1,0 +1,7 @@
+from_table,from_column,to_table,to_column,cardinality,cross_filter,active
+Dim Date,date_key,Fact Sales,date_key,One-to-many,Single,Yes
+Dim Customer,customer_key,Fact Sales,customer_key,One-to-many,Single,Yes
+Dim Product,product_key,Fact Sales,product_key,One-to-many,Single,Yes
+Dim Store,store_key,Fact Sales,store_key,One-to-many,Single,Yes
+Monthly Targets,year_month,Fact Sales,year_month,One-to-many,Single,Yes
+

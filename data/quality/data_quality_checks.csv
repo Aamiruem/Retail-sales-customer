@@ -1,0 +1,16 @@
+check_id,check_name,actual,expected,passed,severity,status,checked_at_utc
+DQ-001,Raw volume,4224.0,4224.0,True,High,PASS,2026-08-04T14:39:15+00:00
+DQ-002,Validated line volume,4180.0,4180.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-003,Unique line_id,4180.0,4180.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-004,Required IDs complete,0.0,0.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-005,Valid date sequence,4180.0,4180.0,True,High,PASS,2026-08-04T14:39:15+00:00
+DQ-006,Positive quantity,4180.0,4180.0,True,High,PASS,2026-08-04T14:39:15+00:00
+DQ-007,Discount within 0%-60%,4180.0,4180.0,True,High,PASS,2026-08-04T14:39:15+00:00
+DQ-008,Product referential integrity,4180.0,4180.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-009,Revenue reconciliation,160100000.0,160100000.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-010,Profit reconciliation,41300000.0,41300000.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-011,Distinct order reconciliation,3922.0,3922.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-012,Returned order reconciliation,345.0,345.0,True,High,PASS,2026-08-04T14:39:15+00:00
+DQ-013,Revenue arithmetic,0.0,0.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-014,Profit arithmetic,0.0,0.0,True,Critical,PASS,2026-08-04T14:39:15+00:00
+DQ-015,Rejected row reconciliation,44.0,44.0,True,High,PASS,2026-08-04T14:39:15+00:00

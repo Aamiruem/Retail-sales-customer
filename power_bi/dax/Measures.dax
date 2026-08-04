@@ -1,0 +1,102 @@
+// Create a blank table named _Measures and add these measures.
+
+Revenue =
+SUM ( 'Fact Sales'[revenue] )
+
+Gross Sales =
+SUM ( 'Fact Sales'[gross_sales] )
+
+Discount Amount =
+SUM ( 'Fact Sales'[discount_amount] )
+
+Return Value =
+SUM ( 'Fact Sales'[return_amount] )
+
+Profit =
+SUM ( 'Fact Sales'[profit] )
+
+Profit Margin =
+DIVIDE ( [Profit], [Revenue] )
+
+Orders =
+SUM ( 'Fact Sales'[order_flag] )
+
+Returned Orders =
+SUM ( 'Fact Sales'[return_order_flag] )
+
+Return Rate =
+DIVIDE ( [Returned Orders], [Orders] )
+
+Average Order Value =
+DIVIDE ( [Revenue], [Orders] )
+
+Units Sold =
+CALCULATE (
+    SUM ( 'Fact Sales'[quantity] ),
+    'Fact Sales'[return_flag] = 0
+)
+
+Customers =
+DISTINCTCOUNT ( 'Dim Customer'[customer_id] )
+
+Revenue per Customer =
+DIVIDE ( [Revenue], [Customers] )
+
+Weighted Average Discount =
+DIVIDE ( [Discount Amount], [Gross Sales] )
+
+Average Rating =
+AVERAGE ( 'Fact Sales'[rating] )
+
+Revenue Target =
+SUM ( 'Monthly Targets'[target_revenue] )
+
+Profit Target =
+SUM ( 'Monthly Targets'[target_profit] )
+
+Revenue Variance =
+[Revenue] - [Revenue Target]
+
+Revenue Variance % =
+DIVIDE ( [Revenue Variance], [Revenue Target] )
+
+Target Attainment =
+DIVIDE ( [Revenue], [Revenue Target] )
+
+Previous Month Revenue =
+CALCULATE ( [Revenue], DATEADD ( 'Dim Date'[date], -1, MONTH ) )
+
+Month over Month Revenue Growth =
+DIVIDE ( [Revenue] - [Previous Month Revenue], [Previous Month Revenue] )
+
+Previous Year Revenue =
+CALCULATE ( [Revenue], SAMEPERIODLASTYEAR ( 'Dim Date'[date] ) )
+
+Year over Year Revenue Growth =
+DIVIDE ( [Revenue] - [Previous Year Revenue], [Previous Year Revenue] )
+
+Revenue YTD =
+TOTALYTD ( [Revenue], 'Dim Date'[date] )
+
+Profit YTD =
+TOTALYTD ( [Profit], 'Dim Date'[date] )
+
+At Risk Customer Revenue =
+CALCULATE ( [Revenue], 'Dim Customer'[rfm_segment] = "At Risk" )
+
+Champion Customer Revenue =
+CALCULATE ( [Revenue], 'Dim Customer'[rfm_segment] = "Champions" )
+
+High Discount Profit =
+CALCULATE ( [Profit], 'Fact Sales'[discount_pct] > 0.20 )
+
+Data Quality Status =
+IF (
+    COUNTROWS ( 'Fact Sales' ) = 4180
+        && [Orders] = 3922
+        && ROUND ( [Revenue], 0 ) = 160100000
+        && ROUND ( [Profit], 0 ) = 41300000,
+    "READY",
+    "CHECK"
+)
+

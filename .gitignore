@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+.DS_Store
+*.log
+qa_previews/
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+data/raw/*_staging.json
+*.inspect.ndjson
+

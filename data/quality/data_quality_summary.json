@@ -1,0 +1,21 @@
+{
+  "dataset": "Synthetic Indian retail transactions",
+  "intended_grain": "one row per order line",
+  "raw_rows": 4224,
+  "clean_rows": 4180,
+  "rejected_rows": 44,
+  "accepted_rate": 0.989583,
+  "duplicate_rate_raw": 0.002367,
+  "imputed_rating_rows": 31,
+  "rejection_counts": {
+    "duplicate_line_id": 10,
+    "missing_customer_id": 8,
+    "invalid_date": 8,
+    "non_positive_quantity": 6,
+    "invalid_discount": 6,
+    "invalid_product_id": 6
+  },
+  "checks_passed": 15,
+  "checks_total": 15,
+  "overall_status": "READY"
+}

@@ -1,0 +1,36 @@
+// Run in DAX Query View after creating the measures.
+
+EVALUATE
+ROW (
+    "Revenue", [Revenue],
+    "Profit", [Profit],
+    "Profit Margin", [Profit Margin],
+    "Orders", [Orders],
+    "Returned Orders", [Returned Orders],
+    "Return Rate", [Return Rate],
+    "Data Quality Status", [Data Quality Status]
+)
+
+EVALUATE
+SUMMARIZECOLUMNS (
+    'Dim Date'[year_month],
+    "Revenue", [Revenue],
+    "Profit", [Profit],
+    "Profit Margin", [Profit Margin],
+    "Orders", [Orders],
+    "Return Rate", [Return Rate],
+    "Revenue Target", [Revenue Target],
+    "Target Attainment", [Target Attainment]
+)
+ORDER BY 'Dim Date'[year_month]
+
+EVALUATE
+SUMMARIZECOLUMNS (
+    'Dim Product'[category],
+    "Revenue", [Revenue],
+    "Profit", [Profit],
+    "Profit Margin", [Profit Margin],
+    "Return Rate", [Return Rate]
+)
+ORDER BY [Revenue] DESC
+

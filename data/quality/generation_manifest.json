@@ -1,0 +1,28 @@
+{
+  "dataset_type": "synthetic",
+  "seed": 20260804,
+  "generated_at_utc": "2026-08-04T14:20:53+00:00",
+  "raw_rows": 4224,
+  "expected_clean_rows": 4180,
+  "raw_source_rows": {
+    "csv": 2112,
+    "excel": 1056,
+    "sqlite": 1056
+  },
+  "quality_issues_inserted": {
+    "duplicate_line_id": 10,
+    "missing_customer_id": 8,
+    "invalid_order_date": 8,
+    "non_positive_quantity": 6,
+    "invalid_discount": 6,
+    "invalid_product": 6
+  },
+  "expected_kpis": {
+    "revenue": 160100000.0,
+    "profit": 41300000.0,
+    "profit_margin": 0.257964,
+    "orders": 3922,
+    "returned_orders": 345,
+    "return_rate": 0.087965
+  }
+}

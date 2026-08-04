@@ -1,0 +1,17 @@
+{
+  "project_name": "Retail Sales & Customer Insights Analytics Dashboard",
+  "dataset_type": "synthetic",
+  "random_seed": 20260804,
+  "currency": "INR",
+  "timezone": "Asia/Kolkata",
+  "date_range": ["2024-01-01", "2025-12-31"],
+  "expected": {
+    "raw_rows": 4224,
+    "clean_rows": 4180,
+    "orders": 3922,
+    "returned_orders": 345,
+    "revenue": 160100000.0,
+    "profit": 41300000.0
+  }
+}
+

@@ -1,0 +1,34 @@
+{
+  "name": "Retail Insights",
+  "dataColors": ["#2563EB", "#D4A72C", "#E57A32", "#7B8B3A", "#C65D8A", "#17365D"],
+  "background": "#FFFFFF",
+  "foreground": "#1F2937",
+  "tableAccent": "#2563EB",
+  "good": "#2563EB",
+  "neutral": "#D4A72C",
+  "bad": "#E57A32",
+  "maximum": "#2563EB",
+  "center": "#F5F7FB",
+  "minimum": "#DDE3EA",
+  "textClasses": {
+    "title": {"fontFace": "Segoe UI Semibold", "fontSize": 16, "color": "#17365D"},
+    "header": {"fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#1F2937"},
+    "label": {"fontFace": "Segoe UI", "fontSize": 10, "color": "#64748B"},
+    "callout": {"fontFace": "Segoe UI Semibold", "fontSize": 26, "color": "#1F2937"}
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "visualHeader": [{"show": true}],
+        "background": [{"show": true, "color": {"solid": {"color": "#FFFFFF"}}, "transparency": 0}],
+        "border": [{"show": true, "color": {"solid": {"color": "#DDE3EA"}}, "radius": 6}]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{"color": {"solid": {"color": "#F5F7FB"}}, "transparency": 0}]
+      }
+    }
+  }
+}
+

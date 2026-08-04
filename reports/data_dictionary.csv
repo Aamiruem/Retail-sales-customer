@@ -1,0 +1,26 @@
+table,field,type,definition,rule_or_formula
+fact_sales,line_id,Text,Unique order-line identifier,Unique and not null
+fact_sales,order_id,Text,Customer order identifier,May repeat across lines
+fact_sales,date_key,Integer,Foreign key to calendar date,YYYYMMDD
+fact_sales,customer_key,Integer,Foreign key to customer dimension,Required
+fact_sales,product_key,Integer,Foreign key to product dimension,Required
+fact_sales,store_key,Integer,Foreign key to store dimension,Required
+fact_sales,quantity,Integer,Units on the order line,Greater than zero
+fact_sales,unit_price,Currency,Price per unit,INR
+fact_sales,discount_pct,Percent,Line discount rate,Between 0 and 0.60
+fact_sales,gross_sales,Currency,Unit price multiplied by quantity,Before discounts and returns
+fact_sales,discount_amount,Currency,Gross sales multiplied by discount rate,Non-negative
+fact_sales,sales_after_discount,Currency,Gross sales less discount amount,Non-negative
+fact_sales,return_flag,Integer,Returned-line indicator,0 or 1
+fact_sales,return_amount,Currency,Refunded sales-after-discount value,Zero unless returned
+fact_sales,revenue,Currency,Sales after discount less return amount,SUM is headline revenue
+fact_sales,cost_amount,Currency,Recognized COGS and return-handling cost,Used in profit
+fact_sales,profit,Currency,Revenue less cost amount,SUM is headline profit
+fact_sales,order_flag,Integer,First-line indicator within order,SUM is distinct orders
+fact_sales,return_order_flag,Integer,First-line indicator within returned order,SUM is returned orders
+dim_customer,rfm_segment,Text,RFM business segment,Seven accepted values
+monthly_targets,target_revenue,Currency,Synthetic monthly revenue target,One per year-month
+KPI,Profit Margin,Percent,Total Profit divided by Total Revenue,₹41.3M / ₹160.1M = 25.8%
+KPI,Return Rate,Percent,Returned Orders divided by Orders,345 / 3922 = 8.8%
+KPI,Average Order Value,Currency,Revenue divided by Orders,Filter-context aware
+

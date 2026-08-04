@@ -1,0 +1,1155 @@
+customer_key,customer_id,customer_name,customer_segment,region,state,city,recency_days,frequency,monetary,r_score,f_score,m_score,rfm_score,rfm_segment
+1,C0001,Customer 0001,Consumer,West,Gujarat,Ahmedabad,162,2,114391.36,3,1,3,313,Needs Attention
+2,C0002,Customer 0002,Corporate,South,Karnataka,Bengaluru,18,6,138661.0,5,5,3,553,Loyal Customers
+3,C0003,Customer 0003,Home Office,South,Telangana,Hyderabad,287,1,32125.54,2,1,1,211,Hibernating
+4,C0004,Customer 0004,Home Office,South,Karnataka,Bengaluru,275,2,15231.58,2,1,1,211,Hibernating
+5,C0005,Customer 0005,Consumer,West,Gujarat,Ahmedabad,143,2,86325.05,3,1,2,312,Needs Attention
+6,C0006,Customer 0006,Consumer,West,Rajasthan,Jaipur,134,4,169392.06,3,3,4,334,Needs Attention
+7,C0007,Customer 0007,Home Office,East,West Bengal,Kolkata,454,2,181061.09,1,1,4,114,Hibernating
+8,C0008,Customer 0008,Consumer,North,Uttar Pradesh,Lucknow,38,5,71663.92,5,4,2,542,Loyal Customers
+9,C0009,Customer 0009,Consumer,North,Delhi,New Delhi,141,2,22988.58,3,1,1,311,Needs Attention
+10,C0010,Customer 0010,Home Office,North,Delhi,New Delhi,2,4,169484.96,5,3,4,534,Potential Loyalists
+11,C0011,Customer 0011,Consumer,West,Rajasthan,Jaipur,14,4,283110.23,5,3,5,535,Potential Loyalists
+12,C0012,Customer 0012,Corporate,Central,Madhya Pradesh,Indore,18,7,263972.75,5,5,5,555,Champions
+13,C0013,Customer 0013,Consumer,South,Telangana,Hyderabad,19,3,56368.48,5,2,2,522,Potential Loyalists
+14,C0014,Customer 0014,Consumer,West,Maharashtra,Mumbai,84,5,498830.56,4,4,5,445,Champions
+15,C0015,Customer 0015,Consumer,East,Odisha,Bhubaneswar,293,4,62861.05,2,3,2,232,At Risk
+16,C0016,Customer 0016,Corporate,Central,Madhya Pradesh,Indore,393,2,169480.7,1,1,4,114,Hibernating
+17,C0017,Customer 0017,Consumer,East,Bihar,Patna,74,8,341070.39,4,5,5,455,Champions
+18,C0018,Customer 0018,Consumer,West,Rajasthan,Jaipur,150,5,135896.32,3,4,3,343,Loyal Customers
+19,C0019,Customer 0019,Home Office,South,Telangana,Hyderabad,15,6,93310.39,5,5,3,553,Loyal Customers
+20,C0020,Customer 0020,Corporate,Central,Chhattisgarh,Raipur,387,1,23841.81,1,1,1,111,Hibernating
+21,C0022,Customer 0022,Home Office,West,Rajasthan,Jaipur,371,4,122109.96,1,3,3,133,At Risk
+22,C0023,Customer 0023,Consumer,South,Tamil Nadu,Chennai,244,4,409474.7,2,3,5,235,At Risk
+23,C0024,Customer 0024,Corporate,East,West Bengal,Kolkata,337,2,25381.42,1,1,1,111,Hibernating
+24,C0025,Customer 0025,Corporate,South,Tamil Nadu,Chennai,267,1,28921.36,2,1,1,211,Hibernating
+25,C0026,Customer 0026,Corporate,East,Odisha,Bhubaneswar,57,5,129534.33,4,4,3,443,Loyal Customers
+26,C0027,Customer 0027,Consumer,West,Maharashtra,Mumbai,27,6,152587.23,5,5,4,554,Champions
+27,C0028,Customer 0028,Corporate,Central,Chhattisgarh,Raipur,45,4,126113.68,4,3,3,433,Potential Loyalists
+28,C0029,Customer 0029,Home Office,South,Telangana,Hyderabad,107,3,53992.85,3,2,2,322,Needs Attention
+29,C0030,Customer 0030,Corporate,East,Bihar,Patna,124,5,76149.7,3,4,2,342,Loyal Customers
+30,C0031,Customer 0031,Consumer,East,West Bengal,Kolkata,162,5,187868.59,3,4,4,344,Loyal Customers
+31,C0032,Customer 0032,Home Office,Central,Madhya Pradesh,Indore,15,9,403111.98,5,5,5,555,Champions
+32,C0033,Customer 0033,Consumer,East,Bihar,Patna,482,2,71972.72,1,1,2,112,Hibernating
+33,C0034,Customer 0034,Corporate,South,Karnataka,Bengaluru,310,1,50664.28,1,1,2,112,Hibernating
+34,C0035,Customer 0035,Corporate,West,Maharashtra,Mumbai,48,5,115541.3,4,4,3,443,Loyal Customers
+35,C0036,Customer 0036,Consumer,North,Punjab,Chandigarh,6,1,29356.12,5,1,1,511,New Customers
+36,C0037,Customer 0037,Home Office,West,Gujarat,Ahmedabad,140,4,123276.79,3,3,3,333,Needs Attention
+37,C0038,Customer 0038,Consumer,West,Rajasthan,Jaipur,69,6,401806.65,4,5,5,455,Champions
+38,C0039,Customer 0039,Corporate,South,Karnataka,Bengaluru,86,3,56802.01,4,2,2,422,Potential Loyalists
+39,C0040,Customer 0040,Corporate,Central,Madhya Pradesh,Indore,139,2,31139.79,3,1,1,311,Needs Attention
+40,C0041,Customer 0041,Corporate,North,Delhi,New Delhi,63,3,47775.7,4,2,1,421,Potential Loyalists
+41,C0042,Customer 0042,Consumer,North,Uttar Pradesh,Lucknow,269,6,110526.81,2,5,3,253,At Risk
+42,C0043,Customer 0043,Corporate,North,Punjab,Chandigarh,377,2,56954.13,1,1,2,112,Hibernating
+43,C0044,Customer 0044,Corporate,East,Bihar,Patna,568,1,88299.39,1,1,2,112,Hibernating
+44,C0045,Customer 0045,Corporate,South,Telangana,Hyderabad,16,3,30396.0,5,2,1,521,Potential Loyalists
+45,C0046,Customer 0046,Corporate,Central,Madhya Pradesh,Indore,415,3,66331.91,1,2,2,122,Hibernating
+46,C0047,Customer 0047,Corporate,West,Maharashtra,Mumbai,236,2,116464.81,2,1,3,213,Hibernating
+47,C0048,Customer 0048,Consumer,West,Gujarat,Ahmedabad,23,6,300475.68,5,5,5,555,Champions
+48,C0049,Customer 0049,Consumer,Central,Chhattisgarh,Raipur,197,2,44177.9,2,1,1,211,Hibernating
+49,C0050,Customer 0050,Home Office,West,Maharashtra,Mumbai,76,6,248828.69,4,5,5,455,Champions
+50,C0051,Customer 0051,Consumer,South,Karnataka,Bengaluru,52,3,174478.5,4,2,4,424,Potential Loyalists
+51,C0052,Customer 0052,Home Office,Central,Madhya Pradesh,Indore,11,5,193328.68,5,4,4,544,Champions
+52,C0053,Customer 0053,Consumer,East,Odisha,Bhubaneswar,17,3,228490.69,5,2,5,525,Potential Loyalists
+53,C0054,Customer 0054,Home Office,North,Delhi,New Delhi,225,3,39932.16,2,2,1,221,Hibernating
+54,C0055,Customer 0055,Consumer,Central,Chhattisgarh,Raipur,130,2,5498.79,3,1,1,311,Needs Attention
+55,C0056,Customer 0056,Home Office,Central,Madhya Pradesh,Indore,395,2,52710.4,1,1,2,112,Hibernating
+56,C0057,Customer 0057,Consumer,North,Uttar Pradesh,Lucknow,72,2,24294.17,4,1,1,411,Needs Attention
+57,C0058,Customer 0058,Home Office,South,Tamil Nadu,Chennai,94,5,302242.71,3,4,5,345,Loyal Customers
+58,C0059,Customer 0059,Consumer,Central,Chhattisgarh,Raipur,238,7,120348.33,2,5,3,253,At Risk
+59,C0060,Customer 0060,Consumer,East,Odisha,Bhubaneswar,364,2,254715.66,1,1,5,115,Hibernating
+60,C0061,Customer 0061,Consumer,North,Delhi,New Delhi,205,5,181407.42,2,4,4,244,At Risk
+61,C0062,Customer 0062,Consumer,East,Bihar,Patna,385,5,240694.39,1,4,5,145,At Risk
+62,C0063,Customer 0063,Consumer,North,Delhi,New Delhi,65,4,207695.69,4,3,4,434,Potential Loyalists
+63,C0064,Customer 0064,Consumer,North,Punjab,Chandigarh,149,2,143299.26,3,1,3,313,Needs Attention
+64,C0065,Customer 0065,Consumer,North,Punjab,Chandigarh,241,2,81763.61,2,1,2,212,Hibernating
+65,C0067,Customer 0067,Home Office,Central,Madhya Pradesh,Indore,24,4,142383.24,5,3,3,533,Potential Loyalists
+66,C0068,Customer 0068,Corporate,South,Tamil Nadu,Chennai,190,3,49695.15,2,2,2,222,Hibernating
+67,C0069,Customer 0069,Consumer,North,Punjab,Chandigarh,6,3,35992.3,5,2,1,521,Potential Loyalists
+68,C0070,Customer 0070,Consumer,South,Tamil Nadu,Chennai,26,3,103464.64,5,2,3,523,Potential Loyalists
+69,C0071,Customer 0071,Consumer,North,Punjab,Chandigarh,108,2,76584.38,3,1,2,312,Needs Attention
+70,C0072,Customer 0072,Consumer,North,Uttar Pradesh,Lucknow,68,1,10465.28,4,1,1,411,Needs Attention
+71,C0073,Customer 0073,Corporate,South,Telangana,Hyderabad,195,5,79462.89,2,4,2,242,At Risk
+72,C0074,Customer 0074,Home Office,East,Odisha,Bhubaneswar,120,3,79051.12,3,2,2,322,Needs Attention
+73,C0075,Customer 0075,Consumer,East,West Bengal,Kolkata,163,3,161582.62,3,2,4,324,Needs Attention
+74,C0076,Customer 0076,Consumer,South,Tamil Nadu,Chennai,72,4,213677.47,4,3,4,434,Potential Loyalists
+75,C0077,Customer 0077,Consumer,South,Tamil Nadu,Chennai,381,4,204950.78,1,3,4,134,At Risk
+76,C0078,Customer 0078,Home Office,East,Odisha,Bhubaneswar,482,1,33688.94,1,1,1,111,Hibernating
+77,C0079,Customer 0079,Consumer,East,Bihar,Patna,147,3,249903.97,3,2,5,325,Needs Attention
+78,C0080,Customer 0080,Corporate,South,Karnataka,Bengaluru,258,2,48464.13,2,1,2,212,Hibernating
+79,C0082,Customer 0082,Consumer,East,West Bengal,Kolkata,192,2,166310.06,2,1,4,214,Hibernating
+80,C0083,Customer 0083,Consumer,South,Tamil Nadu,Chennai,109,4,211096.31,3,3,4,334,Needs Attention
+81,C0084,Customer 0084,Corporate,East,West Bengal,Kolkata,272,3,274794.87,2,2,5,225,Hibernating
+82,C0085,Customer 0085,Corporate,South,Tamil Nadu,Chennai,129,8,292451.55,3,5,5,355,Loyal Customers
+83,C0086,Customer 0086,Corporate,Central,Chhattisgarh,Raipur,85,3,197468.37,4,2,4,424,Potential Loyalists
+84,C0087,Customer 0087,Home Office,South,Telangana,Hyderabad,107,4,187554.23,3,3,4,334,Needs Attention
+85,C0088,Customer 0088,Corporate,East,Odisha,Bhubaneswar,89,4,110426.53,4,3,3,433,Potential Loyalists
+86,C0089,Customer 0089,Consumer,South,Telangana,Hyderabad,33,1,8860.16,5,1,1,511,New Customers
+87,C0090,Customer 0090,Consumer,East,Bihar,Patna,89,3,122510.03,4,2,3,423,Potential Loyalists
+88,C0091,Customer 0091,Consumer,East,West Bengal,Kolkata,25,3,109244.56,5,2,3,523,Potential Loyalists
+89,C0092,Customer 0092,Corporate,Central,Madhya Pradesh,Indore,64,5,289760.74,4,4,5,445,Champions
+90,C0093,Customer 0093,Consumer,West,Maharashtra,Mumbai,128,2,39283.61,3,1,1,311,Needs Attention
+91,C0094,Customer 0094,Home Office,East,West Bengal,Kolkata,209,3,120737.67,2,2,3,223,Hibernating
+92,C0095,Customer 0095,Consumer,East,West Bengal,Kolkata,2,3,65864.45,5,2,2,522,Potential Loyalists
+93,C0096,Customer 0096,Consumer,Central,Chhattisgarh,Raipur,155,2,153517.09,3,1,4,314,Needs Attention
+94,C0097,Customer 0097,Home Office,East,Bihar,Patna,536,1,165389.46,1,1,4,114,Hibernating
+95,C0099,Customer 0099,Home Office,North,Punjab,Chandigarh,177,3,114753.37,2,2,3,223,Hibernating
+96,C0100,Customer 0100,Consumer,West,Gujarat,Ahmedabad,63,6,183429.01,4,5,4,454,Champions
+97,C0101,Customer 0101,Consumer,North,Uttar Pradesh,Lucknow,280,4,135661.02,2,3,3,233,At Risk
+98,C0102,Customer 0102,Consumer,West,Maharashtra,Mumbai,6,4,123238.08,5,3,3,533,Potential Loyalists
+99,C0103,Customer 0103,Corporate,West,Maharashtra,Mumbai,303,1,34684.22,2,1,1,211,Hibernating
+100,C0104,Customer 0104,Consumer,North,Delhi,New Delhi,172,5,160623.03,2,4,4,244,At Risk
+101,C0105,Customer 0105,Consumer,North,Delhi,New Delhi,167,6,129722.75,3,5,3,353,Loyal Customers
+102,C0106,Customer 0106,Corporate,West,Maharashtra,Mumbai,44,5,148874.43,4,4,4,444,Champions
+103,C0107,Customer 0107,Consumer,West,Rajasthan,Jaipur,519,3,90841.27,1,2,2,122,Hibernating
+104,C0108,Customer 0108,Home Office,East,Bihar,Patna,115,4,275899.49,3,3,5,335,Needs Attention
+105,C0109,Customer 0109,Consumer,West,Gujarat,Ahmedabad,424,2,125334.15,1,1,3,113,Hibernating
+106,C0110,Customer 0110,Consumer,East,West Bengal,Kolkata,299,2,91821.88,2,1,3,213,Hibernating
+107,C0111,Customer 0111,Consumer,East,Odisha,Bhubaneswar,22,4,202825.16,5,3,4,534,Potential Loyalists
+108,C0112,Customer 0112,Consumer,North,Uttar Pradesh,Lucknow,7,8,386924.71,5,5,5,555,Champions
+109,C0113,Customer 0113,Home Office,East,Bihar,Patna,208,7,321583.57,2,5,5,255,At Risk
+110,C0114,Customer 0114,Corporate,Central,Madhya Pradesh,Indore,258,3,104470.32,2,2,3,223,Hibernating
+111,C0115,Customer 0115,Home Office,Central,Madhya Pradesh,Indore,124,3,58376.94,3,2,2,322,Needs Attention
+112,C0116,Customer 0116,Consumer,West,Gujarat,Ahmedabad,42,4,227570.81,4,3,5,435,Potential Loyalists
+113,C0117,Customer 0117,Corporate,Central,Chhattisgarh,Raipur,86,5,103600.85,4,4,3,443,Loyal Customers
+114,C0118,Customer 0118,Consumer,West,Gujarat,Ahmedabad,41,2,112598.22,4,1,3,413,Needs Attention
+115,C0119,Customer 0119,Corporate,Central,Madhya Pradesh,Indore,56,6,299435.99,4,5,5,455,Champions
+116,C0120,Customer 0120,Consumer,North,Punjab,Chandigarh,453,2,80970.53,1,1,2,112,Hibernating
+117,C0122,Customer 0122,Consumer,Central,Madhya Pradesh,Indore,15,4,146388.08,5,3,4,534,Potential Loyalists
+118,C0123,Customer 0123,Home Office,South,Telangana,Hyderabad,63,5,306748.02,4,4,5,445,Champions
+119,C0124,Customer 0124,Consumer,West,Rajasthan,Jaipur,43,6,207478.91,4,5,4,454,Champions
+120,C0125,Customer 0125,Consumer,North,Punjab,Chandigarh,382,3,79640.4,1,2,2,122,Hibernating
+121,C0126,Customer 0126,Consumer,South,Telangana,Hyderabad,399,3,128983.02,1,2,3,123,Hibernating
+122,C0128,Customer 0128,Corporate,East,Bihar,Patna,421,2,208803.03,1,1,4,114,Hibernating
+123,C0129,Customer 0129,Consumer,West,Gujarat,Ahmedabad,220,3,83905.61,2,2,2,222,Hibernating
+124,C0130,Customer 0130,Consumer,North,Delhi,New Delhi,368,3,43522.58,1,2,1,121,Hibernating
+125,C0131,Customer 0131,Consumer,South,Karnataka,Bengaluru,682,1,35412.0,1,1,1,111,Hibernating
+126,C0132,Customer 0132,Corporate,Central,Chhattisgarh,Raipur,220,8,179748.77,2,5,4,254,At Risk
+127,C0133,Customer 0133,Home Office,West,Maharashtra,Mumbai,421,3,36641.32,1,2,1,121,Hibernating
+128,C0134,Customer 0134,Consumer,North,Delhi,New Delhi,214,3,32643.62,2,2,1,221,Hibernating
+129,C0135,Customer 0135,Consumer,East,Bihar,Patna,257,1,32519.19,2,1,1,211,Hibernating
+130,C0136,Customer 0136,Consumer,East,Odisha,Bhubaneswar,109,5,184695.7,3,4,4,344,Loyal Customers
+131,C0137,Customer 0137,Corporate,South,Telangana,Hyderabad,188,5,175735.42,2,4,4,244,At Risk
+132,C0138,Customer 0138,Corporate,East,Bihar,Patna,143,4,141306.38,3,3,3,333,Needs Attention
+133,C0139,Customer 0139,Consumer,East,West Bengal,Kolkata,214,4,208266.71,2,3,4,234,At Risk
+134,C0140,Customer 0140,Consumer,East,Bihar,Patna,87,6,175828.95,4,5,4,454,Champions
+135,C0141,Customer 0141,Corporate,North,Punjab,Chandigarh,468,2,15660.13,1,1,1,111,Hibernating
+136,C0142,Customer 0142,Consumer,East,West Bengal,Kolkata,31,2,83789.85,5,1,2,512,New Customers
+137,C0143,Customer 0143,Corporate,Central,Chhattisgarh,Raipur,51,4,191776.67,4,3,4,434,Potential Loyalists
+138,C0144,Customer 0144,Consumer,West,Gujarat,Ahmedabad,126,6,248619.02,3,5,5,355,Loyal Customers
+139,C0145,Customer 0145,Consumer,South,Telangana,Hyderabad,67,3,124746.01,4,2,3,423,Potential Loyalists
+140,C0146,Customer 0146,Consumer,North,Punjab,Chandigarh,194,7,296340.64,2,5,5,255,At Risk
+141,C0147,Customer 0147,Consumer,South,Telangana,Hyderabad,271,3,31255.6,2,2,1,221,Hibernating
+142,C0148,Customer 0148,Consumer,Central,Chhattisgarh,Raipur,33,4,183983.63,5,3,4,534,Potential Loyalists
+143,C0149,Customer 0149,Consumer,North,Delhi,New Delhi,429,4,269702.14,1,3,5,135,At Risk
+144,C0150,Customer 0150,Corporate,East,Odisha,Bhubaneswar,128,6,140989.23,3,5,3,353,Loyal Customers
+145,C0151,Customer 0151,Corporate,North,Punjab,Chandigarh,28,4,123222.03,5,3,3,533,Potential Loyalists
+146,C0152,Customer 0152,Consumer,Central,Madhya Pradesh,Indore,185,6,329514.43,2,5,5,255,At Risk
+147,C0153,Customer 0153,Home Office,South,Telangana,Hyderabad,65,4,134786.2,4,3,3,433,Potential Loyalists
+148,C0154,Customer 0154,Consumer,Central,Madhya Pradesh,Indore,43,3,311722.57,4,2,5,425,Potential Loyalists
+149,C0155,Customer 0155,Corporate,North,Uttar Pradesh,Lucknow,27,3,252967.09,5,2,5,525,Potential Loyalists
+150,C0156,Customer 0156,Home Office,West,Maharashtra,Mumbai,288,4,162349.01,2,3,4,234,At Risk
+151,C0157,Customer 0157,Corporate,North,Uttar Pradesh,Lucknow,31,4,171358.67,5,3,4,534,Potential Loyalists
+152,C0158,Customer 0158,Consumer,South,Telangana,Hyderabad,91,6,237668.58,3,5,5,355,Loyal Customers
+153,C0159,Customer 0159,Corporate,South,Telangana,Hyderabad,61,6,144336.28,4,5,4,454,Champions
+154,C0160,Customer 0160,Home Office,North,Delhi,New Delhi,11,7,99296.44,5,5,3,553,Loyal Customers
+155,C0161,Customer 0161,Corporate,North,Punjab,Chandigarh,455,2,81843.64,1,1,2,112,Hibernating
+156,C0162,Customer 0162,Consumer,West,Gujarat,Ahmedabad,100,2,205622.44,3,1,4,314,Needs Attention
+157,C0163,Customer 0163,Corporate,North,Uttar Pradesh,Lucknow,88,2,32286.29,4,1,1,411,Needs Attention
+158,C0164,Customer 0164,Consumer,South,Karnataka,Bengaluru,191,2,10322.19,2,1,1,211,Hibernating
+159,C0165,Customer 0165,Home Office,East,Bihar,Patna,124,6,300199.35,3,5,5,355,Loyal Customers
+160,C0166,Customer 0166,Corporate,South,Karnataka,Bengaluru,213,2,73576.8,2,1,2,212,Hibernating
+161,C0167,Customer 0167,Consumer,North,Delhi,New Delhi,66,4,156846.36,4,4,4,444,Champions
+162,C0168,Customer 0168,Corporate,Central,Chhattisgarh,Raipur,204,2,73780.11,2,1,2,212,Hibernating
+163,C0169,Customer 0169,Corporate,South,Karnataka,Bengaluru,106,3,195763.63,3,2,4,324,Needs Attention
+164,C0170,Customer 0170,Consumer,West,Gujarat,Ahmedabad,354,4,211091.89,1,4,4,144,At Risk
+165,C0171,Customer 0171,Corporate,South,Tamil Nadu,Chennai,95,3,239075.21,3,2,5,325,Needs Attention
+166,C0172,Customer 0172,Corporate,North,Delhi,New Delhi,252,3,120742.31,2,2,3,223,Hibernating
+167,C0173,Customer 0173,Consumer,West,Gujarat,Ahmedabad,553,1,82725.26,1,1,2,112,Hibernating
+168,C0174,Customer 0174,Corporate,North,Delhi,New Delhi,67,3,45854.27,4,2,1,421,Potential Loyalists
+169,C0175,Customer 0175,Home Office,South,Telangana,Hyderabad,106,4,92988.57,3,4,3,343,Loyal Customers
+170,C0176,Customer 0176,Consumer,South,Tamil Nadu,Chennai,209,4,155047.39,2,4,4,244,At Risk
+171,C0177,Customer 0177,Home Office,East,West Bengal,Kolkata,152,3,67850.97,3,2,2,322,Needs Attention
+172,C0178,Customer 0178,Corporate,East,West Bengal,Kolkata,458,1,38788.73,1,1,1,111,Hibernating
+173,C0179,Customer 0179,Consumer,West,Gujarat,Ahmedabad,155,3,64308.07,3,2,2,322,Needs Attention
+174,C0180,Customer 0180,Corporate,Central,Madhya Pradesh,Indore,19,5,64627.25,5,4,2,542,Loyal Customers
+175,C0181,Customer 0181,Consumer,West,Gujarat,Ahmedabad,12,3,180123.13,5,2,4,524,Potential Loyalists
+176,C0182,Customer 0182,Consumer,Central,Madhya Pradesh,Indore,197,3,295400.82,2,2,5,225,Hibernating
+177,C0184,Customer 0184,Corporate,East,Bihar,Patna,77,4,175760.81,4,4,4,444,Champions
+178,C0185,Customer 0185,Consumer,East,West Bengal,Kolkata,538,1,43919.41,1,1,1,111,Hibernating
+179,C0186,Customer 0186,Consumer,Central,Madhya Pradesh,Indore,76,5,240607.51,4,4,5,445,Champions
+180,C0187,Customer 0187,Consumer,West,Rajasthan,Jaipur,107,6,292973.62,3,5,5,355,Loyal Customers
+181,C0188,Customer 0188,Consumer,East,West Bengal,Kolkata,483,2,93762.66,1,1,3,113,Hibernating
+182,C0189,Customer 0189,Home Office,South,Tamil Nadu,Chennai,87,4,165447.76,4,4,4,444,Champions
+183,C0190,Customer 0190,Consumer,East,West Bengal,Kolkata,101,4,147557.45,3,4,4,344,Loyal Customers
+184,C0191,Customer 0191,Home Office,West,Maharashtra,Mumbai,3,2,183454.48,5,1,4,514,New Customers
+185,C0192,Customer 0192,Consumer,North,Uttar Pradesh,Lucknow,36,2,22470.23,5,1,1,511,New Customers
+186,C0193,Customer 0193,Consumer,East,Bihar,Patna,166,1,123601.6,3,1,3,313,Needs Attention
+187,C0194,Customer 0194,Consumer,East,Odisha,Bhubaneswar,191,3,67387.43,2,2,2,222,Hibernating
+188,C0195,Customer 0195,Corporate,West,Maharashtra,Mumbai,120,4,240290.74,3,4,5,345,Loyal Customers
+189,C0196,Customer 0196,Corporate,South,Telangana,Hyderabad,654,1,48998.28,1,1,2,112,Hibernating
+190,C0197,Customer 0197,Home Office,West,Rajasthan,Jaipur,109,2,126610.58,3,1,3,313,Needs Attention
+191,C0198,Customer 0198,Home Office,West,Gujarat,Ahmedabad,49,3,283647.88,4,2,5,425,Potential Loyalists
+192,C0199,Customer 0199,Consumer,North,Uttar Pradesh,Lucknow,291,4,95858.73,2,4,3,243,At Risk
+193,C0200,Customer 0200,Consumer,North,Punjab,Chandigarh,63,3,135140.28,4,2,3,423,Potential Loyalists
+194,C0202,Customer 0202,Consumer,North,Punjab,Chandigarh,197,1,35176.73,2,1,1,211,Hibernating
+195,C0203,Customer 0203,Home Office,West,Rajasthan,Jaipur,17,7,309432.07,5,5,5,555,Champions
+196,C0204,Customer 0204,Home Office,Central,Madhya Pradesh,Indore,378,1,36835.02,1,1,1,111,Hibernating
+197,C0205,Customer 0205,Corporate,East,West Bengal,Kolkata,13,5,133598.87,5,4,3,543,Loyal Customers
+198,C0206,Customer 0206,Corporate,South,Tamil Nadu,Chennai,294,3,135733.42,2,2,3,223,Hibernating
+199,C0207,Customer 0207,Corporate,South,Tamil Nadu,Chennai,136,4,137253.99,3,4,3,343,Loyal Customers
+200,C0208,Customer 0208,Consumer,West,Rajasthan,Jaipur,15,5,165461.14,5,4,4,544,Champions
+201,C0209,Customer 0209,Corporate,Central,Madhya Pradesh,Indore,85,5,128149.73,4,4,3,443,Loyal Customers
+202,C0210,Customer 0210,Corporate,South,Tamil Nadu,Chennai,313,2,133705.86,1,1,3,113,Hibernating
+203,C0211,Customer 0211,Home Office,South,Telangana,Hyderabad,123,6,359977.02,3,5,5,355,Loyal Customers
+204,C0212,Customer 0212,Consumer,Central,Madhya Pradesh,Indore,540,1,8158.49,1,1,1,111,Hibernating
+205,C0213,Customer 0213,Corporate,North,Uttar Pradesh,Lucknow,377,4,279816.66,1,4,5,145,At Risk
+206,C0214,Customer 0214,Corporate,North,Delhi,New Delhi,91,3,248137.15,3,2,5,325,Needs Attention
+207,C0215,Customer 0215,Consumer,Central,Madhya Pradesh,Indore,79,2,305888.95,4,1,5,415,Needs Attention
+208,C0216,Customer 0216,Consumer,South,Tamil Nadu,Chennai,237,3,153757.93,2,2,4,224,Hibernating
+209,C0217,Customer 0217,Home Office,North,Uttar Pradesh,Lucknow,5,5,344813.88,5,4,5,545,Champions
+210,C0218,Customer 0218,Consumer,Central,Chhattisgarh,Raipur,9,2,32355.8,5,1,1,511,New Customers
+211,C0219,Customer 0219,Consumer,North,Uttar Pradesh,Lucknow,55,3,77846.44,4,2,2,422,Potential Loyalists
+212,C0220,Customer 0220,Consumer,North,Delhi,New Delhi,345,1,25656.33,1,1,1,111,Hibernating
+213,C0221,Customer 0221,Corporate,North,Uttar Pradesh,Lucknow,344,2,132202.53,1,1,3,113,Hibernating
+214,C0222,Customer 0222,Home Office,West,Rajasthan,Jaipur,111,9,408634.44,3,5,5,355,Loyal Customers
+215,C0223,Customer 0223,Consumer,West,Rajasthan,Jaipur,38,3,105882.04,5,2,3,523,Potential Loyalists
+216,C0224,Customer 0224,Consumer,North,Punjab,Chandigarh,182,6,264655.07,2,5,5,255,At Risk
+217,C0225,Customer 0225,Consumer,North,Delhi,New Delhi,366,2,134970.92,1,1,3,113,Hibernating
+218,C0226,Customer 0226,Consumer,East,West Bengal,Kolkata,237,1,9870.13,2,1,1,211,Hibernating
+219,C0227,Customer 0227,Consumer,North,Delhi,New Delhi,75,5,269227.14,4,4,5,445,Champions
+220,C0228,Customer 0228,Corporate,North,Uttar Pradesh,Lucknow,67,4,87980.72,4,4,2,442,Loyal Customers
+221,C0229,Customer 0229,Consumer,East,West Bengal,Kolkata,388,1,61356.14,1,1,2,112,Hibernating
+222,C0230,Customer 0230,Consumer,West,Rajasthan,Jaipur,113,3,7262.76,3,2,1,321,Needs Attention
+223,C0232,Customer 0232,Consumer,West,Gujarat,Ahmedabad,66,4,236808.0,4,4,5,445,Champions
+224,C0233,Customer 0233,Consumer,West,Gujarat,Ahmedabad,409,5,84553.51,1,4,2,142,At Risk
+225,C0234,Customer 0234,Consumer,South,Telangana,Hyderabad,381,2,100411.61,1,1,3,113,Hibernating
+226,C0235,Customer 0235,Corporate,Central,Chhattisgarh,Raipur,67,5,195521.4,4,4,4,444,Champions
+227,C0236,Customer 0236,Consumer,Central,Chhattisgarh,Raipur,143,3,32614.56,3,2,1,321,Needs Attention
+228,C0237,Customer 0237,Consumer,North,Punjab,Chandigarh,169,2,68524.75,2,1,2,212,Hibernating
+229,C0239,Customer 0239,Home Office,Central,Chhattisgarh,Raipur,467,1,24425.02,1,1,1,111,Hibernating
+230,C0240,Customer 0240,Corporate,North,Delhi,New Delhi,30,2,217594.45,5,1,5,515,New Customers
+231,C0241,Customer 0241,Home Office,South,Karnataka,Bengaluru,67,4,87830.32,4,4,2,442,Loyal Customers
+232,C0242,Customer 0242,Consumer,Central,Chhattisgarh,Raipur,82,5,222104.8,4,4,5,445,Champions
+233,C0243,Customer 0243,Consumer,South,Tamil Nadu,Chennai,221,3,89291.23,2,2,2,222,Hibernating
+234,C0244,Customer 0244,Home Office,East,West Bengal,Kolkata,67,7,331548.76,4,5,5,455,Champions
+235,C0245,Customer 0245,Corporate,West,Maharashtra,Mumbai,621,1,87423.96,1,1,2,112,Hibernating
+236,C0246,Customer 0246,Consumer,North,Punjab,Chandigarh,409,4,73449.14,1,4,2,142,At Risk
+237,C0247,Customer 0247,Corporate,North,Punjab,Chandigarh,38,3,91516.19,5,2,3,523,Potential Loyalists
+238,C0248,Customer 0248,Home Office,West,Gujarat,Ahmedabad,120,3,120109.54,3,2,3,323,Needs Attention
+239,C0249,Customer 0249,Consumer,North,Delhi,New Delhi,220,3,119913.69,2,2,3,223,Hibernating
+240,C0250,Customer 0250,Home Office,South,Karnataka,Bengaluru,382,2,36957.42,1,1,1,111,Hibernating
+241,C0251,Customer 0251,Consumer,South,Karnataka,Bengaluru,106,3,96463.61,3,2,3,323,Needs Attention
+242,C0252,Customer 0252,Consumer,North,Punjab,Chandigarh,50,3,124329.9,4,2,3,423,Potential Loyalists
+243,C0253,Customer 0253,Corporate,South,Telangana,Hyderabad,85,3,79488.1,4,2,2,422,Potential Loyalists
+244,C0254,Customer 0254,Consumer,South,Telangana,Hyderabad,50,7,256259.94,4,5,5,455,Champions
+245,C0255,Customer 0255,Corporate,South,Telangana,Hyderabad,7,4,269705.26,5,4,5,545,Champions
+246,C0256,Customer 0256,Consumer,South,Tamil Nadu,Chennai,23,6,237026.37,5,5,5,555,Champions
+247,C0257,Customer 0257,Consumer,North,Uttar Pradesh,Lucknow,155,2,20712.1,3,1,1,311,Needs Attention
+248,C0258,Customer 0258,Home Office,Central,Madhya Pradesh,Indore,39,4,224693.51,5,4,5,545,Champions
+249,C0259,Customer 0259,Consumer,East,Odisha,Bhubaneswar,63,4,126728.74,4,4,3,443,Loyal Customers
+250,C0260,Customer 0260,Consumer,East,Odisha,Bhubaneswar,136,1,26629.58,3,1,1,311,Needs Attention
+251,C0261,Customer 0261,Corporate,East,Odisha,Bhubaneswar,88,4,76924.51,4,4,2,442,Loyal Customers
+252,C0262,Customer 0262,Consumer,West,Maharashtra,Mumbai,295,5,312112.63,2,4,5,245,At Risk
+253,C0263,Customer 0263,Consumer,East,Bihar,Patna,191,3,214549.8,2,2,4,224,Hibernating
+254,C0264,Customer 0264,Corporate,North,Punjab,Chandigarh,473,1,104046.83,1,1,3,113,Hibernating
+255,C0265,Customer 0265,Consumer,North,Punjab,Chandigarh,354,2,105866.03,1,1,3,113,Hibernating
+256,C0266,Customer 0266,Corporate,East,West Bengal,Kolkata,118,5,142379.71,3,4,3,343,Loyal Customers
+257,C0267,Customer 0267,Consumer,South,Tamil Nadu,Chennai,450,2,66476.3,1,1,2,112,Hibernating
+258,C0268,Customer 0268,Consumer,North,Delhi,New Delhi,129,3,49436.44,3,2,2,322,Needs Attention
+259,C0270,Customer 0270,Corporate,North,Uttar Pradesh,Lucknow,143,1,24158.03,3,1,1,311,Needs Attention
+260,C0271,Customer 0271,Consumer,South,Tamil Nadu,Chennai,43,5,221840.44,4,4,5,445,Champions
+261,C0272,Customer 0272,Corporate,South,Telangana,Hyderabad,459,2,50728.5,1,1,2,112,Hibernating
+262,C0273,Customer 0273,Corporate,South,Karnataka,Bengaluru,143,6,217745.63,3,5,5,355,Loyal Customers
+263,C0274,Customer 0274,Home Office,West,Gujarat,Ahmedabad,57,4,128617.59,4,4,3,443,Loyal Customers
+264,C0275,Customer 0275,Consumer,Central,Chhattisgarh,Raipur,16,7,298926.08,5,5,5,555,Champions
+265,C0276,Customer 0276,Consumer,East,Odisha,Bhubaneswar,6,8,155011.19,5,5,4,554,Champions
+266,C0277,Customer 0277,Consumer,West,Maharashtra,Mumbai,134,4,69113.47,3,4,2,342,Loyal Customers
+267,C0278,Customer 0278,Home Office,East,Bihar,Patna,183,3,119677.58,2,2,3,223,Hibernating
+268,C0279,Customer 0279,Corporate,West,Rajasthan,Jaipur,52,3,211856.55,4,2,4,424,Potential Loyalists
+269,C0280,Customer 0280,Corporate,East,West Bengal,Kolkata,59,6,399652.87,4,5,5,455,Champions
+270,C0281,Customer 0281,Home Office,South,Telangana,Hyderabad,114,1,0.0,3,1,1,311,Needs Attention
+271,C0282,Customer 0282,Home Office,South,Tamil Nadu,Chennai,19,6,470675.09,5,5,5,555,Champions
+272,C0283,Customer 0283,Consumer,East,West Bengal,Kolkata,81,5,285773.22,4,4,5,445,Champions
+273,C0284,Customer 0284,Corporate,East,West Bengal,Kolkata,239,1,53081.21,2,1,2,212,Hibernating
+274,C0285,Customer 0285,Corporate,Central,Madhya Pradesh,Indore,93,5,249744.39,3,4,5,345,Loyal Customers
+275,C0286,Customer 0286,Corporate,North,Delhi,New Delhi,611,1,4540.15,1,1,1,111,Hibernating
+276,C0287,Customer 0287,Consumer,South,Tamil Nadu,Chennai,29,2,85842.35,5,1,2,512,New Customers
+277,C0288,Customer 0288,Consumer,West,Maharashtra,Mumbai,119,1,34867.7,3,1,1,311,Needs Attention
+278,C0289,Customer 0289,Corporate,North,Punjab,Chandigarh,3,3,74982.52,5,2,2,522,Potential Loyalists
+279,C0290,Customer 0290,Consumer,South,Karnataka,Bengaluru,119,5,104014.74,3,4,3,343,Loyal Customers
+280,C0291,Customer 0291,Consumer,North,Delhi,New Delhi,162,5,304613.83,3,4,5,345,Loyal Customers
+281,C0292,Customer 0292,Corporate,North,Uttar Pradesh,Lucknow,186,2,226712.35,2,1,5,215,Hibernating
+282,C0293,Customer 0293,Corporate,East,West Bengal,Kolkata,63,2,86517.2,4,1,2,412,Needs Attention
+283,C0294,Customer 0294,Consumer,East,Odisha,Bhubaneswar,73,8,140300.76,4,5,3,453,Loyal Customers
+284,C0295,Customer 0295,Consumer,Central,Madhya Pradesh,Indore,5,5,194159.6,5,4,4,544,Champions
+285,C0296,Customer 0296,Consumer,Central,Madhya Pradesh,Indore,620,1,24861.08,1,1,1,111,Hibernating
+286,C0297,Customer 0297,Home Office,South,Karnataka,Bengaluru,1,5,87172.1,5,4,2,542,Loyal Customers
+287,C0298,Customer 0298,Home Office,North,Punjab,Chandigarh,314,2,49789.98,1,1,2,112,Hibernating
+288,C0299,Customer 0299,Consumer,Central,Madhya Pradesh,Indore,138,4,114082.36,3,4,3,343,Loyal Customers
+289,C0300,Customer 0300,Consumer,West,Rajasthan,Jaipur,9,4,294354.99,5,4,5,545,Champions
+290,C0301,Customer 0301,Corporate,East,Bihar,Patna,175,3,44732.57,2,2,1,221,Hibernating
+291,C0302,Customer 0302,Home Office,South,Karnataka,Bengaluru,274,3,103668.89,2,2,3,223,Hibernating
+292,C0303,Customer 0303,Corporate,North,Delhi,New Delhi,98,3,111387.79,3,2,3,323,Needs Attention
+293,C0304,Customer 0304,Home Office,West,Rajasthan,Jaipur,63,4,96798.2,4,4,3,443,Loyal Customers
+294,C0305,Customer 0305,Consumer,Central,Madhya Pradesh,Indore,154,3,173550.69,3,2,4,324,Needs Attention
+295,C0306,Customer 0306,Consumer,North,Punjab,Chandigarh,705,1,75155.93,1,1,2,112,Hibernating
+296,C0307,Customer 0307,Home Office,South,Karnataka,Bengaluru,81,2,41727.05,4,1,1,411,Needs Attention
+297,C0308,Customer 0308,Home Office,East,Bihar,Patna,53,5,91181.55,4,4,2,442,Loyal Customers
+298,C0309,Customer 0309,Corporate,North,Uttar Pradesh,Lucknow,206,2,15671.25,2,1,1,211,Hibernating
+299,C0310,Customer 0310,Corporate,South,Tamil Nadu,Chennai,20,8,367898.21,5,5,5,555,Champions
+300,C0311,Customer 0311,Home Office,West,Maharashtra,Mumbai,58,7,202153.93,4,5,4,454,Champions
+301,C0312,Customer 0312,Corporate,East,West Bengal,Kolkata,122,3,271874.38,3,2,5,325,Needs Attention
+302,C0313,Customer 0313,Consumer,South,Karnataka,Bengaluru,189,1,80952.71,2,1,2,212,Hibernating
+303,C0314,Customer 0314,Corporate,West,Gujarat,Ahmedabad,187,6,404201.59,2,5,5,255,At Risk
+304,C0315,Customer 0315,Consumer,West,Maharashtra,Mumbai,703,1,17657.42,1,1,1,111,Hibernating
+305,C0316,Customer 0316,Consumer,North,Punjab,Chandigarh,166,4,216225.56,3,4,4,344,Loyal Customers
+306,C0317,Customer 0317,Consumer,West,Rajasthan,Jaipur,52,4,153354.2,4,4,4,444,Champions
+307,C0319,Customer 0319,Consumer,South,Telangana,Hyderabad,75,2,61563.11,4,1,2,412,Needs Attention
+308,C0320,Customer 0320,Home Office,West,Gujarat,Ahmedabad,25,3,169317.55,5,2,4,524,Potential Loyalists
+309,C0321,Customer 0321,Consumer,North,Delhi,New Delhi,22,1,0.0,5,1,1,511,New Customers
+310,C0322,Customer 0322,Consumer,East,Bihar,Patna,163,3,66817.35,3,2,2,322,Needs Attention
+311,C0323,Customer 0323,Consumer,Central,Chhattisgarh,Raipur,57,7,180429.24,4,5,4,454,Champions
+312,C0324,Customer 0324,Home Office,East,West Bengal,Kolkata,378,2,46652.76,1,1,1,111,Hibernating
+313,C0325,Customer 0325,Corporate,West,Gujarat,Ahmedabad,244,4,157763.71,2,4,4,244,At Risk
+314,C0326,Customer 0326,Corporate,Central,Chhattisgarh,Raipur,383,5,101914.92,1,4,3,143,At Risk
+315,C0327,Customer 0327,Consumer,Central,Chhattisgarh,Raipur,125,4,282454.69,3,4,5,345,Loyal Customers
+316,C0329,Customer 0329,Corporate,Central,Chhattisgarh,Raipur,186,3,112476.84,2,3,3,233,At Risk
+317,C0330,Customer 0330,Home Office,South,Telangana,Hyderabad,25,3,111551.23,5,3,3,533,Potential Loyalists
+318,C0331,Customer 0331,Corporate,South,Karnataka,Bengaluru,109,3,67300.23,3,3,2,332,Needs Attention
+319,C0332,Customer 0332,Corporate,Central,Chhattisgarh,Raipur,113,3,96313.83,3,3,3,333,Needs Attention
+320,C0333,Customer 0333,Consumer,West,Rajasthan,Jaipur,183,3,50530.66,2,3,2,232,At Risk
+321,C0334,Customer 0334,Consumer,West,Rajasthan,Jaipur,80,3,163919.86,4,3,4,434,Potential Loyalists
+322,C0335,Customer 0335,Corporate,West,Rajasthan,Jaipur,651,1,22076.33,1,1,1,111,Hibernating
+323,C0336,Customer 0336,Consumer,East,Odisha,Bhubaneswar,108,5,133947.57,3,4,3,343,Loyal Customers
+324,C0337,Customer 0337,Home Office,East,West Bengal,Kolkata,643,2,164023.94,1,1,4,114,Hibernating
+325,C0338,Customer 0338,Home Office,East,West Bengal,Kolkata,57,7,226815.21,4,5,5,455,Champions
+326,C0339,Customer 0339,Corporate,East,Bihar,Patna,208,1,79948.05,2,1,2,212,Hibernating
+327,C0340,Customer 0340,Consumer,Central,Chhattisgarh,Raipur,685,1,11568.68,1,1,1,111,Hibernating
+328,C0341,Customer 0341,Consumer,West,Maharashtra,Mumbai,19,4,224077.54,5,4,5,545,Champions
+329,C0342,Customer 0342,Consumer,Central,Chhattisgarh,Raipur,5,6,313365.6,5,5,5,555,Champions
+330,C0344,Customer 0344,Home Office,East,Odisha,Bhubaneswar,144,4,145613.83,3,4,4,344,Loyal Customers
+331,C0345,Customer 0345,Home Office,North,Punjab,Chandigarh,57,4,291425.53,4,4,5,445,Champions
+332,C0346,Customer 0346,Home Office,South,Tamil Nadu,Chennai,43,3,70647.83,4,3,2,432,Potential Loyalists
+333,C0347,Customer 0347,Corporate,South,Telangana,Hyderabad,72,6,302788.71,4,5,5,455,Champions
+334,C0348,Customer 0348,Consumer,West,Maharashtra,Mumbai,42,6,239073.15,4,5,5,455,Champions
+335,C0349,Customer 0349,Consumer,West,Maharashtra,Mumbai,255,3,71970.51,2,3,2,232,At Risk
+336,C0351,Customer 0351,Corporate,West,Maharashtra,Mumbai,28,3,244227.32,5,3,5,535,Potential Loyalists
+337,C0352,Customer 0352,Corporate,South,Karnataka,Bengaluru,105,4,41320.34,3,4,1,341,Loyal Customers
+338,C0353,Customer 0353,Home Office,East,Bihar,Patna,25,5,328612.39,5,4,5,545,Champions
+339,C0354,Customer 0354,Corporate,South,Karnataka,Bengaluru,168,2,76526.48,2,1,2,212,Hibernating
+340,C0355,Customer 0355,Home Office,West,Rajasthan,Jaipur,66,2,194420.31,4,1,4,414,Needs Attention
+341,C0356,Customer 0356,Consumer,South,Tamil Nadu,Chennai,40,5,245612.13,5,4,5,545,Champions
+342,C0357,Customer 0357,Home Office,North,Punjab,Chandigarh,129,3,96141.37,3,3,3,333,Needs Attention
+343,C0358,Customer 0358,Consumer,Central,Chhattisgarh,Raipur,35,1,19445.92,5,1,1,511,New Customers
+344,C0359,Customer 0359,Home Office,North,Delhi,New Delhi,389,3,266943.88,1,3,5,135,At Risk
+345,C0360,Customer 0360,Consumer,North,Uttar Pradesh,Lucknow,50,4,273178.93,4,4,5,445,Champions
+346,C0361,Customer 0361,Consumer,North,Punjab,Chandigarh,308,1,41826.13,2,1,1,211,Hibernating
+347,C0362,Customer 0362,Consumer,South,Karnataka,Bengaluru,437,1,38629.28,1,1,1,111,Hibernating
+348,C0363,Customer 0363,Consumer,Central,Madhya Pradesh,Indore,375,1,93327.3,1,1,3,113,Hibernating
+349,C0364,Customer 0364,Corporate,South,Karnataka,Bengaluru,77,4,224233.56,4,4,5,445,Champions
+350,C0365,Customer 0365,Home Office,West,Maharashtra,Mumbai,123,7,166634.9,3,5,4,354,Loyal Customers
+351,C0366,Customer 0366,Corporate,North,Uttar Pradesh,Lucknow,124,3,83518.29,3,3,2,332,Needs Attention
+352,C0367,Customer 0367,Corporate,South,Telangana,Hyderabad,109,6,386100.4,3,5,5,355,Loyal Customers
+353,C0368,Customer 0368,Consumer,North,Delhi,New Delhi,440,1,23555.99,1,1,1,111,Hibernating
+354,C0369,Customer 0369,Home Office,North,Uttar Pradesh,Lucknow,21,3,89217.08,5,3,2,532,Potential Loyalists
+355,C0370,Customer 0370,Corporate,East,West Bengal,Kolkata,345,2,84026.22,1,1,2,112,Hibernating
+356,C0371,Customer 0371,Corporate,North,Punjab,Chandigarh,425,4,145357.2,1,4,4,144,At Risk
+357,C0372,Customer 0372,Consumer,South,Telangana,Hyderabad,230,3,94356.92,2,3,3,233,At Risk
+358,C0373,Customer 0373,Corporate,West,Gujarat,Ahmedabad,38,4,75025.48,5,4,2,542,Loyal Customers
+359,C0374,Customer 0374,Consumer,Central,Chhattisgarh,Raipur,107,3,210207.69,3,3,4,334,Needs Attention
+360,C0375,Customer 0375,Corporate,Central,Madhya Pradesh,Indore,73,2,51086.12,4,1,2,412,Needs Attention
+361,C0376,Customer 0376,Home Office,South,Tamil Nadu,Chennai,223,3,83632.19,2,3,2,232,At Risk
+362,C0377,Customer 0377,Consumer,East,West Bengal,Kolkata,256,2,111028.93,2,1,3,213,Hibernating
+363,C0378,Customer 0378,Consumer,Central,Madhya Pradesh,Indore,123,3,67503.23,3,3,2,332,Needs Attention
+364,C0379,Customer 0379,Corporate,South,Karnataka,Bengaluru,127,3,197659.04,3,3,4,334,Needs Attention
+365,C0380,Customer 0380,Home Office,North,Punjab,Chandigarh,48,3,165795.11,4,3,4,434,Potential Loyalists
+366,C0381,Customer 0381,Consumer,North,Punjab,Chandigarh,18,4,80504.69,5,4,2,542,Loyal Customers
+367,C0382,Customer 0382,Consumer,Central,Madhya Pradesh,Indore,66,2,178075.6,4,1,4,414,Needs Attention
+368,C0383,Customer 0383,Consumer,East,Bihar,Patna,63,4,120209.91,4,4,3,443,Loyal Customers
+369,C0384,Customer 0384,Corporate,West,Rajasthan,Jaipur,311,3,149536.09,1,3,4,134,At Risk
+370,C0386,Customer 0386,Consumer,Central,Chhattisgarh,Raipur,303,2,5124.84,2,1,1,211,Hibernating
+371,C0387,Customer 0387,Consumer,West,Gujarat,Ahmedabad,25,4,41094.22,5,4,1,541,Loyal Customers
+372,C0388,Customer 0388,Consumer,South,Tamil Nadu,Chennai,48,7,394076.77,4,5,5,455,Champions
+373,C0389,Customer 0389,Consumer,West,Rajasthan,Jaipur,342,2,105527.82,1,1,3,113,Hibernating
+374,C0390,Customer 0390,Consumer,South,Telangana,Hyderabad,59,4,139021.77,4,4,3,443,Loyal Customers
+375,C0391,Customer 0391,Home Office,East,West Bengal,Kolkata,403,1,11788.69,1,1,1,111,Hibernating
+376,C0392,Customer 0392,Consumer,North,Punjab,Chandigarh,23,4,83311.73,5,4,2,542,Loyal Customers
+377,C0393,Customer 0393,Consumer,North,Uttar Pradesh,Lucknow,68,2,122946.24,4,1,3,413,Needs Attention
+378,C0394,Customer 0394,Consumer,East,Bihar,Patna,10,4,124984.78,5,4,3,543,Loyal Customers
+379,C0395,Customer 0395,Consumer,South,Tamil Nadu,Chennai,47,4,172842.74,4,4,4,444,Champions
+380,C0396,Customer 0396,Corporate,North,Delhi,New Delhi,106,7,306481.52,3,5,5,355,Loyal Customers
+381,C0397,Customer 0397,Home Office,West,Rajasthan,Jaipur,31,3,85587.52,5,3,2,532,Potential Loyalists
+382,C0398,Customer 0398,Consumer,East,West Bengal,Kolkata,143,4,135586.07,3,4,3,343,Loyal Customers
+383,C0399,Customer 0399,Home Office,West,Rajasthan,Jaipur,323,4,119355.55,1,4,3,143,At Risk
+384,C0400,Customer 0400,Corporate,West,Rajasthan,Jaipur,447,1,8811.22,1,1,1,111,Hibernating
+385,C0401,Customer 0401,Corporate,South,Tamil Nadu,Chennai,232,6,144801.58,2,5,4,254,At Risk
+386,C0402,Customer 0402,Corporate,East,Odisha,Bhubaneswar,36,2,46785.33,5,1,1,511,New Customers
+387,C0403,Customer 0403,Consumer,South,Karnataka,Bengaluru,438,4,116540.58,1,4,3,143,At Risk
+388,C0404,Customer 0404,Consumer,South,Telangana,Hyderabad,69,2,32625.6,4,1,1,411,Needs Attention
+389,C0407,Customer 0407,Corporate,South,Karnataka,Bengaluru,281,2,28467.41,2,1,1,211,Hibernating
+390,C0408,Customer 0408,Consumer,West,Gujarat,Ahmedabad,134,6,407525.33,3,5,5,355,Loyal Customers
+391,C0409,Customer 0409,Consumer,East,West Bengal,Kolkata,6,5,140369.01,5,4,3,543,Loyal Customers
+392,C0410,Customer 0410,Corporate,West,Rajasthan,Jaipur,619,1,0.0,1,1,1,111,Hibernating
+393,C0411,Customer 0411,Consumer,East,Bihar,Patna,393,1,21347.61,1,1,1,111,Hibernating
+394,C0412,Customer 0412,Consumer,South,Telangana,Hyderabad,374,1,24712.34,1,1,1,111,Hibernating
+395,C0414,Customer 0414,Consumer,South,Karnataka,Bengaluru,45,3,124594.26,4,3,3,433,Potential Loyalists
+396,C0415,Customer 0415,Consumer,North,Uttar Pradesh,Lucknow,194,5,101994.78,2,4,3,243,At Risk
+397,C0416,Customer 0416,Home Office,Central,Chhattisgarh,Raipur,481,1,60469.39,1,1,2,112,Hibernating
+398,C0417,Customer 0417,Consumer,North,Punjab,Chandigarh,213,1,19404.85,2,1,1,211,Hibernating
+399,C0418,Customer 0418,Consumer,East,Bihar,Patna,61,6,291061.09,4,5,5,455,Champions
+400,C0419,Customer 0419,Consumer,North,Punjab,Chandigarh,210,3,88099.42,2,3,2,232,At Risk
+401,C0420,Customer 0420,Corporate,Central,Chhattisgarh,Raipur,546,1,24973.24,1,1,1,111,Hibernating
+402,C0421,Customer 0421,Corporate,East,Odisha,Bhubaneswar,33,2,108028.56,5,1,3,513,New Customers
+403,C0422,Customer 0422,Corporate,West,Rajasthan,Jaipur,413,3,108548.25,1,3,3,133,At Risk
+404,C0423,Customer 0423,Consumer,South,Telangana,Hyderabad,28,5,154947.36,5,4,4,544,Champions
+405,C0424,Customer 0424,Corporate,South,Telangana,Hyderabad,111,4,161234.1,3,4,4,344,Loyal Customers
+406,C0425,Customer 0425,Consumer,West,Gujarat,Ahmedabad,45,2,21341.5,4,1,1,411,Needs Attention
+407,C0426,Customer 0426,Consumer,North,Uttar Pradesh,Lucknow,56,4,57013.39,4,4,2,442,Loyal Customers
+408,C0427,Customer 0427,Consumer,North,Uttar Pradesh,Lucknow,196,2,82453.14,2,1,2,212,Hibernating
+409,C0428,Customer 0428,Consumer,East,Odisha,Bhubaneswar,203,4,112748.84,2,4,3,243,At Risk
+410,C0429,Customer 0429,Consumer,East,Odisha,Bhubaneswar,598,3,160952.7,1,3,4,134,At Risk
+411,C0430,Customer 0430,Corporate,South,Tamil Nadu,Chennai,271,5,108126.58,2,5,3,253,At Risk
+412,C0431,Customer 0431,Home Office,West,Rajasthan,Jaipur,202,3,39003.1,2,3,1,231,At Risk
+413,C0432,Customer 0432,Corporate,South,Tamil Nadu,Chennai,24,5,369684.2,5,5,5,555,Champions
+414,C0433,Customer 0433,Corporate,South,Tamil Nadu,Chennai,114,7,422170.77,3,5,5,355,Loyal Customers
+415,C0434,Customer 0434,Corporate,East,West Bengal,Kolkata,125,3,69093.89,3,3,2,332,Needs Attention
+416,C0435,Customer 0435,Consumer,North,Delhi,New Delhi,709,1,54561.12,1,1,2,112,Hibernating
+417,C0436,Customer 0436,Consumer,Central,Madhya Pradesh,Indore,289,1,5148.33,2,1,1,211,Hibernating
+418,C0437,Customer 0437,Corporate,West,Rajasthan,Jaipur,122,7,646432.44,3,5,5,355,Loyal Customers
+419,C0438,Customer 0438,Corporate,West,Gujarat,Ahmedabad,6,4,159575.52,5,4,4,544,Champions
+420,C0439,Customer 0439,Home Office,North,Uttar Pradesh,Lucknow,28,4,183892.31,5,4,4,544,Champions
+421,C0440,Customer 0440,Home Office,South,Karnataka,Bengaluru,4,2,17642.37,5,1,1,511,New Customers
+422,C0441,Customer 0441,Consumer,West,Rajasthan,Jaipur,1,6,225087.94,5,5,5,555,Champions
+423,C0442,Customer 0442,Consumer,East,Odisha,Bhubaneswar,160,2,21311.53,3,1,1,311,Needs Attention
+424,C0443,Customer 0443,Corporate,North,Punjab,Chandigarh,144,4,212205.86,3,4,4,344,Loyal Customers
+425,C0444,Customer 0444,Corporate,North,Uttar Pradesh,Lucknow,192,2,63639.39,2,1,2,212,Hibernating
+426,C0445,Customer 0445,Home Office,West,Maharashtra,Mumbai,121,3,127196.82,3,3,3,333,Needs Attention
+427,C0446,Customer 0446,Home Office,East,Odisha,Bhubaneswar,471,1,17329.56,1,1,1,111,Hibernating
+428,C0447,Customer 0447,Corporate,East,West Bengal,Kolkata,49,3,48410.28,4,3,2,432,Potential Loyalists
+429,C0448,Customer 0448,Consumer,South,Karnataka,Bengaluru,32,2,157806.95,5,1,4,514,New Customers
+430,C0449,Customer 0449,Corporate,West,Gujarat,Ahmedabad,38,7,212465.8,5,5,4,554,Champions
+431,C0450,Customer 0450,Home Office,East,Bihar,Patna,14,5,128928.72,5,5,3,553,Loyal Customers
+432,C0452,Customer 0452,Consumer,West,Maharashtra,Mumbai,169,2,41622.26,2,1,1,211,Hibernating
+433,C0453,Customer 0453,Corporate,South,Tamil Nadu,Chennai,246,1,13515.9,2,1,1,211,Hibernating
+434,C0454,Customer 0454,Consumer,South,Telangana,Hyderabad,184,3,137447.06,2,3,3,233,At Risk
+435,C0455,Customer 0455,Corporate,East,Odisha,Bhubaneswar,526,2,169622.29,1,1,4,114,Hibernating
+436,C0456,Customer 0456,Corporate,West,Maharashtra,Mumbai,225,3,135021.47,2,3,3,233,At Risk
+437,C0457,Customer 0457,Consumer,East,Bihar,Patna,298,1,33011.3,2,1,1,211,Hibernating
+438,C0458,Customer 0458,Home Office,North,Delhi,New Delhi,28,1,23498.83,5,1,1,511,New Customers
+439,C0459,Customer 0459,Consumer,West,Gujarat,Ahmedabad,167,5,169907.85,3,5,4,354,Loyal Customers
+440,C0460,Customer 0460,Consumer,East,Odisha,Bhubaneswar,6,4,94207.76,5,4,3,543,Loyal Customers
+441,C0461,Customer 0461,Consumer,East,Odisha,Bhubaneswar,132,4,70326.82,3,4,2,342,Loyal Customers
+442,C0462,Customer 0462,Home Office,Central,Chhattisgarh,Raipur,378,2,77311.24,1,1,2,112,Hibernating
+443,C0463,Customer 0463,Home Office,West,Maharashtra,Mumbai,6,3,193056.92,5,3,4,534,Potential Loyalists
+444,C0464,Customer 0464,Corporate,North,Uttar Pradesh,Lucknow,436,2,78480.51,1,1,2,112,Hibernating
+445,C0465,Customer 0465,Home Office,East,Odisha,Bhubaneswar,22,2,91484.32,5,2,2,522,Potential Loyalists
+446,C0466,Customer 0466,Corporate,South,Telangana,Hyderabad,238,4,177546.25,2,4,4,244,At Risk
+447,C0467,Customer 0467,Consumer,North,Punjab,Chandigarh,44,8,504541.96,4,5,5,455,Champions
+448,C0468,Customer 0468,Home Office,North,Delhi,New Delhi,66,3,130412.15,4,3,3,433,Potential Loyalists
+449,C0469,Customer 0469,Consumer,Central,Madhya Pradesh,Indore,214,3,251698.41,2,3,5,235,At Risk
+450,C0470,Customer 0470,Corporate,Central,Madhya Pradesh,Indore,337,1,59290.09,1,1,2,112,Hibernating
+451,C0471,Customer 0471,Consumer,West,Rajasthan,Jaipur,618,1,75616.51,1,1,2,112,Hibernating
+452,C0472,Customer 0472,Consumer,Central,Chhattisgarh,Raipur,143,2,32969.73,3,2,1,321,Needs Attention
+453,C0473,Customer 0473,Corporate,North,Punjab,Chandigarh,125,2,219210.11,3,2,5,325,Needs Attention
+454,C0474,Customer 0474,Corporate,South,Karnataka,Bengaluru,82,8,213205.91,4,5,4,454,Champions
+455,C0475,Customer 0475,Consumer,West,Maharashtra,Mumbai,127,2,157533.88,3,2,4,324,Needs Attention
+456,C0476,Customer 0476,Corporate,South,Karnataka,Bengaluru,285,3,102766.04,2,3,3,233,At Risk
+457,C0477,Customer 0477,Corporate,North,Delhi,New Delhi,333,5,83545.16,1,5,2,152,At Risk
+458,C0478,Customer 0478,Corporate,North,Punjab,Chandigarh,170,2,193431.3,2,2,4,224,Hibernating
+459,C0479,Customer 0479,Home Office,North,Uttar Pradesh,Lucknow,113,4,38007.9,3,4,1,341,Loyal Customers
+460,C0480,Customer 0480,Consumer,West,Gujarat,Ahmedabad,142,3,177421.91,3,3,4,334,Needs Attention
+461,C0481,Customer 0481,Consumer,North,Punjab,Chandigarh,419,1,20123.9,1,1,1,111,Hibernating
+462,C0482,Customer 0482,Consumer,South,Telangana,Hyderabad,629,2,143531.7,1,2,3,123,Hibernating
+463,C0483,Customer 0483,Consumer,North,Punjab,Chandigarh,379,3,66464.65,1,3,2,132,At Risk
+464,C0484,Customer 0484,Consumer,West,Maharashtra,Mumbai,166,2,51294.32,3,2,2,322,Needs Attention
+465,C0485,Customer 0485,Corporate,North,Uttar Pradesh,Lucknow,290,3,113548.61,2,3,3,233,At Risk
+466,C0486,Customer 0486,Corporate,South,Karnataka,Bengaluru,105,6,416168.49,3,5,5,355,Loyal Customers
+467,C0487,Customer 0487,Consumer,East,Bihar,Patna,210,1,69744.11,2,1,2,212,Hibernating
+468,C0488,Customer 0488,Corporate,South,Karnataka,Bengaluru,31,6,188864.01,5,5,4,554,Champions
+469,C0489,Customer 0489,Home Office,North,Uttar Pradesh,Lucknow,674,1,38436.91,1,1,1,111,Hibernating
+470,C0490,Customer 0490,Home Office,Central,Madhya Pradesh,Indore,149,3,144447.99,3,3,4,334,Needs Attention
+471,C0491,Customer 0491,Corporate,West,Gujarat,Ahmedabad,28,6,499066.57,5,5,5,555,Champions
+472,C0492,Customer 0492,Consumer,North,Punjab,Chandigarh,409,2,92613.03,1,2,3,123,Hibernating
+473,C0493,Customer 0493,Corporate,South,Tamil Nadu,Chennai,117,5,218422.6,3,5,5,355,Loyal Customers
+474,C0494,Customer 0494,Corporate,West,Maharashtra,Mumbai,634,2,114744.11,1,2,3,123,Hibernating
+475,C0495,Customer 0495,Consumer,Central,Chhattisgarh,Raipur,386,2,65923.19,1,2,2,122,Hibernating
+476,C0496,Customer 0496,Consumer,East,Odisha,Bhubaneswar,53,4,68887.03,4,4,2,442,Loyal Customers
+477,C0497,Customer 0497,Consumer,South,Tamil Nadu,Chennai,157,2,44191.28,3,2,1,321,Needs Attention
+478,C0498,Customer 0498,Consumer,West,Maharashtra,Mumbai,11,3,118750.62,5,3,3,533,Potential Loyalists
+479,C0499,Customer 0499,Corporate,West,Gujarat,Ahmedabad,43,6,127030.92,4,5,3,453,Loyal Customers
+480,C0500,Customer 0500,Home Office,East,West Bengal,Kolkata,66,2,37325.61,4,2,1,421,Potential Loyalists
+481,C0501,Customer 0501,Consumer,South,Karnataka,Bengaluru,153,3,67023.09,3,3,2,332,Needs Attention
+482,C0502,Customer 0502,Consumer,East,West Bengal,Kolkata,165,4,221417.65,3,4,5,345,Loyal Customers
+483,C0503,Customer 0503,Home Office,South,Telangana,Hyderabad,251,3,109316.13,2,3,3,233,At Risk
+484,C0504,Customer 0504,Consumer,East,West Bengal,Kolkata,214,2,55505.32,2,2,2,222,Hibernating
+485,C0505,Customer 0505,Corporate,East,Odisha,Bhubaneswar,438,2,58036.28,1,2,2,122,Hibernating
+486,C0506,Customer 0506,Consumer,East,West Bengal,Kolkata,164,1,162489.89,3,1,4,314,Needs Attention
+487,C0507,Customer 0507,Corporate,West,Maharashtra,Mumbai,512,1,15792.45,1,1,1,111,Hibernating
+488,C0508,Customer 0508,Consumer,West,Rajasthan,Jaipur,547,2,216925.26,1,2,5,125,Hibernating
+489,C0509,Customer 0509,Consumer,North,Uttar Pradesh,Lucknow,10,6,138755.17,5,5,3,553,Loyal Customers
+490,C0510,Customer 0510,Consumer,West,Gujarat,Ahmedabad,63,3,196016.21,4,3,4,434,Potential Loyalists
+491,C0511,Customer 0511,Home Office,North,Punjab,Chandigarh,47,3,314793.71,4,3,5,435,Potential Loyalists
+492,C0512,Customer 0512,Consumer,West,Gujarat,Ahmedabad,86,3,89135.72,4,3,2,432,Potential Loyalists
+493,C0513,Customer 0513,Corporate,East,Odisha,Bhubaneswar,170,1,34720.95,2,1,1,211,Hibernating
+494,C0514,Customer 0514,Consumer,North,Uttar Pradesh,Lucknow,171,1,12198.75,2,1,1,211,Hibernating
+495,C0515,Customer 0515,Home Office,West,Maharashtra,Mumbai,49,3,65902.24,4,3,2,432,Potential Loyalists
+496,C0516,Customer 0516,Home Office,Central,Madhya Pradesh,Indore,383,5,72608.11,1,5,2,152,At Risk
+497,C0517,Customer 0517,Consumer,West,Maharashtra,Mumbai,110,3,51465.93,3,3,2,332,Needs Attention
+498,C0519,Customer 0519,Home Office,West,Rajasthan,Jaipur,118,1,64460.46,3,1,2,312,Needs Attention
+499,C0520,Customer 0520,Consumer,Central,Chhattisgarh,Raipur,29,6,318100.45,5,5,5,555,Champions
+500,C0521,Customer 0521,Consumer,North,Uttar Pradesh,Lucknow,223,1,58814.02,2,1,2,212,Hibernating
+501,C0522,Customer 0522,Home Office,South,Karnataka,Bengaluru,38,2,147990.54,5,2,4,524,Potential Loyalists
+502,C0523,Customer 0523,Consumer,West,Maharashtra,Mumbai,197,3,107520.68,2,3,3,233,At Risk
+503,C0524,Customer 0524,Consumer,North,Delhi,New Delhi,91,1,9701.66,3,1,1,311,Needs Attention
+504,C0525,Customer 0525,Corporate,West,Gujarat,Ahmedabad,289,2,104152.87,2,2,3,223,Hibernating
+505,C0526,Customer 0526,Corporate,Central,Chhattisgarh,Raipur,58,5,121757.23,4,5,3,453,Loyal Customers
+506,C0527,Customer 0527,Consumer,North,Delhi,New Delhi,60,2,14515.27,4,2,1,421,Potential Loyalists
+507,C0528,Customer 0528,Home Office,Central,Madhya Pradesh,Indore,315,1,12119.49,1,1,1,111,Hibernating
+508,C0529,Customer 0529,Consumer,West,Gujarat,Ahmedabad,276,2,4190.8,2,2,1,221,Hibernating
+509,C0530,Customer 0530,Home Office,West,Gujarat,Ahmedabad,50,3,75969.82,4,3,2,432,Potential Loyalists
+510,C0531,Customer 0531,Corporate,North,Punjab,Chandigarh,163,3,117968.15,3,3,3,333,Needs Attention
+511,C0532,Customer 0532,Consumer,South,Telangana,Hyderabad,300,2,22026.48,2,2,1,221,Hibernating
+512,C0533,Customer 0533,Consumer,Central,Madhya Pradesh,Indore,439,2,130079.22,1,2,3,123,Hibernating
+513,C0534,Customer 0534,Corporate,West,Gujarat,Ahmedabad,10,8,434307.0,5,5,5,555,Champions
+514,C0535,Customer 0535,Home Office,East,Odisha,Bhubaneswar,229,2,109176.14,2,2,3,223,Hibernating
+515,C0536,Customer 0536,Home Office,East,Bihar,Patna,29,3,130583.13,5,3,3,533,Potential Loyalists
+516,C0537,Customer 0537,Consumer,Central,Madhya Pradesh,Indore,725,1,18644.64,1,1,1,111,Hibernating
+517,C0538,Customer 0538,Consumer,East,West Bengal,Kolkata,38,5,292077.09,5,5,5,555,Champions
+518,C0539,Customer 0539,Consumer,South,Telangana,Hyderabad,103,3,118831.34,3,3,3,333,Needs Attention
+519,C0540,Customer 0540,Consumer,North,Delhi,New Delhi,17,5,233663.42,5,5,5,555,Champions
+520,C0541,Customer 0541,Home Office,West,Rajasthan,Jaipur,328,2,75603.36,1,2,2,122,Hibernating
+521,C0542,Customer 0542,Corporate,North,Punjab,Chandigarh,227,4,133933.28,2,4,3,243,At Risk
+522,C0543,Customer 0543,Consumer,West,Rajasthan,Jaipur,120,3,78805.19,3,3,2,332,Needs Attention
+523,C0544,Customer 0544,Home Office,North,Delhi,New Delhi,565,2,50697.49,1,2,2,122,Hibernating
+524,C0545,Customer 0545,Consumer,West,Maharashtra,Mumbai,244,3,129727.58,2,3,3,233,At Risk
+525,C0547,Customer 0547,Consumer,West,Gujarat,Ahmedabad,255,3,149480.04,2,3,4,234,At Risk
+526,C0548,Customer 0548,Consumer,North,Uttar Pradesh,Lucknow,36,2,24381.46,5,2,1,521,Potential Loyalists
+527,C0549,Customer 0549,Corporate,Central,Chhattisgarh,Raipur,209,3,123566.56,2,3,3,233,At Risk
+528,C0550,Customer 0550,Consumer,West,Rajasthan,Jaipur,45,2,158637.16,4,2,4,424,Potential Loyalists
+529,C0551,Customer 0551,Consumer,Central,Chhattisgarh,Raipur,92,4,216837.27,3,4,4,344,Loyal Customers
+530,C0552,Customer 0552,Home Office,South,Karnataka,Bengaluru,244,1,11779.3,2,1,1,211,Hibernating
+531,C0553,Customer 0553,Corporate,East,West Bengal,Kolkata,336,3,79789.76,1,3,2,132,At Risk
+532,C0554,Customer 0554,Consumer,South,Telangana,Hyderabad,52,5,169806.18,4,5,4,454,Champions
+533,C0555,Customer 0555,Home Office,South,Telangana,Hyderabad,109,1,6683.52,3,1,1,311,Needs Attention
+534,C0557,Customer 0557,Consumer,West,Gujarat,Ahmedabad,318,2,21480.8,1,2,1,121,Hibernating
+535,C0558,Customer 0558,Consumer,North,Uttar Pradesh,Lucknow,412,4,33472.9,1,4,1,141,At Risk
+536,C0559,Customer 0559,Consumer,South,Karnataka,Bengaluru,36,5,164546.65,5,5,4,554,Champions
+537,C0560,Customer 0560,Consumer,North,Uttar Pradesh,Lucknow,563,2,135715.99,1,2,3,123,Hibernating
+538,C0561,Customer 0561,Consumer,North,Delhi,New Delhi,189,2,76514.34,2,2,2,222,Hibernating
+539,C0562,Customer 0562,Consumer,East,West Bengal,Kolkata,137,4,246810.91,3,4,5,345,Loyal Customers
+540,C0563,Customer 0563,Consumer,Central,Madhya Pradesh,Indore,316,4,248056.66,1,4,5,145,At Risk
+541,C0564,Customer 0564,Consumer,West,Maharashtra,Mumbai,50,5,272553.81,4,5,5,455,Champions
+542,C0565,Customer 0565,Home Office,Central,Chhattisgarh,Raipur,31,5,72197.68,5,5,2,552,Loyal Customers
+543,C0566,Customer 0566,Consumer,West,Maharashtra,Mumbai,12,8,270960.82,5,5,5,555,Champions
+544,C0567,Customer 0567,Consumer,East,Bihar,Patna,133,5,168700.84,3,5,4,354,Loyal Customers
+545,C0568,Customer 0568,Consumer,West,Gujarat,Ahmedabad,636,1,9918.86,1,1,1,111,Hibernating
+546,C0569,Customer 0569,Corporate,West,Rajasthan,Jaipur,64,3,349339.22,4,3,5,435,Potential Loyalists
+547,C0570,Customer 0570,Corporate,South,Karnataka,Bengaluru,13,3,209566.99,5,3,4,534,Potential Loyalists
+548,C0571,Customer 0571,Home Office,South,Telangana,Hyderabad,3,7,326496.85,5,5,5,555,Champions
+549,C0572,Customer 0572,Corporate,North,Delhi,New Delhi,94,6,292245.46,3,5,5,355,Loyal Customers
+550,C0573,Customer 0573,Consumer,West,Rajasthan,Jaipur,321,4,246151.96,1,4,5,145,At Risk
+551,C0574,Customer 0574,Consumer,North,Punjab,Chandigarh,368,3,86031.73,1,3,2,132,At Risk
+552,C0575,Customer 0575,Corporate,South,Karnataka,Bengaluru,56,5,172791.39,4,5,4,454,Champions
+553,C0576,Customer 0576,Consumer,Central,Chhattisgarh,Raipur,210,5,151543.07,2,5,4,254,At Risk
+554,C0577,Customer 0577,Home Office,East,Odisha,Bhubaneswar,208,2,14735.13,2,2,1,221,Hibernating
+555,C0578,Customer 0578,Corporate,South,Karnataka,Bengaluru,80,5,137167.01,4,5,3,453,Loyal Customers
+556,C0579,Customer 0579,Corporate,West,Rajasthan,Jaipur,56,4,105254.5,4,4,3,443,Loyal Customers
+557,C0580,Customer 0580,Home Office,West,Maharashtra,Mumbai,20,4,80327.85,5,4,2,542,Loyal Customers
+558,C0581,Customer 0581,Consumer,South,Tamil Nadu,Chennai,22,4,81908.35,5,4,2,542,Loyal Customers
+559,C0582,Customer 0582,Consumer,North,Punjab,Chandigarh,80,1,41230.26,4,1,1,411,Needs Attention
+560,C0583,Customer 0583,Consumer,South,Tamil Nadu,Chennai,219,1,18355.56,2,1,1,211,Hibernating
+561,C0584,Customer 0584,Consumer,West,Maharashtra,Mumbai,513,1,26322.43,1,1,1,111,Hibernating
+562,C0585,Customer 0585,Consumer,East,Bihar,Patna,52,3,205384.09,4,3,4,434,Potential Loyalists
+563,C0586,Customer 0586,Consumer,North,Punjab,Chandigarh,370,4,58192.58,1,4,2,142,At Risk
+564,C0587,Customer 0587,Consumer,Central,Chhattisgarh,Raipur,274,3,79343.73,2,3,2,232,At Risk
+565,C0588,Customer 0588,Corporate,East,Bihar,Patna,47,6,409958.86,4,5,5,455,Champions
+566,C0589,Customer 0589,Corporate,South,Telangana,Hyderabad,44,3,226555.59,4,3,5,435,Potential Loyalists
+567,C0590,Customer 0590,Consumer,South,Karnataka,Bengaluru,256,1,9206.46,2,1,1,211,Hibernating
+568,C0591,Customer 0591,Corporate,North,Uttar Pradesh,Lucknow,43,5,205266.96,4,5,4,454,Champions
+569,C0592,Customer 0592,Corporate,South,Telangana,Hyderabad,37,2,28223.32,5,2,1,521,Potential Loyalists
+570,C0593,Customer 0593,Corporate,North,Delhi,New Delhi,88,2,19903.71,4,2,1,421,Potential Loyalists
+571,C0594,Customer 0594,Corporate,East,Bihar,Patna,32,1,11118.17,5,1,1,511,New Customers
+572,C0595,Customer 0595,Corporate,South,Karnataka,Bengaluru,5,3,273067.98,5,3,5,535,Potential Loyalists
+573,C0596,Customer 0596,Home Office,South,Karnataka,Bengaluru,607,2,89597.12,1,2,2,122,Hibernating
+574,C0597,Customer 0597,Corporate,South,Telangana,Hyderabad,225,3,42935.41,2,3,1,231,At Risk
+575,C0598,Customer 0598,Corporate,South,Telangana,Hyderabad,20,2,77003.48,5,2,2,522,Potential Loyalists
+576,C0599,Customer 0599,Corporate,East,West Bengal,Kolkata,144,3,184595.77,3,3,4,334,Needs Attention
+577,C0600,Customer 0600,Consumer,North,Uttar Pradesh,Lucknow,22,4,154754.25,5,4,4,544,Champions
+578,C0601,Customer 0601,Corporate,Central,Madhya Pradesh,Indore,88,3,129752.51,4,3,3,433,Potential Loyalists
+579,C0602,Customer 0602,Consumer,South,Tamil Nadu,Chennai,388,3,84303.83,1,3,2,132,At Risk
+580,C0603,Customer 0603,Consumer,North,Delhi,New Delhi,167,2,63426.24,3,2,2,322,Needs Attention
+581,C0604,Customer 0604,Corporate,South,Tamil Nadu,Chennai,4,4,167964.2,5,4,4,544,Champions
+582,C0605,Customer 0605,Corporate,West,Maharashtra,Mumbai,168,2,64970.22,2,2,2,222,Hibernating
+583,C0606,Customer 0606,Consumer,North,Delhi,New Delhi,453,1,35905.95,1,1,1,111,Hibernating
+584,C0607,Customer 0607,Consumer,Central,Chhattisgarh,Raipur,7,6,336159.13,5,5,5,555,Champions
+585,C0608,Customer 0608,Home Office,East,Bihar,Patna,20,2,34966.67,5,2,1,521,Potential Loyalists
+586,C0609,Customer 0609,Consumer,West,Maharashtra,Mumbai,94,4,210885.11,3,4,4,344,Loyal Customers
+587,C0610,Customer 0610,Corporate,South,Karnataka,Bengaluru,411,3,141764.53,1,3,3,133,At Risk
+588,C0611,Customer 0611,Consumer,South,Karnataka,Bengaluru,361,4,165239.37,1,4,4,144,At Risk
+589,C0612,Customer 0612,Corporate,East,Bihar,Patna,384,2,177575.04,1,2,4,124,Hibernating
+590,C0613,Customer 0613,Consumer,North,Punjab,Chandigarh,79,5,162379.71,4,5,4,454,Champions
+591,C0614,Customer 0614,Home Office,North,Uttar Pradesh,Lucknow,479,2,63848.77,1,2,2,122,Hibernating
+592,C0615,Customer 0615,Consumer,North,Delhi,New Delhi,388,3,64391.6,1,3,2,132,At Risk
+593,C0616,Customer 0616,Corporate,Central,Madhya Pradesh,Indore,140,3,195380.62,3,3,4,334,Needs Attention
+594,C0617,Customer 0617,Consumer,West,Maharashtra,Mumbai,183,4,322185.26,2,4,5,245,At Risk
+595,C0618,Customer 0618,Corporate,North,Delhi,New Delhi,449,2,75053.46,1,2,2,122,Hibernating
+596,C0619,Customer 0619,Corporate,East,Bihar,Patna,422,1,35625.33,1,1,1,111,Hibernating
+597,C0620,Customer 0620,Corporate,South,Tamil Nadu,Chennai,49,6,367877.22,4,5,5,455,Champions
+598,C0621,Customer 0621,Home Office,South,Telangana,Hyderabad,30,3,112639.34,5,3,3,533,Potential Loyalists
+599,C0622,Customer 0622,Consumer,South,Telangana,Hyderabad,83,3,59800.73,4,3,2,432,Potential Loyalists
+600,C0623,Customer 0623,Consumer,West,Rajasthan,Jaipur,58,3,155149.12,4,3,4,434,Potential Loyalists
+601,C0624,Customer 0624,Consumer,West,Maharashtra,Mumbai,275,4,107713.08,2,4,3,243,At Risk
+602,C0625,Customer 0625,Corporate,South,Tamil Nadu,Chennai,286,5,235821.81,2,5,5,255,At Risk
+603,C0626,Customer 0626,Consumer,Central,Madhya Pradesh,Indore,281,3,52634.92,2,3,2,232,At Risk
+604,C0627,Customer 0627,Home Office,West,Gujarat,Ahmedabad,23,3,310096.89,5,3,5,535,Potential Loyalists
+605,C0628,Customer 0628,Consumer,East,Odisha,Bhubaneswar,15,8,284591.6,5,5,5,555,Champions
+606,C0629,Customer 0629,Consumer,Central,Madhya Pradesh,Indore,11,4,118390.44,5,4,3,543,Loyal Customers
+607,C0630,Customer 0630,Consumer,West,Gujarat,Ahmedabad,398,2,72775.82,1,2,2,122,Hibernating
+608,C0631,Customer 0631,Consumer,North,Uttar Pradesh,Lucknow,48,5,121862.81,4,5,3,453,Loyal Customers
+609,C0632,Customer 0632,Home Office,West,Maharashtra,Mumbai,77,4,81530.75,4,4,2,442,Loyal Customers
+610,C0633,Customer 0633,Home Office,East,West Bengal,Kolkata,399,3,161409.67,1,3,4,134,At Risk
+611,C0634,Customer 0634,Consumer,West,Maharashtra,Mumbai,8,2,149623.47,5,2,4,524,Potential Loyalists
+612,C0635,Customer 0635,Consumer,West,Rajasthan,Jaipur,75,1,6812.16,4,1,1,411,Needs Attention
+613,C0636,Customer 0636,Home Office,South,Telangana,Hyderabad,10,6,280722.19,5,5,5,555,Champions
+614,C0637,Customer 0637,Consumer,Central,Madhya Pradesh,Indore,189,3,112966.61,2,3,3,233,At Risk
+615,C0638,Customer 0638,Consumer,North,Punjab,Chandigarh,185,4,189949.02,2,4,4,244,At Risk
+616,C0639,Customer 0639,Consumer,East,Odisha,Bhubaneswar,80,4,153127.66,4,4,4,444,Champions
+617,C0640,Customer 0640,Consumer,East,Odisha,Bhubaneswar,78,7,513092.85,4,5,5,455,Champions
+618,C0641,Customer 0641,Home Office,East,West Bengal,Kolkata,138,4,93977.11,3,4,3,343,Loyal Customers
+619,C0642,Customer 0642,Consumer,East,Bihar,Patna,19,4,148190.34,5,4,4,544,Champions
+620,C0643,Customer 0643,Consumer,North,Uttar Pradesh,Lucknow,39,3,75368.97,5,3,2,532,Potential Loyalists
+621,C0644,Customer 0644,Home Office,West,Maharashtra,Mumbai,55,4,307230.67,4,4,5,445,Champions
+622,C0645,Customer 0645,Corporate,East,Bihar,Patna,177,4,60272.38,2,4,2,242,At Risk
+623,C0646,Customer 0646,Consumer,South,Karnataka,Bengaluru,160,4,252206.05,3,4,5,345,Loyal Customers
+624,C0647,Customer 0647,Home Office,West,Rajasthan,Jaipur,33,4,103767.69,5,4,3,543,Loyal Customers
+625,C0648,Customer 0648,Consumer,North,Delhi,New Delhi,154,3,99546.29,3,3,3,333,Needs Attention
+626,C0649,Customer 0649,Consumer,North,Punjab,Chandigarh,250,3,141848.66,2,3,3,233,At Risk
+627,C0650,Customer 0650,Corporate,South,Tamil Nadu,Chennai,226,4,206851.07,2,4,4,244,At Risk
+628,C0651,Customer 0651,Consumer,South,Tamil Nadu,Chennai,386,4,218159.31,1,4,5,145,At Risk
+629,C0652,Customer 0652,Consumer,North,Punjab,Chandigarh,315,2,74916.15,1,2,2,122,Hibernating
+630,C0653,Customer 0653,Corporate,South,Tamil Nadu,Chennai,369,2,32028.09,1,2,1,121,Hibernating
+631,C0654,Customer 0654,Consumer,West,Rajasthan,Jaipur,203,2,131355.62,2,2,3,223,Hibernating
+632,C0655,Customer 0655,Home Office,Central,Chhattisgarh,Raipur,167,2,246506.66,2,2,5,225,Hibernating
+633,C0656,Customer 0656,Home Office,North,Delhi,New Delhi,8,5,47848.54,5,5,2,552,Loyal Customers
+634,C0657,Customer 0657,Consumer,West,Maharashtra,Mumbai,13,3,62169.06,5,3,2,532,Potential Loyalists
+635,C0658,Customer 0658,Consumer,Central,Madhya Pradesh,Indore,189,2,61293.44,2,2,2,222,Hibernating
+636,C0659,Customer 0659,Corporate,East,Odisha,Bhubaneswar,428,1,25661.35,1,1,1,111,Hibernating
+637,C0660,Customer 0660,Consumer,East,Odisha,Bhubaneswar,54,2,165010.03,4,2,4,424,Potential Loyalists
+638,C0661,Customer 0661,Corporate,North,Delhi,New Delhi,78,4,148636.8,4,4,4,444,Champions
+639,C0662,Customer 0662,Consumer,North,Delhi,New Delhi,113,2,40434.15,3,2,1,321,Needs Attention
+640,C0663,Customer 0663,Consumer,West,Rajasthan,Jaipur,7,3,75474.06,5,3,2,532,Potential Loyalists
+641,C0664,Customer 0664,Consumer,North,Uttar Pradesh,Lucknow,147,2,65744.8,3,2,2,322,Needs Attention
+642,C0665,Customer 0665,Consumer,South,Telangana,Hyderabad,201,6,132567.22,2,5,3,253,At Risk
+643,C0666,Customer 0666,Consumer,East,West Bengal,Kolkata,431,3,178001.88,1,3,4,134,At Risk
+644,C0667,Customer 0667,Home Office,South,Karnataka,Bengaluru,248,2,130380.66,2,2,3,223,Hibernating
+645,C0668,Customer 0668,Consumer,North,Delhi,New Delhi,22,4,101348.88,5,4,3,543,Loyal Customers
+646,C0669,Customer 0669,Consumer,West,Gujarat,Ahmedabad,143,6,424287.09,3,5,5,355,Loyal Customers
+647,C0670,Customer 0670,Consumer,North,Punjab,Chandigarh,34,4,71037.45,5,4,2,542,Loyal Customers
+648,C0671,Customer 0671,Consumer,Central,Madhya Pradesh,Indore,124,3,53944.98,3,3,2,332,Needs Attention
+649,C0672,Customer 0672,Consumer,East,West Bengal,Kolkata,99,6,366336.39,3,5,5,355,Loyal Customers
+650,C0673,Customer 0673,Consumer,West,Maharashtra,Mumbai,308,1,93990.74,2,1,3,213,Hibernating
+651,C0674,Customer 0674,Home Office,North,Uttar Pradesh,Lucknow,34,1,13618.37,5,1,1,511,New Customers
+652,C0675,Customer 0675,Home Office,South,Tamil Nadu,Chennai,91,1,97980.88,3,1,3,313,Needs Attention
+653,C0676,Customer 0676,Home Office,Central,Chhattisgarh,Raipur,210,6,132369.42,2,5,3,253,At Risk
+654,C0677,Customer 0677,Corporate,South,Tamil Nadu,Chennai,10,4,154928.54,5,4,4,544,Champions
+655,C0678,Customer 0678,Consumer,North,Uttar Pradesh,Lucknow,211,4,155913.39,2,4,4,244,At Risk
+656,C0679,Customer 0679,Corporate,Central,Chhattisgarh,Raipur,155,2,113308.78,3,2,3,323,Needs Attention
+657,C0681,Customer 0681,Consumer,North,Punjab,Chandigarh,657,1,52292.47,1,1,2,112,Hibernating
+658,C0682,Customer 0682,Corporate,West,Rajasthan,Jaipur,42,1,16072.31,4,1,1,411,Needs Attention
+659,C0683,Customer 0683,Consumer,East,West Bengal,Kolkata,247,3,189621.39,2,3,4,234,At Risk
+660,C0684,Customer 0684,Corporate,East,Odisha,Bhubaneswar,31,5,251331.74,5,5,5,555,Champions
+661,C0685,Customer 0685,Consumer,West,Rajasthan,Jaipur,132,3,123905.46,3,3,3,333,Needs Attention
+662,C0686,Customer 0686,Consumer,West,Gujarat,Ahmedabad,662,1,7801.89,1,1,1,111,Hibernating
+663,C0687,Customer 0687,Corporate,North,Punjab,Chandigarh,216,7,205058.3,2,5,4,254,At Risk
+664,C0688,Customer 0688,Consumer,South,Karnataka,Bengaluru,248,4,198720.37,2,4,4,244,At Risk
+665,C0689,Customer 0689,Consumer,North,Punjab,Chandigarh,11,6,306546.1,5,5,5,555,Champions
+666,C0690,Customer 0690,Home Office,North,Uttar Pradesh,Lucknow,55,5,183729.86,4,5,4,454,Champions
+667,C0691,Customer 0691,Consumer,East,Bihar,Patna,341,3,100702.84,1,3,3,133,At Risk
+668,C0693,Customer 0693,Corporate,North,Punjab,Chandigarh,10,6,164521.18,5,5,4,554,Champions
+669,C0694,Customer 0694,Consumer,South,Karnataka,Bengaluru,24,6,223066.54,5,5,5,555,Champions
+670,C0695,Customer 0695,Consumer,East,West Bengal,Kolkata,10,7,167163.81,5,5,4,554,Champions
+671,C0696,Customer 0696,Consumer,East,Odisha,Bhubaneswar,133,4,221503.08,3,4,5,345,Loyal Customers
+672,C0697,Customer 0697,Consumer,North,Uttar Pradesh,Lucknow,84,3,191302.34,4,3,4,434,Potential Loyalists
+673,C0698,Customer 0698,Home Office,West,Rajasthan,Jaipur,299,8,237657.51,2,5,5,255,At Risk
+674,C0699,Customer 0699,Consumer,West,Maharashtra,Mumbai,25,4,325089.95,5,4,5,545,Champions
+675,C0700,Customer 0700,Consumer,East,West Bengal,Kolkata,262,3,190132.09,2,3,4,234,At Risk
+676,C0701,Customer 0701,Consumer,Central,Chhattisgarh,Raipur,280,3,44053.68,2,3,1,231,At Risk
+677,C0702,Customer 0702,Consumer,North,Punjab,Chandigarh,47,2,27612.11,4,2,1,421,Potential Loyalists
+678,C0703,Customer 0703,Consumer,South,Karnataka,Bengaluru,10,4,222521.15,5,4,5,545,Champions
+679,C0704,Customer 0704,Corporate,North,Punjab,Chandigarh,413,2,31453.73,1,2,1,121,Hibernating
+680,C0705,Customer 0705,Home Office,South,Tamil Nadu,Chennai,307,5,428119.98,2,5,5,255,At Risk
+681,C0706,Customer 0706,Corporate,East,West Bengal,Kolkata,63,5,125746.65,4,5,3,453,Loyal Customers
+682,C0707,Customer 0707,Consumer,West,Gujarat,Ahmedabad,114,5,309900.56,3,5,5,355,Loyal Customers
+683,C0708,Customer 0708,Consumer,South,Telangana,Hyderabad,67,2,42494.09,4,2,1,421,Potential Loyalists
+684,C0709,Customer 0709,Corporate,Central,Madhya Pradesh,Indore,91,3,55559.05,3,3,2,332,Needs Attention
+685,C0710,Customer 0710,Consumer,West,Gujarat,Ahmedabad,93,3,292986.32,3,3,5,335,Needs Attention
+686,C0711,Customer 0711,Consumer,North,Delhi,New Delhi,421,3,32208.34,1,3,1,131,At Risk
+687,C0712,Customer 0712,Consumer,South,Telangana,Hyderabad,9,2,29098.45,5,2,1,521,Potential Loyalists
+688,C0713,Customer 0713,Corporate,East,Odisha,Bhubaneswar,37,6,286709.36,5,5,5,555,Champions
+689,C0714,Customer 0714,Corporate,West,Gujarat,Ahmedabad,135,2,24221.76,3,2,1,321,Needs Attention
+690,C0715,Customer 0715,Consumer,Central,Chhattisgarh,Raipur,102,2,26398.66,3,2,1,321,Needs Attention
+691,C0716,Customer 0716,Consumer,Central,Chhattisgarh,Raipur,54,3,113642.61,4,3,3,433,Potential Loyalists
+692,C0717,Customer 0717,Consumer,West,Rajasthan,Jaipur,91,5,125899.66,3,5,3,353,Loyal Customers
+693,C0718,Customer 0718,Consumer,North,Delhi,New Delhi,10,5,152263.33,5,5,4,554,Champions
+694,C0719,Customer 0719,Consumer,North,Punjab,Chandigarh,611,1,8324.37,1,1,1,111,Hibernating
+695,C0720,Customer 0720,Consumer,East,Odisha,Bhubaneswar,6,3,40098.2,5,3,1,531,Potential Loyalists
+696,C0721,Customer 0721,Consumer,North,Delhi,New Delhi,46,3,133871.06,4,3,3,433,Potential Loyalists
+697,C0722,Customer 0722,Consumer,North,Punjab,Chandigarh,43,4,149537.79,4,4,4,444,Champions
+698,C0723,Customer 0723,Home Office,East,Bihar,Patna,160,3,113288.41,3,3,3,333,Needs Attention
+699,C0724,Customer 0724,Consumer,North,Punjab,Chandigarh,203,5,191356.06,2,5,4,254,At Risk
+700,C0725,Customer 0725,Consumer,South,Tamil Nadu,Chennai,34,5,207297.91,5,5,4,554,Champions
+701,C0726,Customer 0726,Consumer,East,Bihar,Patna,46,3,154478.28,4,3,4,434,Potential Loyalists
+702,C0727,Customer 0727,Consumer,North,Delhi,New Delhi,11,4,130123.65,5,4,3,543,Loyal Customers
+703,C0728,Customer 0728,Consumer,North,Delhi,New Delhi,310,2,73674.1,1,2,2,122,Hibernating
+704,C0729,Customer 0729,Consumer,South,Karnataka,Bengaluru,155,5,247872.48,3,5,5,355,Loyal Customers
+705,C0730,Customer 0730,Consumer,East,West Bengal,Kolkata,34,3,19499.37,5,3,1,531,Potential Loyalists
+706,C0731,Customer 0731,Home Office,West,Rajasthan,Jaipur,104,5,159044.71,3,5,4,354,Loyal Customers
+707,C0732,Customer 0732,Home Office,South,Karnataka,Bengaluru,314,5,288000.01,1,5,5,155,At Risk
+708,C0733,Customer 0733,Home Office,North,Delhi,New Delhi,119,4,186536.7,3,4,4,344,Loyal Customers
+709,C0735,Customer 0735,Consumer,West,Maharashtra,Mumbai,74,7,291971.56,4,5,5,455,Champions
+710,C0736,Customer 0736,Consumer,West,Gujarat,Ahmedabad,205,1,15109.23,2,1,1,211,Hibernating
+711,C0737,Customer 0737,Consumer,South,Karnataka,Bengaluru,1,4,252170.13,5,4,5,545,Champions
+712,C0738,Customer 0738,Home Office,East,Odisha,Bhubaneswar,46,3,33117.76,4,3,1,431,Potential Loyalists
+713,C0739,Customer 0739,Corporate,South,Telangana,Hyderabad,198,6,206083.65,2,5,4,254,At Risk
+714,C0740,Customer 0740,Consumer,South,Telangana,Hyderabad,55,3,105657.97,4,3,3,433,Potential Loyalists
+715,C0741,Customer 0741,Corporate,West,Rajasthan,Jaipur,526,1,0.0,1,1,1,111,Hibernating
+716,C0742,Customer 0742,Consumer,West,Maharashtra,Mumbai,365,2,60601.32,1,2,2,122,Hibernating
+717,C0743,Customer 0743,Home Office,North,Uttar Pradesh,Lucknow,28,7,209867.18,5,5,4,554,Champions
+718,C0744,Customer 0744,Consumer,West,Maharashtra,Mumbai,64,3,48055.23,4,3,2,432,Potential Loyalists
+719,C0745,Customer 0745,Consumer,Central,Madhya Pradesh,Indore,88,4,130383.34,4,4,3,443,Loyal Customers
+720,C0746,Customer 0746,Consumer,Central,Chhattisgarh,Raipur,283,1,4373.68,2,1,1,211,Hibernating
+721,C0747,Customer 0747,Consumer,North,Delhi,New Delhi,82,3,64783.19,4,3,2,432,Potential Loyalists
+722,C0748,Customer 0748,Corporate,Central,Chhattisgarh,Raipur,134,2,53512.7,3,2,2,322,Needs Attention
+723,C0749,Customer 0749,Consumer,South,Karnataka,Bengaluru,135,2,128461.79,3,2,3,323,Needs Attention
+724,C0750,Customer 0750,Corporate,South,Tamil Nadu,Chennai,558,3,186394.28,1,3,4,134,At Risk
+725,C0751,Customer 0751,Corporate,East,Odisha,Bhubaneswar,20,2,52992.24,5,2,2,522,Potential Loyalists
+726,C0752,Customer 0752,Consumer,North,Delhi,New Delhi,56,5,225133.22,4,5,5,455,Champions
+727,C0753,Customer 0753,Home Office,South,Tamil Nadu,Chennai,80,2,57499.84,4,2,2,422,Potential Loyalists
+728,C0754,Customer 0754,Corporate,West,Maharashtra,Mumbai,94,3,66806.14,3,3,2,332,Needs Attention
+729,C0755,Customer 0755,Consumer,West,Maharashtra,Mumbai,507,3,27321.36,1,3,1,131,At Risk
+730,C0756,Customer 0756,Corporate,North,Delhi,New Delhi,290,3,294412.41,2,3,5,235,At Risk
+731,C0757,Customer 0757,Consumer,West,Maharashtra,Mumbai,329,2,35964.25,1,2,1,121,Hibernating
+732,C0758,Customer 0758,Consumer,East,Bihar,Patna,123,2,63494.29,3,2,2,322,Needs Attention
+733,C0759,Customer 0759,Consumer,South,Karnataka,Bengaluru,92,7,401344.66,3,5,5,355,Loyal Customers
+734,C0760,Customer 0760,Corporate,West,Gujarat,Ahmedabad,21,5,134199.26,5,5,3,553,Loyal Customers
+735,C0761,Customer 0761,Consumer,East,West Bengal,Kolkata,356,1,34136.81,1,1,1,111,Hibernating
+736,C0762,Customer 0762,Home Office,East,West Bengal,Kolkata,109,2,119454.79,3,2,3,323,Needs Attention
+737,C0763,Customer 0763,Consumer,South,Tamil Nadu,Chennai,8,2,59669.62,5,2,2,522,Potential Loyalists
+738,C0764,Customer 0764,Consumer,South,Tamil Nadu,Chennai,208,6,120112.38,2,5,3,253,At Risk
+739,C0765,Customer 0765,Home Office,North,Delhi,New Delhi,254,2,6982.45,2,2,1,221,Hibernating
+740,C0766,Customer 0766,Consumer,North,Delhi,New Delhi,56,2,165425.92,4,2,4,424,Potential Loyalists
+741,C0767,Customer 0767,Consumer,Central,Chhattisgarh,Raipur,522,3,31375.64,1,3,1,131,At Risk
+742,C0768,Customer 0768,Consumer,South,Telangana,Hyderabad,57,3,92121.68,4,3,3,433,Potential Loyalists
+743,C0769,Customer 0769,Home Office,Central,Chhattisgarh,Raipur,48,4,72455.06,4,4,2,442,Loyal Customers
+744,C0770,Customer 0770,Consumer,East,Odisha,Bhubaneswar,458,3,78307.02,1,3,2,132,At Risk
+745,C0771,Customer 0771,Consumer,North,Punjab,Chandigarh,81,7,211102.15,4,5,4,454,Champions
+746,C0772,Customer 0772,Corporate,North,Uttar Pradesh,Lucknow,4,8,415880.77,5,5,5,555,Champions
+747,C0773,Customer 0773,Consumer,East,West Bengal,Kolkata,50,5,214761.95,4,5,4,454,Champions
+748,C0774,Customer 0774,Corporate,West,Maharashtra,Mumbai,194,4,120040.81,2,4,3,243,At Risk
+749,C0775,Customer 0775,Corporate,South,Telangana,Hyderabad,44,4,314956.65,4,4,5,445,Champions
+750,C0776,Customer 0776,Home Office,West,Maharashtra,Mumbai,330,2,46532.83,1,2,1,121,Hibernating
+751,C0777,Customer 0777,Consumer,Central,Madhya Pradesh,Indore,109,2,98371.01,3,2,3,323,Needs Attention
+752,C0778,Customer 0778,Consumer,South,Telangana,Hyderabad,175,3,47847.24,2,3,2,232,At Risk
+753,C0779,Customer 0779,Consumer,Central,Madhya Pradesh,Indore,331,2,71002.14,1,2,2,122,Hibernating
+754,C0780,Customer 0780,Consumer,South,Karnataka,Bengaluru,695,1,25959.28,1,1,1,111,Hibernating
+755,C0781,Customer 0781,Consumer,North,Uttar Pradesh,Lucknow,6,3,49360.91,5,3,2,532,Potential Loyalists
+756,C0782,Customer 0782,Corporate,East,West Bengal,Kolkata,296,3,244174.84,2,3,5,235,At Risk
+757,C0783,Customer 0783,Consumer,South,Telangana,Hyderabad,36,2,42386.97,5,2,1,521,Potential Loyalists
+758,C0784,Customer 0784,Consumer,West,Maharashtra,Mumbai,118,5,238261.67,3,5,5,355,Loyal Customers
+759,C0785,Customer 0785,Home Office,West,Maharashtra,Mumbai,63,5,290633.09,4,5,5,455,Champions
+760,C0786,Customer 0786,Consumer,West,Gujarat,Ahmedabad,19,4,115057.51,5,4,3,543,Loyal Customers
+761,C0787,Customer 0787,Consumer,Central,Madhya Pradesh,Indore,45,4,313657.53,4,4,5,445,Champions
+762,C0788,Customer 0788,Consumer,South,Karnataka,Bengaluru,157,8,214336.58,3,5,4,354,Loyal Customers
+763,C0790,Customer 0790,Corporate,East,Bihar,Patna,641,1,28096.67,1,1,1,111,Hibernating
+764,C0791,Customer 0791,Consumer,East,West Bengal,Kolkata,161,3,230832.18,3,3,5,335,Needs Attention
+765,C0792,Customer 0792,Consumer,North,Punjab,Chandigarh,7,6,223581.74,5,5,5,555,Champions
+766,C0793,Customer 0793,Consumer,North,Delhi,New Delhi,57,4,56400.89,4,4,2,442,Loyal Customers
+767,C0794,Customer 0794,Consumer,South,Karnataka,Bengaluru,147,1,19974.98,3,1,1,311,Needs Attention
+768,C0795,Customer 0795,Corporate,North,Delhi,New Delhi,80,6,172435.55,4,5,4,454,Champions
+769,C0796,Customer 0796,Home Office,South,Tamil Nadu,Chennai,288,4,358227.49,2,4,5,245,At Risk
+770,C0797,Customer 0797,Corporate,South,Tamil Nadu,Chennai,361,3,173597.38,1,3,4,134,At Risk
+771,C0798,Customer 0798,Consumer,South,Karnataka,Bengaluru,176,2,14390.92,2,2,1,221,Hibernating
+772,C0799,Customer 0799,Consumer,West,Rajasthan,Jaipur,34,3,136403.51,5,3,3,533,Potential Loyalists
+773,C0800,Customer 0800,Consumer,West,Maharashtra,Mumbai,7,3,114998.56,5,3,3,533,Potential Loyalists
+774,C0801,Customer 0801,Corporate,West,Gujarat,Ahmedabad,84,2,46294.32,4,2,1,421,Potential Loyalists
+775,C0802,Customer 0802,Corporate,South,Tamil Nadu,Chennai,271,2,39906.69,2,2,1,221,Hibernating
+776,C0803,Customer 0803,Consumer,West,Rajasthan,Jaipur,103,6,301065.45,3,5,5,355,Loyal Customers
+777,C0804,Customer 0804,Consumer,East,Bihar,Patna,297,4,223499.9,2,4,5,245,At Risk
+778,C0805,Customer 0805,Corporate,North,Punjab,Chandigarh,35,4,196636.57,5,4,4,544,Champions
+779,C0806,Customer 0806,Consumer,South,Telangana,Hyderabad,270,2,36673.84,2,2,1,221,Hibernating
+780,C0807,Customer 0807,Consumer,North,Punjab,Chandigarh,178,5,144582.68,2,5,4,254,At Risk
+781,C0808,Customer 0808,Corporate,West,Rajasthan,Jaipur,173,5,183027.56,2,5,4,254,At Risk
+782,C0809,Customer 0809,Corporate,West,Maharashtra,Mumbai,147,1,27811.25,3,1,1,311,Needs Attention
+783,C0810,Customer 0810,Home Office,South,Tamil Nadu,Chennai,231,4,185118.35,2,4,4,244,At Risk
+784,C0811,Customer 0811,Consumer,West,Gujarat,Ahmedabad,2,5,177004.26,5,5,4,554,Champions
+785,C0813,Customer 0813,Consumer,East,West Bengal,Kolkata,235,4,32885.33,2,4,1,241,At Risk
+786,C0814,Customer 0814,Home Office,South,Karnataka,Bengaluru,12,5,160811.26,5,5,4,554,Champions
+787,C0815,Customer 0815,Corporate,West,Rajasthan,Jaipur,163,3,109321.02,3,3,3,333,Needs Attention
+788,C0817,Customer 0817,Consumer,Central,Madhya Pradesh,Indore,29,3,119915.9,5,3,3,533,Potential Loyalists
+789,C0818,Customer 0818,Corporate,South,Telangana,Hyderabad,64,7,439395.07,4,5,5,455,Champions
+790,C0819,Customer 0819,Consumer,East,Bihar,Patna,126,3,273499.7,3,3,5,335,Needs Attention
+791,C0820,Customer 0820,Home Office,North,Uttar Pradesh,Lucknow,33,3,73466.99,5,3,2,532,Potential Loyalists
+792,C0821,Customer 0821,Corporate,West,Gujarat,Ahmedabad,183,6,330275.71,2,5,5,255,At Risk
+793,C0822,Customer 0822,Corporate,North,Uttar Pradesh,Lucknow,139,4,129277.29,3,4,3,343,Loyal Customers
+794,C0823,Customer 0823,Consumer,North,Delhi,New Delhi,62,5,140337.91,4,5,3,453,Loyal Customers
+795,C0824,Customer 0824,Consumer,West,Gujarat,Ahmedabad,380,2,20754.57,1,2,1,121,Hibernating
+796,C0825,Customer 0825,Corporate,East,Odisha,Bhubaneswar,199,3,258875.11,2,3,5,235,At Risk
+797,C0826,Customer 0826,Home Office,West,Rajasthan,Jaipur,3,5,233574.16,5,5,5,555,Champions
+798,C0827,Customer 0827,Consumer,East,Bihar,Patna,254,2,50373.29,2,2,2,222,Hibernating
+799,C0828,Customer 0828,Corporate,West,Gujarat,Ahmedabad,160,5,170025.35,3,5,4,354,Loyal Customers
+800,C0829,Customer 0829,Corporate,North,Delhi,New Delhi,38,8,265055.91,5,5,5,555,Champions
+801,C0830,Customer 0830,Consumer,East,West Bengal,Kolkata,37,3,131296.65,5,3,3,533,Potential Loyalists
+802,C0831,Customer 0831,Consumer,Central,Madhya Pradesh,Indore,47,3,65849.16,4,3,2,432,Potential Loyalists
+803,C0832,Customer 0832,Consumer,North,Delhi,New Delhi,190,1,47137.64,2,1,1,211,Hibernating
+804,C0833,Customer 0833,Corporate,South,Tamil Nadu,Chennai,8,4,83181.03,5,4,2,542,Loyal Customers
+805,C0834,Customer 0834,Consumer,Central,Chhattisgarh,Raipur,78,4,113724.36,4,4,3,443,Loyal Customers
+806,C0835,Customer 0835,Corporate,Central,Chhattisgarh,Raipur,104,4,142349.09,3,4,3,343,Loyal Customers
+807,C0836,Customer 0836,Corporate,West,Gujarat,Ahmedabad,12,5,195928.4,5,5,4,554,Champions
+808,C0837,Customer 0837,Home Office,North,Punjab,Chandigarh,19,2,80168.89,5,2,2,522,Potential Loyalists
+809,C0838,Customer 0838,Consumer,West,Rajasthan,Jaipur,195,3,74869.57,2,3,2,232,At Risk
+810,C0839,Customer 0839,Home Office,West,Maharashtra,Mumbai,92,4,179064.65,3,4,4,344,Loyal Customers
+811,C0840,Customer 0840,Home Office,Central,Chhattisgarh,Raipur,79,2,29541.35,4,2,1,421,Potential Loyalists
+812,C0841,Customer 0841,Corporate,East,Odisha,Bhubaneswar,75,4,71272.07,4,4,2,442,Loyal Customers
+813,C0842,Customer 0842,Home Office,South,Karnataka,Bengaluru,482,1,36869.07,1,1,1,111,Hibernating
+814,C0844,Customer 0844,Consumer,Central,Madhya Pradesh,Indore,108,2,38721.31,3,2,1,321,Needs Attention
+815,C0845,Customer 0845,Home Office,East,Odisha,Bhubaneswar,198,5,327464.35,2,5,5,255,At Risk
+816,C0846,Customer 0846,Home Office,West,Rajasthan,Jaipur,20,2,22740.7,5,2,1,521,Potential Loyalists
+817,C0847,Customer 0847,Consumer,South,Telangana,Hyderabad,482,2,138925.55,1,2,3,123,Hibernating
+818,C0848,Customer 0848,Home Office,South,Karnataka,Bengaluru,59,5,73431.89,4,5,2,452,Loyal Customers
+819,C0849,Customer 0849,Consumer,North,Uttar Pradesh,Lucknow,186,3,103750.59,2,3,3,233,At Risk
+820,C0850,Customer 0850,Consumer,South,Tamil Nadu,Chennai,87,5,126564.04,4,5,3,453,Loyal Customers
+821,C0851,Customer 0851,Consumer,East,Bihar,Patna,92,3,59453.63,3,3,2,332,Needs Attention
+822,C0852,Customer 0852,Consumer,West,Gujarat,Ahmedabad,380,2,106576.89,1,2,3,123,Hibernating
+823,C0853,Customer 0853,Corporate,South,Tamil Nadu,Chennai,251,5,425592.04,2,5,5,255,At Risk
+824,C0854,Customer 0854,Consumer,East,West Bengal,Kolkata,181,3,117320.46,2,3,3,233,At Risk
+825,C0855,Customer 0855,Consumer,West,Gujarat,Ahmedabad,96,5,181516.75,3,5,4,354,Loyal Customers
+826,C0857,Customer 0857,Consumer,West,Gujarat,Ahmedabad,12,4,151634.25,5,4,4,544,Champions
+827,C0858,Customer 0858,Consumer,South,Telangana,Hyderabad,37,1,19439.28,5,1,1,511,New Customers
+828,C0859,Customer 0859,Corporate,East,West Bengal,Kolkata,298,3,73035.88,2,3,2,232,At Risk
+829,C0860,Customer 0860,Consumer,North,Delhi,New Delhi,197,4,50882.96,2,4,2,242,At Risk
+830,C0861,Customer 0861,Consumer,Central,Madhya Pradesh,Indore,168,3,230688.31,2,3,5,235,At Risk
+831,C0863,Customer 0863,Corporate,East,Odisha,Bhubaneswar,436,1,94871.71,1,1,3,113,Hibernating
+832,C0864,Customer 0864,Consumer,South,Tamil Nadu,Chennai,406,4,87869.15,1,4,2,142,At Risk
+833,C0865,Customer 0865,Consumer,West,Rajasthan,Jaipur,122,1,11445.83,3,1,1,311,Needs Attention
+834,C0866,Customer 0866,Corporate,West,Maharashtra,Mumbai,21,4,52031.85,5,4,2,542,Loyal Customers
+835,C0867,Customer 0867,Consumer,West,Maharashtra,Mumbai,24,3,160017.18,5,3,4,534,Potential Loyalists
+836,C0868,Customer 0868,Consumer,East,West Bengal,Kolkata,356,7,217390.3,1,5,5,155,At Risk
+837,C0869,Customer 0869,Consumer,Central,Chhattisgarh,Raipur,155,4,122780.77,3,4,3,343,Loyal Customers
+838,C0871,Customer 0871,Home Office,North,Uttar Pradesh,Lucknow,363,3,179736.5,1,3,4,134,At Risk
+839,C0872,Customer 0872,Consumer,West,Maharashtra,Mumbai,383,1,28839.44,1,1,1,111,Hibernating
+840,C0873,Customer 0873,Consumer,Central,Madhya Pradesh,Indore,34,3,89824.77,5,3,2,532,Potential Loyalists
+841,C0874,Customer 0874,Consumer,North,Punjab,Chandigarh,49,3,115581.0,4,3,3,433,Potential Loyalists
+842,C0875,Customer 0875,Corporate,South,Telangana,Hyderabad,291,2,76298.7,2,2,2,222,Hibernating
+843,C0876,Customer 0876,Consumer,East,West Bengal,Kolkata,33,2,49642.18,5,2,2,522,Potential Loyalists
+844,C0877,Customer 0877,Consumer,East,West Bengal,Kolkata,62,3,253376.52,4,3,5,435,Potential Loyalists
+845,C0878,Customer 0878,Consumer,North,Uttar Pradesh,Lucknow,17,3,46445.38,5,3,1,531,Potential Loyalists
+846,C0879,Customer 0879,Consumer,West,Gujarat,Ahmedabad,11,4,184268.2,5,4,4,544,Champions
+847,C0880,Customer 0880,Home Office,South,Telangana,Hyderabad,380,1,8001.59,1,1,1,111,Hibernating
+848,C0881,Customer 0881,Corporate,East,Odisha,Bhubaneswar,35,5,292117.08,5,5,5,555,Champions
+849,C0882,Customer 0882,Home Office,Central,Chhattisgarh,Raipur,225,2,106083.58,2,2,3,223,Hibernating
+850,C0883,Customer 0883,Consumer,West,Gujarat,Ahmedabad,141,1,8926.32,3,1,1,311,Needs Attention
+851,C0885,Customer 0885,Consumer,West,Maharashtra,Mumbai,401,3,32031.34,1,3,1,131,At Risk
+852,C0886,Customer 0886,Home Office,North,Delhi,New Delhi,90,3,88832.95,4,3,2,432,Potential Loyalists
+853,C0887,Customer 0887,Consumer,Central,Chhattisgarh,Raipur,50,6,377480.5,4,5,5,455,Champions
+854,C0888,Customer 0888,Home Office,West,Gujarat,Ahmedabad,166,4,185454.88,3,4,4,344,Loyal Customers
+855,C0889,Customer 0889,Consumer,South,Telangana,Hyderabad,179,1,9024.67,2,1,1,211,Hibernating
+856,C0890,Customer 0890,Consumer,West,Maharashtra,Mumbai,47,3,263669.09,4,3,5,435,Potential Loyalists
+857,C0891,Customer 0891,Consumer,West,Gujarat,Ahmedabad,264,3,132163.81,2,3,3,233,At Risk
+858,C0892,Customer 0892,Consumer,West,Maharashtra,Mumbai,18,4,149185.17,5,4,4,544,Champions
+859,C0893,Customer 0893,Consumer,Central,Chhattisgarh,Raipur,3,4,73595.48,5,4,2,542,Loyal Customers
+860,C0894,Customer 0894,Consumer,South,Karnataka,Bengaluru,169,5,186419.99,2,5,4,254,At Risk
+861,C0895,Customer 0895,Consumer,South,Telangana,Hyderabad,68,6,280969.46,4,5,5,455,Champions
+862,C0896,Customer 0896,Consumer,West,Gujarat,Ahmedabad,145,4,161523.31,3,4,4,344,Loyal Customers
+863,C0897,Customer 0897,Corporate,West,Rajasthan,Jaipur,301,5,302446.38,2,5,5,255,At Risk
+864,C0898,Customer 0898,Home Office,South,Tamil Nadu,Chennai,7,4,304587.69,5,4,5,545,Champions
+865,C0899,Customer 0899,Consumer,West,Gujarat,Ahmedabad,57,5,95700.92,4,5,3,453,Loyal Customers
+866,C0900,Customer 0900,Corporate,East,West Bengal,Kolkata,390,2,93528.65,1,2,3,123,Hibernating
+867,C0901,Customer 0901,Consumer,East,Bihar,Patna,714,1,0.0,1,1,1,111,Hibernating
+868,C0902,Customer 0902,Home Office,West,Rajasthan,Jaipur,152,2,189498.42,3,2,4,324,Needs Attention
+869,C0903,Customer 0903,Home Office,East,Odisha,Bhubaneswar,166,4,262873.72,3,4,5,345,Loyal Customers
+870,C0904,Customer 0904,Home Office,West,Maharashtra,Mumbai,5,5,308437.17,5,5,5,555,Champions
+871,C0905,Customer 0905,Consumer,North,Uttar Pradesh,Lucknow,397,3,206111.1,1,3,4,134,At Risk
+872,C0906,Customer 0906,Consumer,North,Punjab,Chandigarh,7,5,118746.28,5,5,3,553,Loyal Customers
+873,C0907,Customer 0907,Home Office,East,West Bengal,Kolkata,54,4,147923.75,4,4,4,444,Champions
+874,C0908,Customer 0908,Corporate,East,Bihar,Patna,187,3,89407.91,2,3,2,232,At Risk
+875,C0909,Customer 0909,Consumer,South,Telangana,Hyderabad,88,6,217122.71,4,5,5,455,Champions
+876,C0910,Customer 0910,Consumer,West,Maharashtra,Mumbai,107,3,136946.97,3,3,3,333,Needs Attention
+877,C0911,Customer 0911,Consumer,East,West Bengal,Kolkata,177,5,121791.9,2,5,3,253,At Risk
+878,C0912,Customer 0912,Consumer,East,Bihar,Patna,15,3,348195.89,5,3,5,535,Potential Loyalists
+879,C0913,Customer 0913,Consumer,North,Punjab,Chandigarh,95,4,523529.86,3,4,5,345,Loyal Customers
+880,C0914,Customer 0914,Consumer,South,Tamil Nadu,Chennai,126,3,101196.43,3,3,3,333,Needs Attention
+881,C0915,Customer 0915,Consumer,South,Telangana,Hyderabad,95,5,236716.99,3,5,5,355,Loyal Customers
+882,C0917,Customer 0917,Corporate,East,Odisha,Bhubaneswar,470,2,40413.74,1,2,1,121,Hibernating
+883,C0918,Customer 0918,Home Office,West,Maharashtra,Mumbai,645,1,24944.72,1,1,1,111,Hibernating
+884,C0919,Customer 0919,Home Office,North,Delhi,New Delhi,380,3,146951.55,1,3,4,134,At Risk
+885,C0920,Customer 0920,Consumer,North,Delhi,New Delhi,300,6,117994.85,2,5,3,253,At Risk
+886,C0921,Customer 0921,Home Office,West,Maharashtra,Mumbai,51,4,179787.12,4,4,4,444,Champions
+887,C0922,Customer 0922,Consumer,West,Rajasthan,Jaipur,84,4,116023.79,4,4,3,443,Loyal Customers
+888,C0923,Customer 0923,Consumer,South,Karnataka,Bengaluru,43,5,415817.07,4,5,5,455,Champions
+889,C0924,Customer 0924,Consumer,North,Uttar Pradesh,Lucknow,382,2,19111.91,1,2,1,121,Hibernating
+890,C0925,Customer 0925,Consumer,North,Uttar Pradesh,Lucknow,235,4,115889.98,2,4,3,243,At Risk
+891,C0926,Customer 0926,Home Office,Central,Madhya Pradesh,Indore,196,5,144742.04,2,5,4,254,At Risk
+892,C0927,Customer 0927,Consumer,East,Bihar,Patna,35,4,215788.13,5,4,4,544,Champions
+893,C0928,Customer 0928,Consumer,South,Telangana,Hyderabad,249,2,289069.19,2,2,5,225,Hibernating
+894,C0929,Customer 0929,Home Office,North,Delhi,New Delhi,125,5,172705.46,3,5,4,354,Loyal Customers
+895,C0930,Customer 0930,Consumer,West,Maharashtra,Mumbai,309,3,177808.84,2,3,4,234,At Risk
+896,C0931,Customer 0931,Home Office,East,West Bengal,Kolkata,226,1,6121.54,2,1,1,211,Hibernating
+897,C0932,Customer 0932,Consumer,West,Maharashtra,Mumbai,93,3,146995.24,3,3,4,334,Needs Attention
+898,C0933,Customer 0933,Consumer,North,Uttar Pradesh,Lucknow,8,4,477018.98,5,4,5,545,Champions
+899,C0934,Customer 0934,Corporate,South,Tamil Nadu,Chennai,97,3,12409.28,3,3,1,331,Needs Attention
+900,C0935,Customer 0935,Home Office,East,Bihar,Patna,176,3,208403.58,2,3,4,234,At Risk
+901,C0936,Customer 0936,Corporate,South,Karnataka,Bengaluru,383,2,88798.77,1,2,2,122,Hibernating
+902,C0937,Customer 0937,Home Office,South,Karnataka,Bengaluru,26,2,55537.3,5,2,2,522,Potential Loyalists
+903,C0938,Customer 0938,Home Office,West,Rajasthan,Jaipur,130,1,30714.39,3,1,1,311,Needs Attention
+904,C0939,Customer 0939,Home Office,East,Bihar,Patna,9,7,169014.8,5,5,4,554,Champions
+905,C0940,Customer 0940,Consumer,West,Maharashtra,Mumbai,243,1,10356.73,2,1,1,211,Hibernating
+906,C0941,Customer 0941,Home Office,West,Maharashtra,Mumbai,56,5,384253.63,4,5,5,455,Champions
+907,C0942,Customer 0942,Consumer,North,Punjab,Chandigarh,63,3,180850.05,4,3,4,434,Potential Loyalists
+908,C0943,Customer 0943,Corporate,Central,Chhattisgarh,Raipur,450,2,37616.37,1,2,1,121,Hibernating
+909,C0944,Customer 0944,Consumer,North,Punjab,Chandigarh,391,3,121075.86,1,3,3,133,At Risk
+910,C0945,Customer 0945,Consumer,North,Uttar Pradesh,Lucknow,108,5,326377.21,3,5,5,355,Loyal Customers
+911,C0946,Customer 0946,Consumer,South,Karnataka,Bengaluru,76,2,67977.1,4,2,2,422,Potential Loyalists
+912,C0947,Customer 0947,Consumer,North,Punjab,Chandigarh,20,2,93488.31,5,2,3,523,Potential Loyalists
+913,C0948,Customer 0948,Consumer,West,Maharashtra,Mumbai,393,1,6514.02,1,1,1,111,Hibernating
+914,C0949,Customer 0949,Corporate,East,Odisha,Bhubaneswar,49,6,233673.59,4,5,5,455,Champions
+915,C0950,Customer 0950,Home Office,North,Uttar Pradesh,Lucknow,104,3,154706.3,3,3,4,334,Needs Attention
+916,C0951,Customer 0951,Home Office,East,West Bengal,Kolkata,5,7,426195.52,5,5,5,555,Champions
+917,C0952,Customer 0952,Consumer,East,Bihar,Patna,165,7,388885.72,3,5,5,355,Loyal Customers
+918,C0953,Customer 0953,Consumer,West,Rajasthan,Jaipur,208,3,94216.09,2,3,3,233,At Risk
+919,C0954,Customer 0954,Consumer,East,Odisha,Bhubaneswar,474,3,7530.53,1,3,1,131,At Risk
+920,C0955,Customer 0955,Corporate,South,Karnataka,Bengaluru,45,2,175737.78,4,2,4,424,Potential Loyalists
+921,C0956,Customer 0956,Consumer,Central,Madhya Pradesh,Indore,360,3,158018.35,1,3,4,134,At Risk
+922,C0957,Customer 0957,Consumer,East,West Bengal,Kolkata,8,4,149319.5,5,4,4,544,Champions
+923,C0958,Customer 0958,Home Office,East,Odisha,Bhubaneswar,23,4,163655.32,5,4,4,544,Champions
+924,C0959,Customer 0959,Consumer,West,Gujarat,Ahmedabad,66,7,497765.2,4,5,5,455,Champions
+925,C0960,Customer 0960,Consumer,North,Punjab,Chandigarh,95,2,152040.18,3,2,4,324,Needs Attention
+926,C0961,Customer 0961,Consumer,North,Delhi,New Delhi,398,2,84684.51,1,2,2,122,Hibernating
+927,C0962,Customer 0962,Consumer,West,Gujarat,Ahmedabad,380,5,205828.95,1,5,4,154,At Risk
+928,C0963,Customer 0963,Consumer,Central,Chhattisgarh,Raipur,171,6,236314.42,2,5,5,255,At Risk
+929,C0964,Customer 0964,Consumer,West,Gujarat,Ahmedabad,233,5,205749.6,2,5,4,254,At Risk
+930,C0965,Customer 0965,Home Office,South,Telangana,Hyderabad,238,2,210317.62,2,2,4,224,Hibernating
+931,C0966,Customer 0966,Consumer,East,Odisha,Bhubaneswar,225,2,58614.82,2,2,2,222,Hibernating
+932,C0967,Customer 0967,Consumer,North,Uttar Pradesh,Lucknow,28,1,54385.66,5,1,2,512,New Customers
+933,C0968,Customer 0968,Corporate,East,Bihar,Patna,100,2,24684.38,3,2,1,321,Needs Attention
+934,C0969,Customer 0969,Consumer,South,Karnataka,Bengaluru,108,5,405568.98,3,5,5,355,Loyal Customers
+935,C0970,Customer 0970,Consumer,East,Bihar,Patna,39,2,150542.97,5,2,4,524,Potential Loyalists
+936,C0971,Customer 0971,Home Office,West,Gujarat,Ahmedabad,99,4,8061.98,3,4,1,341,Loyal Customers
+937,C0972,Customer 0972,Corporate,East,Odisha,Bhubaneswar,259,3,66229.19,2,3,2,232,At Risk
+938,C0973,Customer 0973,Corporate,East,Bihar,Patna,400,2,97773.01,1,2,3,123,Hibernating
+939,C0974,Customer 0974,Corporate,West,Rajasthan,Jaipur,19,10,546391.35,5,5,5,555,Champions
+940,C0975,Customer 0975,Consumer,Central,Chhattisgarh,Raipur,175,5,82059.18,2,5,2,252,At Risk
+941,C0976,Customer 0976,Corporate,West,Gujarat,Ahmedabad,87,7,272464.38,4,5,5,455,Champions
+942,C0977,Customer 0977,Corporate,North,Punjab,Chandigarh,447,2,59396.19,1,2,2,122,Hibernating
+943,C0978,Customer 0978,Consumer,South,Telangana,Hyderabad,5,4,120620.95,5,4,3,543,Loyal Customers
+944,C0979,Customer 0979,Corporate,Central,Chhattisgarh,Raipur,89,4,156479.04,4,4,4,444,Champions
+945,C0980,Customer 0980,Consumer,East,Bihar,Patna,59,2,40737.24,4,2,1,421,Potential Loyalists
+946,C0981,Customer 0981,Consumer,South,Tamil Nadu,Chennai,693,1,12654.61,1,1,1,111,Hibernating
+947,C0982,Customer 0982,Corporate,North,Punjab,Chandigarh,582,1,15852.62,1,1,1,111,Hibernating
+948,C0983,Customer 0983,Consumer,Central,Chhattisgarh,Raipur,170,3,44504.51,2,3,1,231,At Risk
+949,C0984,Customer 0984,Consumer,South,Telangana,Hyderabad,1,3,108716.91,5,3,3,533,Potential Loyalists
+950,C0985,Customer 0985,Consumer,West,Gujarat,Ahmedabad,73,1,0.0,4,1,1,411,Needs Attention
+951,C0986,Customer 0986,Home Office,North,Delhi,New Delhi,327,6,178031.98,1,5,4,154,At Risk
+952,C0987,Customer 0987,Consumer,North,Delhi,New Delhi,83,4,221541.07,4,4,5,445,Champions
+953,C0988,Customer 0988,Consumer,North,Punjab,Chandigarh,31,5,67013.34,5,5,2,552,Loyal Customers
+954,C0989,Customer 0989,Corporate,East,Odisha,Bhubaneswar,194,4,211466.74,2,4,4,244,At Risk
+955,C0990,Customer 0990,Consumer,North,Uttar Pradesh,Lucknow,44,4,165321.2,4,4,4,444,Champions
+956,C0991,Customer 0991,Consumer,East,Bihar,Patna,95,6,346275.51,3,5,5,355,Loyal Customers
+957,C0992,Customer 0992,Consumer,West,Maharashtra,Mumbai,286,4,46319.42,2,4,1,241,At Risk
+958,C0993,Customer 0993,Consumer,South,Karnataka,Bengaluru,150,3,130913.22,3,3,3,333,Needs Attention
+959,C0994,Customer 0994,Home Office,North,Punjab,Chandigarh,134,1,123359.33,3,1,3,313,Needs Attention
+960,C0995,Customer 0995,Consumer,South,Tamil Nadu,Chennai,255,5,191596.04,2,5,4,254,At Risk
+961,C0996,Customer 0996,Corporate,North,Punjab,Chandigarh,24,3,98961.28,5,3,3,533,Potential Loyalists
+962,C0997,Customer 0997,Consumer,East,Bihar,Patna,485,2,38163.73,1,2,1,121,Hibernating
+963,C0998,Customer 0998,Home Office,West,Maharashtra,Mumbai,102,4,290118.37,3,4,5,345,Loyal Customers
+964,C0999,Customer 0999,Corporate,South,Tamil Nadu,Chennai,219,6,222230.85,2,5,5,255,At Risk
+965,C1000,Customer 1000,Consumer,North,Uttar Pradesh,Lucknow,120,7,145456.64,3,5,4,354,Loyal Customers
+966,C1001,Customer 1001,Consumer,South,Tamil Nadu,Chennai,412,1,13890.76,1,1,1,111,Hibernating
+967,C1002,Customer 1002,Corporate,North,Delhi,New Delhi,38,2,51221.76,5,2,2,522,Potential Loyalists
+968,C1003,Customer 1003,Home Office,Central,Madhya Pradesh,Indore,356,2,0.0,1,2,1,121,Hibernating
+969,C1004,Customer 1004,Consumer,North,Uttar Pradesh,Lucknow,247,2,111839.1,2,2,3,223,Hibernating
+970,C1005,Customer 1005,Home Office,South,Karnataka,Bengaluru,26,3,265485.48,5,3,5,535,Potential Loyalists
+971,C1006,Customer 1006,Consumer,West,Rajasthan,Jaipur,205,2,87691.69,2,2,2,222,Hibernating
+972,C1007,Customer 1007,Consumer,East,Bihar,Patna,82,3,252488.47,4,3,5,435,Potential Loyalists
+973,C1008,Customer 1008,Consumer,East,West Bengal,Kolkata,63,2,20985.02,4,2,1,421,Potential Loyalists
+974,C1009,Customer 1009,Home Office,East,Bihar,Patna,174,4,26481.02,2,4,1,241,At Risk
+975,C1011,Customer 1011,Home Office,East,Bihar,Patna,583,1,76800.24,1,1,2,112,Hibernating
+976,C1012,Customer 1012,Consumer,North,Punjab,Chandigarh,360,3,48579.03,1,3,2,132,At Risk
+977,C1014,Customer 1014,Consumer,South,Tamil Nadu,Chennai,122,3,69207.07,3,3,2,332,Needs Attention
+978,C1015,Customer 1015,Consumer,North,Punjab,Chandigarh,213,2,33070.36,2,2,1,221,Hibernating
+979,C1016,Customer 1016,Consumer,East,West Bengal,Kolkata,550,3,74576.95,1,3,2,132,At Risk
+980,C1017,Customer 1017,Consumer,South,Tamil Nadu,Chennai,360,2,37477.45,1,2,1,121,Hibernating
+981,C1018,Customer 1018,Corporate,East,West Bengal,Kolkata,612,1,46813.69,1,1,1,111,Hibernating
+982,C1019,Customer 1019,Consumer,North,Punjab,Chandigarh,292,2,18170.8,2,2,1,221,Hibernating
+983,C1020,Customer 1020,Consumer,North,Delhi,New Delhi,23,4,227756.51,5,4,5,545,Champions
+984,C1021,Customer 1021,Corporate,East,Odisha,Bhubaneswar,114,6,238211.92,3,5,5,355,Loyal Customers
+985,C1022,Customer 1022,Consumer,East,West Bengal,Kolkata,187,3,92871.78,2,3,3,233,At Risk
+986,C1023,Customer 1023,Home Office,South,Karnataka,Bengaluru,69,7,270107.74,4,5,5,455,Champions
+987,C1024,Customer 1024,Home Office,South,Karnataka,Bengaluru,205,2,154243.43,2,2,4,224,Hibernating
+988,C1025,Customer 1025,Consumer,East,Bihar,Patna,31,5,151002.21,5,5,4,554,Champions
+989,C1027,Customer 1027,Consumer,North,Delhi,New Delhi,131,4,119971.73,3,4,3,343,Loyal Customers
+990,C1028,Customer 1028,Consumer,Central,Madhya Pradesh,Indore,84,2,22657.61,4,2,1,421,Potential Loyalists
+991,C1029,Customer 1029,Home Office,North,Punjab,Chandigarh,50,2,24048.86,4,2,1,421,Potential Loyalists
+992,C1030,Customer 1030,Consumer,North,Punjab,Chandigarh,535,1,239638.01,1,1,5,115,Hibernating
+993,C1031,Customer 1031,Consumer,East,Bihar,Patna,121,7,621187.01,3,5,5,355,Loyal Customers
+994,C1032,Customer 1032,Corporate,West,Maharashtra,Mumbai,368,4,206604.26,1,4,4,144,At Risk
+995,C1033,Customer 1033,Consumer,South,Tamil Nadu,Chennai,64,4,99081.12,4,4,3,443,Loyal Customers
+996,C1034,Customer 1034,Home Office,West,Maharashtra,Mumbai,596,1,10195.22,1,1,1,111,Hibernating
+997,C1035,Customer 1035,Corporate,West,Rajasthan,Jaipur,26,2,166043.64,5,2,4,524,Potential Loyalists
+998,C1036,Customer 1036,Consumer,North,Uttar Pradesh,Lucknow,469,2,91600.75,1,2,3,123,Hibernating
+999,C1037,Customer 1037,Corporate,West,Gujarat,Ahmedabad,16,2,47925.06,5,2,2,522,Potential Loyalists
+1000,C1038,Customer 1038,Corporate,South,Karnataka,Bengaluru,51,4,110482.43,4,4,3,443,Loyal Customers
+1001,C1039,Customer 1039,Consumer,Central,Madhya Pradesh,Indore,153,5,292743.43,3,5,5,355,Loyal Customers
+1002,C1040,Customer 1040,Home Office,West,Rajasthan,Jaipur,114,2,83162.35,3,2,2,322,Needs Attention
+1003,C1041,Customer 1041,Consumer,East,Bihar,Patna,400,3,66782.69,1,3,2,132,At Risk
+1004,C1042,Customer 1042,Consumer,South,Telangana,Hyderabad,52,3,128058.19,4,3,3,433,Potential Loyalists
+1005,C1043,Customer 1043,Consumer,West,Maharashtra,Mumbai,29,7,206959.14,5,5,4,554,Champions
+1006,C1044,Customer 1044,Consumer,West,Maharashtra,Mumbai,33,6,311030.78,5,5,5,555,Champions
+1007,C1045,Customer 1045,Home Office,West,Maharashtra,Mumbai,69,1,24625.6,4,1,1,411,Needs Attention
+1008,C1046,Customer 1046,Corporate,South,Telangana,Hyderabad,160,2,87053.3,3,2,2,322,Needs Attention
+1009,C1047,Customer 1047,Consumer,East,West Bengal,Kolkata,366,3,125752.87,1,3,3,133,At Risk
+1010,C1048,Customer 1048,Home Office,Central,Madhya Pradesh,Indore,91,1,42323.86,3,1,1,311,Needs Attention
+1011,C1049,Customer 1049,Consumer,South,Tamil Nadu,Chennai,451,2,50048.61,1,2,2,122,Hibernating
+1012,C1050,Customer 1050,Home Office,South,Karnataka,Bengaluru,108,5,198837.93,3,5,4,354,Loyal Customers
+1013,C1051,Customer 1051,Corporate,South,Telangana,Hyderabad,183,4,159540.32,2,4,4,244,At Risk
+1014,C1052,Customer 1052,Consumer,West,Gujarat,Ahmedabad,63,4,189135.82,4,4,4,444,Champions
+1015,C1053,Customer 1053,Home Office,North,Uttar Pradesh,Lucknow,131,4,180879.9,3,4,4,344,Loyal Customers
+1016,C1054,Customer 1054,Consumer,Central,Chhattisgarh,Raipur,257,2,38701.8,2,2,1,221,Hibernating
+1017,C1055,Customer 1055,Consumer,North,Uttar Pradesh,Lucknow,102,3,213552.31,3,3,4,334,Needs Attention
+1018,C1056,Customer 1056,Consumer,South,Telangana,Hyderabad,17,5,183878.04,5,5,4,554,Champions
+1019,C1057,Customer 1057,Consumer,East,Bihar,Patna,46,1,203225.2,4,1,4,414,Needs Attention
+1020,C1058,Customer 1058,Consumer,West,Maharashtra,Mumbai,728,1,75292.29,1,1,2,112,Hibernating
+1021,C1060,Customer 1060,Home Office,North,Delhi,New Delhi,32,4,93553.06,5,4,3,543,Loyal Customers
+1022,C1062,Customer 1062,Consumer,North,Uttar Pradesh,Lucknow,48,1,26597.34,4,1,1,411,Needs Attention
+1023,C1063,Customer 1063,Consumer,East,Bihar,Patna,28,3,170154.9,5,3,4,534,Potential Loyalists
+1024,C1064,Customer 1064,Corporate,North,Uttar Pradesh,Lucknow,182,4,155395.96,2,4,4,244,At Risk
+1025,C1065,Customer 1065,Home Office,North,Uttar Pradesh,Lucknow,285,3,65328.31,2,3,2,232,At Risk
+1026,C1066,Customer 1066,Consumer,South,Telangana,Hyderabad,72,4,53826.48,4,4,2,442,Loyal Customers
+1027,C1067,Customer 1067,Consumer,North,Punjab,Chandigarh,63,4,108442.99,4,4,3,443,Loyal Customers
+1028,C1068,Customer 1068,Home Office,West,Maharashtra,Mumbai,10,6,349665.15,5,5,5,555,Champions
+1029,C1069,Customer 1069,Corporate,West,Rajasthan,Jaipur,168,1,63755.39,2,1,2,212,Hibernating
+1030,C1070,Customer 1070,Consumer,West,Gujarat,Ahmedabad,99,2,120300.95,3,2,3,323,Needs Attention
+1031,C1071,Customer 1071,Home Office,North,Delhi,New Delhi,242,2,99535.26,2,2,3,223,Hibernating
+1032,C1072,Customer 1072,Corporate,West,Maharashtra,Mumbai,50,3,114689.79,4,3,3,433,Potential Loyalists
+1033,C1073,Customer 1073,Corporate,North,Uttar Pradesh,Lucknow,606,1,107607.3,1,1,3,113,Hibernating
+1034,C1074,Customer 1074,Consumer,North,Punjab,Chandigarh,159,2,57674.84,3,2,2,322,Needs Attention
+1035,C1075,Customer 1075,Consumer,Central,Chhattisgarh,Raipur,192,5,213741.78,2,5,4,254,At Risk
+1036,C1076,Customer 1076,Consumer,South,Tamil Nadu,Chennai,710,1,32757.02,1,1,1,111,Hibernating
+1037,C1077,Customer 1077,Consumer,West,Gujarat,Ahmedabad,351,2,60779.71,1,2,2,122,Hibernating
+1038,C1079,Customer 1079,Consumer,West,Maharashtra,Mumbai,94,2,16448.21,3,2,1,321,Needs Attention
+1039,C1080,Customer 1080,Consumer,South,Tamil Nadu,Chennai,53,6,231372.56,4,5,5,455,Champions
+1040,C1081,Customer 1081,Home Office,North,Delhi,New Delhi,155,4,161579.28,3,4,4,344,Loyal Customers
+1041,C1082,Customer 1082,Consumer,Central,Chhattisgarh,Raipur,44,3,40475.38,4,3,1,431,Potential Loyalists
+1042,C1083,Customer 1083,Consumer,North,Delhi,New Delhi,57,6,363545.73,4,5,5,455,Champions
+1043,C1084,Customer 1084,Home Office,North,Uttar Pradesh,Lucknow,105,2,194400.7,3,2,4,324,Needs Attention
+1044,C1085,Customer 1085,Corporate,South,Karnataka,Bengaluru,79,2,27885.64,4,2,1,421,Potential Loyalists
+1045,C1086,Customer 1086,Consumer,South,Karnataka,Bengaluru,157,2,61382.28,3,2,2,322,Needs Attention
+1046,C1087,Customer 1087,Consumer,West,Rajasthan,Jaipur,69,3,145122.19,4,3,4,434,Potential Loyalists
+1047,C1088,Customer 1088,Corporate,North,Uttar Pradesh,Lucknow,26,3,274288.39,5,3,5,535,Potential Loyalists
+1048,C1089,Customer 1089,Consumer,West,Gujarat,Ahmedabad,683,1,22685.34,1,1,1,111,Hibernating
+1049,C1090,Customer 1090,Corporate,South,Telangana,Hyderabad,217,2,245502.01,2,2,5,225,Hibernating
+1050,C1091,Customer 1091,Consumer,North,Uttar Pradesh,Lucknow,235,4,334116.87,2,4,5,245,At Risk
+1051,C1092,Customer 1092,Consumer,South,Tamil Nadu,Chennai,47,5,234946.0,4,5,5,455,Champions
+1052,C1093,Customer 1093,Consumer,North,Delhi,New Delhi,172,2,64280.8,2,2,2,222,Hibernating
+1053,C1094,Customer 1094,Corporate,East,West Bengal,Kolkata,185,6,60179.11,2,5,2,252,At Risk
+1054,C1095,Customer 1095,Corporate,North,Punjab,Chandigarh,77,4,364764.06,4,4,5,445,Champions
+1055,C1096,Customer 1096,Consumer,West,Gujarat,Ahmedabad,22,2,131777.15,5,2,3,523,Potential Loyalists
+1056,C1097,Customer 1097,Consumer,East,Bihar,Patna,40,5,126584.93,5,5,3,553,Loyal Customers
+1057,C1098,Customer 1098,Consumer,Central,Madhya Pradesh,Indore,269,3,21334.39,2,3,1,231,At Risk
+1058,C1099,Customer 1099,Home Office,North,Punjab,Chandigarh,361,3,60672.18,1,3,2,132,At Risk
+1059,C1100,Customer 1100,Consumer,West,Gujarat,Ahmedabad,135,2,25328.65,3,2,1,321,Needs Attention
+1060,C1101,Customer 1101,Corporate,West,Gujarat,Ahmedabad,382,3,50107.24,1,3,2,132,At Risk
+1061,C1102,Customer 1102,Consumer,East,West Bengal,Kolkata,190,3,56622.75,2,3,2,232,At Risk
+1062,C1103,Customer 1103,Corporate,East,Bihar,Patna,157,2,26992.48,3,2,1,321,Needs Attention
+1063,C1104,Customer 1104,Consumer,East,Bihar,Patna,543,2,301780.62,1,2,5,125,Hibernating
+1064,C1105,Customer 1105,Consumer,West,Maharashtra,Mumbai,102,4,258087.07,3,4,5,345,Loyal Customers
+1065,C1106,Customer 1106,Consumer,East,Odisha,Bhubaneswar,392,2,110899.67,1,2,3,123,Hibernating
+1066,C1107,Customer 1107,Home Office,East,Bihar,Patna,100,3,164729.29,3,3,4,334,Needs Attention
+1067,C1109,Customer 1109,Home Office,South,Karnataka,Bengaluru,46,8,301142.32,4,5,5,455,Champions
+1068,C1110,Customer 1110,Consumer,North,Uttar Pradesh,Lucknow,79,6,813655.54,4,5,5,455,Champions
+1069,C1112,Customer 1112,Corporate,East,West Bengal,Kolkata,62,4,84902.8,4,4,2,442,Loyal Customers
+1070,C1113,Customer 1113,Consumer,North,Punjab,Chandigarh,54,4,120065.39,4,4,3,443,Loyal Customers
+1071,C1114,Customer 1114,Home Office,South,Karnataka,Bengaluru,19,7,296083.96,5,5,5,555,Champions
+1072,C1115,Customer 1115,Consumer,West,Rajasthan,Jaipur,11,5,156719.4,5,5,4,554,Champions
+1073,C1116,Customer 1116,Corporate,East,Bihar,Patna,91,4,92855.14,3,4,3,343,Loyal Customers
+1074,C1117,Customer 1117,Corporate,South,Karnataka,Bengaluru,726,1,6271.7,1,1,1,111,Hibernating
+1075,C1118,Customer 1118,Corporate,South,Telangana,Hyderabad,41,4,169472.3,4,4,4,444,Champions
+1076,C1119,Customer 1119,Corporate,East,Odisha,Bhubaneswar,219,4,107220.08,2,4,3,243,At Risk
+1077,C1120,Customer 1120,Home Office,West,Rajasthan,Jaipur,373,2,39498.3,1,2,1,121,Hibernating
+1078,C1121,Customer 1121,Home Office,North,Uttar Pradesh,Lucknow,153,4,117619.42,3,4,3,343,Loyal Customers
+1079,C1122,Customer 1122,Home Office,South,Tamil Nadu,Chennai,546,1,17905.75,1,1,1,111,Hibernating
+1080,C1123,Customer 1123,Corporate,South,Karnataka,Bengaluru,10,3,181450.42,5,3,4,534,Potential Loyalists
+1081,C1124,Customer 1124,Consumer,North,Punjab,Chandigarh,435,1,6454.06,1,1,1,111,Hibernating
+1082,C1125,Customer 1125,Corporate,Central,Chhattisgarh,Raipur,44,7,218649.85,4,5,5,455,Champions
+1083,C1126,Customer 1126,Corporate,West,Gujarat,Ahmedabad,29,1,10714.69,5,1,1,511,New Customers
+1084,C1127,Customer 1127,Consumer,East,Odisha,Bhubaneswar,216,2,74981.85,2,2,2,222,Hibernating
+1085,C1128,Customer 1128,Consumer,East,Odisha,Bhubaneswar,32,4,150286.28,5,4,4,544,Champions
+1086,C1129,Customer 1129,Home Office,East,Bihar,Patna,17,6,164881.18,5,5,4,554,Champions
+1087,C1130,Customer 1130,Corporate,East,West Bengal,Kolkata,350,3,289356.57,1,3,5,135,At Risk
+1088,C1131,Customer 1131,Consumer,East,Odisha,Bhubaneswar,34,4,215232.35,5,4,4,544,Champions
+1089,C1132,Customer 1132,Consumer,Central,Madhya Pradesh,Indore,686,2,87010.66,1,2,2,122,Hibernating
+1090,C1133,Customer 1133,Corporate,East,Odisha,Bhubaneswar,418,3,125390.84,1,3,3,133,At Risk
+1091,C1134,Customer 1134,Consumer,West,Gujarat,Ahmedabad,87,4,139283.57,4,4,3,443,Loyal Customers
+1092,C1135,Customer 1135,Home Office,East,Bihar,Patna,523,1,73657.26,1,1,2,112,Hibernating
+1093,C1136,Customer 1136,Consumer,North,Delhi,New Delhi,22,6,132747.24,5,5,3,553,Loyal Customers
+1094,C1138,Customer 1138,Consumer,West,Maharashtra,Mumbai,105,3,170144.31,3,3,4,334,Needs Attention
+1095,C1139,Customer 1139,Consumer,North,Uttar Pradesh,Lucknow,19,5,146235.89,5,5,4,554,Champions
+1096,C1140,Customer 1140,Consumer,South,Telangana,Hyderabad,125,2,80886.73,3,2,2,322,Needs Attention
+1097,C1141,Customer 1141,Corporate,North,Uttar Pradesh,Lucknow,55,4,119072.35,4,4,3,443,Loyal Customers
+1098,C1142,Customer 1142,Consumer,East,Bihar,Patna,129,2,30782.35,3,2,1,321,Needs Attention
+1099,C1143,Customer 1143,Corporate,Central,Chhattisgarh,Raipur,398,2,92832.05,1,2,3,123,Hibernating
+1100,C1144,Customer 1144,Home Office,East,West Bengal,Kolkata,561,3,224267.89,1,3,5,135,At Risk
+1101,C1145,Customer 1145,Corporate,South,Karnataka,Bengaluru,90,5,89272.78,4,5,2,452,Loyal Customers
+1102,C1146,Customer 1146,Consumer,South,Telangana,Hyderabad,144,5,238281.99,3,5,5,355,Loyal Customers
+1103,C1147,Customer 1147,Corporate,Central,Chhattisgarh,Raipur,23,7,386596.06,5,5,5,555,Champions
+1104,C1148,Customer 1148,Corporate,West,Rajasthan,Jaipur,50,2,30024.28,4,2,1,421,Potential Loyalists
+1105,C1149,Customer 1149,Consumer,North,Punjab,Chandigarh,447,4,105302.26,1,4,3,143,At Risk
+1106,C1150,Customer 1150,Consumer,North,Uttar Pradesh,Lucknow,8,4,190937.19,5,4,4,544,Champions
+1107,C1151,Customer 1151,Consumer,North,Punjab,Chandigarh,174,2,46481.6,2,2,1,221,Hibernating
+1108,C1152,Customer 1152,Consumer,West,Rajasthan,Jaipur,414,2,39477.37,1,2,1,121,Hibernating
+1109,C1153,Customer 1153,Corporate,South,Telangana,Hyderabad,113,6,104686.48,3,5,3,353,Loyal Customers
+1110,C1154,Customer 1154,Corporate,East,West Bengal,Kolkata,107,4,162820.67,3,4,4,344,Loyal Customers
+1111,C1155,Customer 1155,Consumer,South,Tamil Nadu,Chennai,15,6,94651.77,5,5,3,553,Loyal Customers
+1112,C1156,Customer 1156,Home Office,Central,Madhya Pradesh,Indore,385,1,20193.1,1,1,1,111,Hibernating
+1113,C1157,Customer 1157,Corporate,West,Rajasthan,Jaipur,12,3,185601.45,5,3,4,534,Potential Loyalists
+1114,C1158,Customer 1158,Consumer,East,Bihar,Patna,256,4,214091.8,2,4,4,244,At Risk
+1115,C1159,Customer 1159,Home Office,North,Uttar Pradesh,Lucknow,48,2,20851.86,4,2,1,421,Potential Loyalists
+1116,C1160,Customer 1160,Home Office,South,Karnataka,Bengaluru,170,2,82723.77,2,2,2,222,Hibernating
+1117,C1161,Customer 1161,Home Office,West,Gujarat,Ahmedabad,81,2,76948.16,4,2,2,422,Potential Loyalists
+1118,C1162,Customer 1162,Consumer,East,Bihar,Patna,172,5,65492.49,2,5,2,252,At Risk
+1119,C1163,Customer 1163,Consumer,East,Odisha,Bhubaneswar,729,1,186107.67,1,1,4,114,Hibernating
+1120,C1164,Customer 1164,Consumer,South,Telangana,Hyderabad,132,6,260966.82,3,5,5,355,Loyal Customers
+1121,C1165,Customer 1165,Consumer,South,Karnataka,Bengaluru,92,4,140781.45,3,4,3,343,Loyal Customers
+1122,C1166,Customer 1166,Corporate,East,West Bengal,Kolkata,60,2,25816.36,4,2,1,421,Potential Loyalists
+1123,C1168,Customer 1168,Consumer,South,Telangana,Hyderabad,12,4,132800.71,5,4,3,543,Loyal Customers
+1124,C1169,Customer 1169,Consumer,North,Punjab,Chandigarh,487,1,23774.77,1,1,1,111,Hibernating
+1125,C1170,Customer 1170,Consumer,South,Tamil Nadu,Chennai,166,5,174286.26,3,5,4,354,Loyal Customers
+1126,C1171,Customer 1171,Corporate,West,Gujarat,Ahmedabad,94,2,105733.44,3,2,3,323,Needs Attention
+1127,C1172,Customer 1172,Consumer,Central,Madhya Pradesh,Indore,285,5,236254.19,2,5,5,255,At Risk
+1128,C1173,Customer 1173,Corporate,North,Uttar Pradesh,Lucknow,428,1,58014.61,1,1,2,112,Hibernating
+1129,C1174,Customer 1174,Home Office,North,Delhi,New Delhi,124,6,249717.04,3,5,5,355,Loyal Customers
+1130,C1175,Customer 1175,Consumer,Central,Chhattisgarh,Raipur,21,7,218329.97,5,5,5,555,Champions
+1131,C1176,Customer 1176,Home Office,North,Uttar Pradesh,Lucknow,108,3,74427.59,3,3,2,332,Needs Attention
+1132,C1177,Customer 1177,Corporate,East,West Bengal,Kolkata,181,4,211043.71,2,4,4,244,At Risk
+1133,C1178,Customer 1178,Corporate,East,Bihar,Patna,331,3,185503.72,1,3,4,134,At Risk
+1134,C1179,Customer 1179,Home Office,East,Bihar,Patna,430,3,62783.38,1,3,2,132,At Risk
+1135,C1180,Customer 1180,Corporate,West,Gujarat,Ahmedabad,171,4,364668.77,2,4,5,245,At Risk
+1136,C1181,Customer 1181,Home Office,South,Karnataka,Bengaluru,86,5,81179.73,4,5,2,452,Loyal Customers
+1137,C1182,Customer 1182,Consumer,South,Tamil Nadu,Chennai,11,1,12030.14,5,1,1,511,New Customers
+1138,C1183,Customer 1183,Corporate,North,Punjab,Chandigarh,24,3,239440.49,5,3,5,535,Potential Loyalists
+1139,C1184,Customer 1184,Consumer,East,West Bengal,Kolkata,48,5,50528.84,4,5,2,452,Loyal Customers
+1140,C1185,Customer 1185,Corporate,East,Bihar,Patna,17,3,95827.47,5,3,3,533,Potential Loyalists
+1141,C1186,Customer 1186,Home Office,West,Gujarat,Ahmedabad,99,5,62912.41,3,5,2,352,Loyal Customers
+1142,C1187,Customer 1187,Corporate,North,Delhi,New Delhi,72,3,65108.71,4,3,2,432,Potential Loyalists
+1143,C1188,Customer 1188,Corporate,South,Tamil Nadu,Chennai,122,3,74024.9,3,3,2,332,Needs Attention
+1144,C1189,Customer 1189,Home Office,South,Telangana,Hyderabad,157,4,143397.84,3,4,3,343,Loyal Customers
+1145,C1190,Customer 1190,Consumer,North,Punjab,Chandigarh,15,4,59188.04,5,4,2,542,Loyal Customers
+1146,C1191,Customer 1191,Consumer,North,Uttar Pradesh,Lucknow,366,3,28395.68,1,3,1,131,At Risk
+1147,C1192,Customer 1192,Home Office,North,Uttar Pradesh,Lucknow,24,4,120606.54,5,4,3,543,Loyal Customers
+1148,C1193,Customer 1193,Consumer,Central,Madhya Pradesh,Indore,168,3,222239.41,2,3,5,235,At Risk
+1149,C1194,Customer 1194,Consumer,South,Telangana,Hyderabad,230,4,76216.42,2,4,2,242,At Risk
+1150,C1196,Customer 1196,Home Office,North,Uttar Pradesh,Lucknow,45,2,41455.7,4,2,1,421,Potential Loyalists
+1151,C1197,Customer 1197,Corporate,North,Delhi,New Delhi,514,3,86209.55,1,3,2,132,At Risk
+1152,C1198,Customer 1198,Corporate,West,Gujarat,Ahmedabad,695,1,16460.82,1,1,1,111,Hibernating
+1153,C1199,Customer 1199,Consumer,North,Punjab,Chandigarh,503,3,60698.97,1,3,2,132,At Risk
+1154,C1200,Customer 1200,Consumer,South,Karnataka,Bengaluru,329,2,40556.88,1,2,1,121,Hibernating
