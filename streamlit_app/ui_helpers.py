@@ -49,6 +49,11 @@ def inject_dashboard_css() -> None:
           [data-testid="stSidebar"] [data-baseweb="input"] > div {
             background:rgba(255,255,255,.98); border-color:rgba(255,255,255,.25); border-radius:11px;
           }
+          [data-testid="stSidebar"] {
+            scrollbar-width:thin; scrollbar-color:#60A5FA rgba(255,255,255,.06);
+          }
+          [data-testid="stSidebar"]::-webkit-scrollbar { width:7px; }
+          [data-testid="stSidebar"]::-webkit-scrollbar-thumb { background:#60A5FA; border-radius:999px; }
           .sidebar-brand {
             padding:1rem; margin:.2rem 0 1rem; border:1px solid rgba(255,255,255,.16);
             border-radius:16px; background:rgba(255,255,255,.09); box-shadow:0 12px 26px rgba(0,0,0,.14);
@@ -94,6 +99,20 @@ def inject_dashboard_css() -> None:
             background:linear-gradient(120deg,#2563EB,#7C3AED); box-shadow:0 8px 18px rgba(37,99,235,.22);
           }
           div[data-testid="stRadio"] label:has(input:checked) p { color:#FFFFFF !important; font-weight:800; }
+          [data-testid="stSidebar"] div[data-testid="stRadio"] > div[role="radiogroup"] {
+            display:flex; flex-direction:column; gap:.42rem; padding:.45rem; border-radius:15px;
+            background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
+            box-shadow:none;
+          }
+          [data-testid="stSidebar"] div[data-testid="stRadio"] label {
+            flex:0 0 auto; justify-content:flex-start; min-height:2.65rem; padding:.62rem .72rem;
+            background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.08);
+          }
+          [data-testid="stSidebar"] div[data-testid="stRadio"] label p { color:#DCE7FF !important; font-size:.84rem; }
+          [data-testid="stSidebar"] div[data-testid="stRadio"] label:has(input:checked) {
+            background:linear-gradient(120deg,#2563EB,#7C3AED); border-color:rgba(255,255,255,.24);
+            box-shadow:0 8px 20px rgba(0,0,0,.20);
+          }
           div[data-testid="stMetric"] {
             position:relative; overflow:hidden; min-height:112px; padding:1rem 1rem .85rem;
             background:linear-gradient(145deg,#FFFFFF,#F8FAFF); border:1px solid #DFE6F1;
@@ -114,6 +133,30 @@ def inject_dashboard_css() -> None:
           .section-heading { margin:1.2rem 0 .65rem; }
           .section-heading h2 { margin:0; color:#172033; font-size:1.35rem; }
           .section-heading p { margin:.22rem 0 0; color:#64748B; font-size:.86rem; }
+          .scroll-progress {
+            position:fixed; left:0; top:0; width:100%; height:4px; z-index:99999;
+            transform-origin:0 50%; background:linear-gradient(90deg,#38BDF8,#2563EB,#7C3AED,#C65D8A);
+            animation:dashboard-progress linear; animation-timeline:scroll(root);
+          }
+          @keyframes dashboard-progress { from { transform:scaleX(0); } to { transform:scaleX(1); } }
+          .scroll-nav {
+            position:sticky; top:.45rem; z-index:990; display:flex; gap:.45rem; flex-wrap:wrap;
+            margin:.35rem 0 .85rem; padding:.52rem; border-radius:15px;
+            background:rgba(255,255,255,.92); backdrop-filter:blur(12px);
+            border:1px solid #DDE6F4; box-shadow:0 10px 28px rgba(15,23,42,.08);
+          }
+          .scroll-nav a {
+            flex:1 1 135px; text-align:center; text-decoration:none; padding:.52rem .62rem;
+            border-radius:10px; color:#34507A; font-size:.76rem; font-weight:800; background:#F1F5FB;
+            border:1px solid transparent; transition:.18s ease;
+          }
+          .scroll-nav a:hover { color:#FFFFFF; background:linear-gradient(110deg,#2563EB,#7C3AED); transform:translateY(-1px); }
+          .back-to-top {
+            position:fixed; right:1.25rem; bottom:1.25rem; z-index:9999; display:grid; place-items:center;
+            width:46px; height:46px; border-radius:50%; text-decoration:none; color:#FFFFFF !important;
+            font-size:1.05rem; font-weight:900; background:linear-gradient(135deg,#2563EB,#7C3AED);
+            box-shadow:0 12px 28px rgba(37,99,235,.32); border:2px solid rgba(255,255,255,.70);
+          }
           .insight-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.75rem; margin:.65rem 0 1rem; }
           .insight-card {
             background:#FFFFFF; border:1px solid #E1E8F4; border-radius:15px; padding:.85rem .95rem;
@@ -128,6 +171,30 @@ def inject_dashboard_css() -> None:
           }
           .dashboard-hub h3 { color:#172033; margin:0 0 .25rem; }
           .dashboard-hub p { color:#64748B; margin:0; font-size:.84rem; }
+          .tech-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin:.7rem 0 1.2rem; }
+          .tech-card {
+            min-height:142px; padding:1rem; border-radius:16px; background:#FFFFFF; border:1px solid #E1E8F4;
+            box-shadow:0 9px 24px rgba(15,23,42,.06); border-top:4px solid var(--accent,#2563EB);
+            transition:.2s ease;
+          }
+          .tech-card:hover { transform:translateY(-4px); box-shadow:0 16px 34px rgba(37,99,235,.12); }
+          .tech-card .tech-icon { font-size:1.45rem; }
+          .tech-card h3 { margin:.35rem 0 .3rem; color:#172033; font-size:1rem; }
+          .tech-card p { margin:0; color:#64748B; font-size:.76rem; line-height:1.45; }
+          .tech-card small { display:block; margin-top:.55rem; color:var(--accent,#2563EB); font-weight:800; font-size:.67rem; }
+          .pipeline {
+            display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:.65rem; margin:.75rem 0 1.25rem;
+          }
+          .pipeline-step {
+            position:relative; min-height:108px; padding:.85rem .75rem; border-radius:15px; text-align:center;
+            background:linear-gradient(145deg,#FFFFFF,#F7FAFF); border:1px solid #DCE6F4;
+            box-shadow:0 8px 20px rgba(15,23,42,.05);
+          }
+          .pipeline-step:not(:last-child)::after {
+            content:"→"; position:absolute; right:-.56rem; top:37%; color:#7C3AED; font-size:1.15rem; font-weight:900;
+          }
+          .pipeline-step b { display:block; color:#172033; font-size:.82rem; margin-top:.32rem; }
+          .pipeline-step span { color:#64748B; font-size:.67rem; line-height:1.35; }
           .stButton button, .stDownloadButton button, .stLinkButton a {
             border-radius:11px !important; font-weight:750 !important; min-height:2.65rem;
             border:1px solid #C9D8F3 !important; transition:.2s ease;
@@ -148,6 +215,9 @@ def inject_dashboard_css() -> None:
             .block-container { padding:1rem .85rem 2rem; }
             .hero h1 { font-size:1.65rem; }
             .insight-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+            .tech-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+            .pipeline { grid-template-columns:repeat(2,minmax(0,1fr)); }
+            .pipeline-step::after { display:none; }
             [data-testid="stSidebar"] { min-width:18rem; }
           }
         </style>
@@ -159,7 +229,7 @@ def inject_dashboard_css() -> None:
 def render_hero() -> None:
     st.markdown(
         """
-        <div class="hero">
+        <div id="retail-top"></div><div class="scroll-progress"></div><div class="hero">
           <div class="eyebrow">RETAIL ANALYTICS COMMAND CENTER</div>
           <h1>Retail Sales &amp; Customer Insights</h1>
           <p>Explore sales movement, customer value, product performance, returns, targets and data quality from one connected browser dashboard.</p>
@@ -175,11 +245,37 @@ def render_hero() -> None:
     )
 
 
-def section_heading(title: str, note: str, icon: str) -> None:
+def section_heading(title: str, note: str, icon: str, anchor: str | None = None) -> None:
+    anchor_markup = f'<div id="{anchor}" style="scroll-margin-top:5.2rem"></div>' if anchor else ""
     st.markdown(
-        f'<div class="section-heading"><h2>{icon} {title}</h2><p>{note}</p></div>',
+        f'{anchor_markup}<div class="section-heading"><h2>{icon} {title}</h2><p>{note}</p></div>',
         unsafe_allow_html=True,
     )
+
+
+def scroll_menu(items: list[tuple[str, str]]) -> None:
+    links = "".join(f'<a href="#{anchor}">{label}</a>' for anchor, label in items)
+    st.markdown(f'<nav class="scroll-nav">{links}</nav>', unsafe_allow_html=True)
+
+
+def technology_cards(items: list[tuple[str, str, str, str, str]]) -> None:
+    cards = "".join(
+        f'<article class="tech-card" style="--accent:{color}"><div class="tech-icon">{icon}</div><h3>{title}</h3><p>{description}</p><small>{tools}</small></article>'
+        for icon, title, description, tools, color in items
+    )
+    st.markdown(f'<div class="tech-grid">{cards}</div>', unsafe_allow_html=True)
+
+
+def pipeline_steps(items: list[tuple[str, str, str]]) -> None:
+    steps = "".join(
+        f'<div class="pipeline-step"><div style="font-size:1.35rem">{icon}</div><b>{title}</b><span>{description}</span></div>'
+        for icon, title, description in items
+    )
+    st.markdown(f'<div class="pipeline">{steps}</div>', unsafe_allow_html=True)
+
+
+def render_back_to_top() -> None:
+    st.markdown('<a class="back-to-top" href="#retail-top" title="Back to top">↑</a>', unsafe_allow_html=True)
 
 
 def insight_cards(items: list[tuple[str, str, str, str]]) -> None:

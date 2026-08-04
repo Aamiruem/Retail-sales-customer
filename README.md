@@ -9,7 +9,7 @@
 
 ## Project Summary
 
-This portfolio project demonstrates an end-to-end retail analytics workflow. It integrates **4,224 synthetic records** from CSV, Excel and SQLite sources; applies auditable cleaning and rejection rules; retains **4,180 validated order lines**; builds a SQL star schema; performs EDA, RFM customer segmentation, discount, return and target analysis; and delivers Excel, Power BI-ready and Streamlit dashboards.
+This portfolio project demonstrates an end-to-end retail analytics workflow. It integrates **4,224 synthetic records** from CSV, Excel and SQLite sources; applies auditable cleaning and rejection rules; retains **4,180 validated order lines**; builds a SQL star schema; performs EDA, RFM and K-Means customer segmentation, statistics, discount, return and target analysis; and delivers Excel, Power BI-ready and Streamlit dashboards.
 
 > All customer and transaction data is synthetic. No real personal or company data is included.
 
@@ -34,6 +34,7 @@ This portfolio project demonstrates an end-to-end retail analytics workflow. It 
 - How are revenue, profit, margin and orders changing month by month?
 - Which categories, products, regions and channels contribute the most value?
 - Which customer groups are Champions, Loyal, At Risk or Hibernating?
+- Which behavioral customer clusters emerge from recency, frequency and revenue?
 - How do discount bands affect profitability?
 - Which categories and channels have the highest return rates?
 - Which months met or missed the revenue target?
@@ -46,7 +47,7 @@ flowchart TD
     A["CSV · Excel · SQLite<br/>4,224 raw rows"] --> B["Python ETL<br/>clean · validate · enrich"]
     B --> C["4,180 validated lines<br/>44 rejected with reasons"]
     C --> D["SQLite star schema<br/>fact + dimensions"]
-    D --> E["SQL · EDA · RFM<br/>targets · returns · discounts"]
+    D --> E["SQL · EDA · statistics<br/>RFM · K-Means · targets"]
     E --> F["Excel dashboard"]
     E --> G["Power BI build kit"]
     E --> H["Streamlit app"]
@@ -119,10 +120,13 @@ The compiled PBIX must be saved in Power BI Desktop; the source kit is fully pro
 
 `streamlit_app/app.py`
 
-- Colorful responsive full-browser design with top navigation and an author panel for Aamir Husain Azad.
+- Colorful responsive full-browser design with a professional sidebar and author panel for Aamir Husain Azad.
 - Global date, region, category, channel and customer-segment filters with one-click reset.
-- Executive Overview, Customer 360, Products & Returns and Data Quality navigation pages.
-- Customer recency-frequency scatter, RFM lifecycle analysis, product visuals and bounded detail tables.
+- Executive Overview, Customer Intelligence, Products & Returns, Data Quality and Project & Technology pages.
+- Sticky in-page section navigation, page scroll progress, responsive layouts and a floating back-to-top control.
+- Customer recency-frequency scatter, RFM lifecycle analysis and deterministic K-Means ML customer clusters.
+- Statistics Lab with distribution, correlation, confidence-interval and discount-band analysis.
+- Technology showcase for Python, SQL/SQLite, Excel, Power BI, Power Query, DAX, ML, statistics and testing.
 - Connected download hub for filtered CSV, Excel, SQLite, Power BI DAX, Power Query and quality documentation.
 - SQLite-backed deterministic reads and clear empty/error states.
 

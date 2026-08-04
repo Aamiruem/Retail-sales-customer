@@ -43,7 +43,7 @@ PALETTE = [BLUE, PURPLE, CYAN, GOLD, ORANGE, OLIVE, PINK]
 def add_card(fig: plt.Figure, x: float, label: str, value: str, color: str) -> None:
     card = FancyBboxPatch(
         (x, 0.765),
-        0.124,
+        0.100,
         0.085,
         transform=fig.transFigure,
         boxstyle="round,pad=0.008,rounding_size=0.012",
@@ -62,8 +62,8 @@ def add_card(fig: plt.Figure, x: float, label: str, value: str, color: str) -> N
         edgecolor=color,
     )
     fig.patches.append(accent)
-    fig.text(x + 0.012, 0.824, label, fontsize=8.6, color=MUTED, weight="medium")
-    fig.text(x + 0.012, 0.785, value, fontsize=15.5, color=INK, weight="bold")
+    fig.text(x + 0.010, 0.824, label, fontsize=7.2, color=MUTED, weight="medium")
+    fig.text(x + 0.010, 0.785, value, fontsize=13.0, color=INK, weight="bold")
 
 
 def style_axis(ax: plt.Axes, title: str, subtitle: str) -> None:
@@ -86,9 +86,72 @@ def render(output_path: Path) -> None:
     plt.rcParams.update({"font.family": "DejaVu Sans", "axes.titleweight": "bold"})
     fig = plt.figure(figsize=(16, 10.5), facecolor=PAGE)
 
-    hero = FancyBboxPatch(
-        (0.035, 0.875),
+    sidebar = FancyBboxPatch(
+        (0.018, 0.035),
+        0.15,
         0.93,
+        transform=fig.transFigure,
+        boxstyle="round,pad=0.008,rounding_size=0.014",
+        facecolor="#0B1739",
+        edgecolor="#0B1739",
+    )
+    fig.patches.append(sidebar)
+    avatar = FancyBboxPatch(
+        (0.038, 0.885),
+        0.038,
+        0.054,
+        transform=fig.transFigure,
+        boxstyle="round,pad=0.004,rounding_size=0.010",
+        facecolor=PURPLE,
+        edgecolor="#8B5CF6",
+    )
+    fig.patches.append(avatar)
+    fig.text(0.047, 0.903, "AA", fontsize=11, color=WHITE, weight="bold")
+    fig.text(0.038, 0.855, "Aamir Husain Azad", fontsize=9.4, color=WHITE, weight="bold")
+    fig.text(0.038, 0.835, "AI/ML & Data Analytics", fontsize=7.2, color="#BFD5FF")
+    fig.text(0.038, 0.790, "DASHBOARD NAVIGATION", fontsize=6.8, color="#8FB7FF", weight="bold")
+    nav_items = [
+        ("Executive Overview", True),
+        ("Customer Intelligence", False),
+        ("Products & Returns", False),
+        ("Data Quality", False),
+        ("Project & Technology", False),
+    ]
+    for index, (label, selected) in enumerate(nav_items):
+        y = 0.742 - index * 0.057
+        nav = FancyBboxPatch(
+            (0.033, y),
+            0.119,
+            0.040,
+            transform=fig.transFigure,
+            boxstyle="round,pad=0.004,rounding_size=0.007",
+            facecolor=BLUE if selected else "#172B55",
+            edgecolor="#4678CD" if selected else "#29436F",
+            linewidth=0.8,
+        )
+        fig.patches.append(nav)
+        fig.text(0.043, y + 0.013, label, fontsize=6.8, color=WHITE if selected else "#D9E5FF", weight="bold" if selected else "normal")
+    fig.text(0.038, 0.420, "FILTERS", fontsize=6.8, color="#8FB7FF", weight="bold")
+    for index, label in enumerate(["Date: Jan 2024–Dec 2025", "Region: All", "Category: All", "Channel: All"]):
+        filter_box = FancyBboxPatch(
+            (0.033, 0.373 - index * 0.050),
+            0.119,
+            0.035,
+            transform=fig.transFigure,
+            boxstyle="round,pad=0.003,rounding_size=0.006",
+            facecolor="#F8FAFF",
+            edgecolor="#D8E2F1",
+        )
+        fig.patches.append(filter_box)
+        fig.text(0.041, 0.385 - index * 0.050, label, fontsize=6.3, color="#3E5578")
+    fig.text(0.038, 0.160, "CONNECTED STACK", fontsize=6.8, color="#8FB7FF", weight="bold")
+    fig.text(0.038, 0.130, "Python · SQL · Excel", fontsize=7.0, color="#E1EAFF")
+    fig.text(0.038, 0.105, "Power BI · ML · Statistics", fontsize=7.0, color="#E1EAFF")
+    fig.text(0.038, 0.069, "SCROLL  •  FILTER  •  EXPLORE", fontsize=6.1, color="#7DD3FC", weight="bold")
+
+    hero = FancyBboxPatch(
+        (0.19, 0.875),
+        0.775,
         0.09,
         transform=fig.transFigure,
         boxstyle="round,pad=0.008,rounding_size=0.014",
@@ -96,16 +159,16 @@ def render(output_path: Path) -> None:
         edgecolor=NAVY,
     )
     fig.patches.append(hero)
-    fig.text(0.058, 0.929, "Retail Sales & Customer Insights", fontsize=24, color=WHITE, weight="bold")
+    fig.text(0.212, 0.929, "Retail Sales & Customer Insights", fontsize=22, color=WHITE, weight="bold")
     fig.text(
-        0.058,
+        0.212,
         0.903,
         "Connected browser dashboard · 1 Jan 2024–31 Dec 2025 · Synthetic portfolio data",
         fontsize=9.6,
         color="#DCE6F8",
     )
-    fig.text(0.77, 0.921, "Built by Aamir Husain Azad", fontsize=10, color=WHITE, weight="bold")
-    fig.text(0.77, 0.898, "AI/ML & Data Analytics Portfolio", fontsize=8.5, color="#BFD5FF")
+    fig.text(0.765, 0.921, "Built by Aamir Husain Azad", fontsize=9, color=WHITE, weight="bold")
+    fig.text(0.765, 0.898, "AI/ML & Data Analytics Portfolio", fontsize=7.8, color="#BFD5FF")
 
     cards = [
         ("Revenue", f"₹{kpis['revenue'] / 1_000_000:.1f}M"),
@@ -117,9 +180,9 @@ def render(output_path: Path) -> None:
         ("Avg Order Value", f"₹{kpis['average_order_value']:,.0f}"),
     ]
     for index, (label, value) in enumerate(cards):
-        add_card(fig, 0.04 + index * 0.1335, label, value, PALETTE[index])
+        add_card(fig, 0.195 + index * 0.110, label, value, PALETTE[index])
 
-    grid = fig.add_gridspec(2, 2, left=0.055, right=0.955, bottom=0.09, top=0.69, hspace=0.40, wspace=0.22)
+    grid = fig.add_gridspec(2, 2, left=0.205, right=0.955, bottom=0.09, top=0.69, hspace=0.40, wspace=0.25)
 
     ax = fig.add_subplot(grid[0, 0])
     x = np.arange(len(monthly))
@@ -157,7 +220,7 @@ def render(output_path: Path) -> None:
     ax.set_xlim(0, returns["return_rate"].max() * 100 * 1.18)
 
     fig.text(
-        0.055,
+        0.205,
         0.035,
         "Source: data/database/retail_analytics.db · Grain: one row per validated order line · 4,180 lines · 15/15 quality checks passed",
         fontsize=8.5,

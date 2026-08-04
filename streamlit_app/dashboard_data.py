@@ -177,6 +177,81 @@ def business_segment_performance(data: pd.DataFrame) -> pd.DataFrame:
     return result.sort_values("revenue", ascending=False)
 
 
+def customer_ml_clusters(data: pd.DataFrame, requested_clusters: int = 4) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Create deterministic K-Means customer groups from recency, frequency and value."""
+    from sklearn.cluster import KMeans
+    from sklearn.preprocessing import StandardScaler
+
+    profile = customer_rfm_profile(data).copy()
+    cluster_count = min(requested_clusters, len(profile))
+    if cluster_count == 1:
+        profile["ml_cluster_id"] = 0
+        profile["ml_cluster"] = "Single Active Group"
+    else:
+        features = np.column_stack(
+            [
+                profile["recency_days"].to_numpy(dtype=float),
+                np.log1p(profile["orders"].to_numpy(dtype=float)),
+                np.log1p(profile["revenue"].to_numpy(dtype=float)),
+            ]
+        )
+        scaled = StandardScaler().fit_transform(features)
+        model = KMeans(n_clusters=cluster_count, random_state=20260804, n_init=20)
+        profile["ml_cluster_id"] = model.fit_predict(scaled)
+
+        centers = profile.groupby("ml_cluster_id", as_index=False).agg(
+            recency_days=("recency_days", "mean"),
+            orders=("orders", "mean"),
+            revenue=("revenue", "mean"),
+        )
+        value_score = (
+            -centers["recency_days"].rank(pct=True)
+            + centers["orders"].rank(pct=True)
+            + centers["revenue"].rank(pct=True)
+        )
+        centers = centers.assign(value_score=value_score).sort_values("value_score", ascending=False)
+        cluster_names = ["High Value", "Loyal Growth", "Developing", "Needs Attention"]
+        name_map = {
+            int(cluster_id): cluster_names[min(index, len(cluster_names) - 1)]
+            for index, cluster_id in enumerate(centers["ml_cluster_id"])
+        }
+        profile["ml_cluster"] = profile["ml_cluster_id"].map(name_map)
+
+    summary = profile.groupby(["ml_cluster_id", "ml_cluster"], as_index=False).agg(
+        customers=("customer_id", "nunique"),
+        average_recency_days=("recency_days", "mean"),
+        average_orders=("orders", "mean"),
+        average_revenue=("revenue", "mean"),
+        total_revenue=("revenue", "sum"),
+        total_profit=("profit", "sum"),
+    )
+    summary["profit_margin"] = summary["total_profit"] / summary["total_revenue"].replace(0, np.nan)
+    return profile, summary.sort_values("average_revenue", ascending=False)
+
+
+def statistical_snapshot(data: pd.DataFrame) -> dict[str, float | int]:
+    """Return a compact descriptive-statistics snapshot for the active scope."""
+    revenue = data["revenue"].astype(float)
+    profit = data["profit"].astype(float)
+    discount = data["discount_pct"].astype(float)
+    order_returns = data.groupby("order_id")["return_flag"].max()
+    order_count = int(len(order_returns))
+    return_rate = float(order_returns.mean()) if order_count else 0.0
+    standard_error = np.sqrt(return_rate * (1 - return_rate) / order_count) if order_count else 0.0
+    return {
+        "line_revenue_mean": float(revenue.mean()),
+        "line_revenue_median": float(revenue.median()),
+        "line_revenue_std": float(revenue.std(ddof=1)),
+        "profit_median": float(profit.median()),
+        "average_discount": float(discount.mean()),
+        "discount_profit_correlation": float(discount.corr(profit)),
+        "return_rate": return_rate,
+        "return_rate_ci_low": max(0.0, return_rate - 1.96 * standard_error),
+        "return_rate_ci_high": min(1.0, return_rate + 1.96 * standard_error),
+        "orders": order_count,
+    }
+
+
 def top_products(data: pd.DataFrame, limit: int = 12) -> pd.DataFrame:
     result = data.groupby(["product_id", "product_name", "category"], as_index=False).agg(
         revenue=("revenue", "sum"), profit=("profit", "sum"), units=("quantity", "sum"), returned_lines=("return_flag", "sum")

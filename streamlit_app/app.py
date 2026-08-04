@@ -19,11 +19,12 @@ from streamlit_app.dashboard_data import (  # noqa: E402
     business_segment_performance,
     calculate_kpis,
     category_performance,
-    customer_rfm_profile,
+    customer_ml_clusters,
     customer_segment_summary,
     load_quality_checks,
     load_transactions,
     monthly_performance,
+    statistical_snapshot,
     top_products,
 )
 from streamlit_app.ui_helpers import (  # noqa: E402
@@ -40,10 +41,14 @@ from streamlit_app.ui_helpers import (  # noqa: E402
     chart_style,
     inject_dashboard_css,
     insight_cards,
+    pipeline_steps,
     read_download_bytes,
+    render_back_to_top,
     render_footer,
     render_hero,
+    scroll_menu,
     section_heading,
+    technology_cards,
 )
 
 
@@ -112,56 +117,73 @@ def render_sidebar(data: pd.DataFrame):
             """,
             unsafe_allow_html=True,
         )
-        st.markdown("### 🎛️ Customer & Sales Filters")
-        selected_dates = st.date_input(
-            "Order date",
-            min_value=minimum_date,
-            max_value=maximum_date,
-            key="filter_dates",
-        )
-        if not isinstance(selected_dates, (tuple, list)) or len(selected_dates) != 2:
-            selected_dates = (minimum_date, maximum_date)
-
-        selected_regions = st.multiselect(
-            "Region", sorted(data["region"].unique()), key="filter_regions", placeholder="All regions"
-        )
-        selected_categories = st.multiselect(
-            "Product category", sorted(data["category"].unique()), key="filter_categories", placeholder="All categories"
-        )
-        selected_channels = st.multiselect(
-            "Sales channel", sorted(data["channel"].unique()), key="filter_channels", placeholder="All channels"
-        )
-        selected_segments = st.multiselect(
-            "Customer segment",
-            sorted(data["customer_segment"].unique()),
-            key="filter_segments",
-            placeholder="All customer segments",
+        st.markdown("### 🧭 Dashboard Navigation")
+        page = st.radio(
+            "Dashboard navigation",
+            [
+                "📈 Executive Overview",
+                "👥 Customer Intelligence",
+                "🛍️ Products & Returns",
+                "🛡️ Data Quality",
+                "🧰 Project & Technology",
+            ],
+            label_visibility="collapsed",
+            key="dashboard_page",
         )
 
-        active_filter_count = sum(bool(value) for value in [selected_regions, selected_categories, selected_channels, selected_segments])
-        st.markdown(
-            f"""
-            <div class="filter-summary">
-              <strong>Active scope</strong><br>
-              {selected_dates[0].strftime('%d %b %Y')} → {selected_dates[1].strftime('%d %b %Y')}<br>
-              {active_filter_count} optional filter group(s) selected
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.button(
-            "↻ Reset all filters",
-            width="stretch",
-            on_click=reset_filters,
-            args=(minimum_date, maximum_date),
-        )
-        st.divider()
-        st.markdown("### 🔗 Connect")
-        st.link_button("🌐 Open Portfolio", PORTFOLIO_URL, width="stretch")
-        st.link_button("💻 Open GitHub Profile", GITHUB_URL, width="stretch")
+        with st.expander("🎛️ Customer & Sales Filters", expanded=True):
+            selected_dates = st.date_input(
+                "Order date",
+                min_value=minimum_date,
+                max_value=maximum_date,
+                key="filter_dates",
+            )
+            if not isinstance(selected_dates, (tuple, list)) or len(selected_dates) != 2:
+                selected_dates = (minimum_date, maximum_date)
+
+            selected_regions = st.multiselect(
+                "Region", sorted(data["region"].unique()), key="filter_regions", placeholder="All regions"
+            )
+            selected_categories = st.multiselect(
+                "Product category", sorted(data["category"].unique()), key="filter_categories", placeholder="All categories"
+            )
+            selected_channels = st.multiselect(
+                "Sales channel", sorted(data["channel"].unique()), key="filter_channels", placeholder="All channels"
+            )
+            selected_segments = st.multiselect(
+                "Customer segment",
+                sorted(data["customer_segment"].unique()),
+                key="filter_segments",
+                placeholder="All customer segments",
+            )
+
+            active_filter_count = sum(
+                bool(value) for value in [selected_regions, selected_categories, selected_channels, selected_segments]
+            )
+            st.markdown(
+                f"""
+                <div class="filter-summary">
+                  <strong>Active scope</strong><br>
+                  {selected_dates[0].strftime('%d %b %Y')} → {selected_dates[1].strftime('%d %b %Y')}<br>
+                  {active_filter_count} optional filter group(s) selected
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
+            st.button(
+                "↻ Reset all filters",
+                width="stretch",
+                on_click=reset_filters,
+                args=(minimum_date, maximum_date),
+            )
+
+        with st.expander("🔗 Portfolio & GitHub"):
+            st.link_button("🌐 Open Portfolio", PORTFOLIO_URL, width="stretch")
+            st.link_button("💻 Open GitHub Profile", GITHUB_URL, width="stretch")
         st.caption("4,180 validated lines · INR · Synthetic data")
 
     return (
+        page,
         selected_dates,
         selected_regions,
         selected_categories,
@@ -191,7 +213,20 @@ def render_overview(data: pd.DataFrame) -> None:
     best_month = monthly.loc[monthly["revenue"].idxmax()]
     target_attainment = monthly["revenue"].sum() / monthly["target_revenue"].sum()
 
-    section_heading("Executive Overview", "Monitor performance, movement, target delivery and the strongest revenue drivers.", "📈")
+    scroll_menu(
+        [
+            ("overview-summary", "Summary"),
+            ("overview-trends", "Trends"),
+            ("overview-targets", "Targets & Mix"),
+            ("downloads", "Downloads"),
+        ]
+    )
+    section_heading(
+        "Executive Overview",
+        "Monitor performance, movement, target delivery and the strongest revenue drivers.",
+        "📈",
+        "overview-summary",
+    )
     insight_cards(
         [
             ("Top category", str(best_category["category"]), format_inr_millions(float(best_category["revenue"])), BLUE),
@@ -201,6 +236,7 @@ def render_overview(data: pd.DataFrame) -> None:
         ]
     )
 
+    section_heading("Performance Trends", "Track monthly movement and category contribution.", "📊", "overview-trends")
     left, right = st.columns([1.3, 1])
     with left:
         fig, ax = plt.subplots(figsize=(9.3, 4.3))
@@ -224,6 +260,12 @@ def render_overview(data: pd.DataFrame) -> None:
         st.pyplot(fig, width="stretch")
         plt.close(fig)
 
+    section_heading(
+        "Targets & Geographic Mix",
+        "Compare plan delivery and identify the regional/category combinations driving revenue.",
+        "🎯",
+        "overview-targets",
+    )
     left, right = st.columns([1.3, 1])
     with left:
         fig, ax = plt.subplots(figsize=(9.3, 4.2))
@@ -251,13 +293,27 @@ def render_overview(data: pd.DataFrame) -> None:
 
 
 def render_customer_360(data: pd.DataFrame) -> None:
-    profile = customer_rfm_profile(data)
+    profile, ml_summary = customer_ml_clusters(data)
     rfm = customer_segment_summary(data)
     business_segments = business_segment_performance(data)
     champions = int(profile.loc[profile["rfm_segment"].eq("Champions"), "customer_id"].nunique())
     at_risk = int(profile.loc[profile["rfm_segment"].eq("At Risk"), "customer_id"].nunique())
 
-    section_heading("Customer 360", "Understand customer value, RFM lifecycle position, activity and retention opportunity.", "👥")
+    scroll_menu(
+        [
+            ("customer-summary", "Summary"),
+            ("customer-rfm", "RFM"),
+            ("customer-ml", "ML Clusters"),
+            ("customer-value", "Value"),
+            ("downloads", "Downloads"),
+        ]
+    )
+    section_heading(
+        "Customer Intelligence",
+        "Understand value, lifecycle position, behavior and the best next action for every customer group.",
+        "👥",
+        "customer-summary",
+    )
     insight_cards(
         [
             ("Active customers", f"{len(profile):,}", "Unique customers in scope", BLUE),
@@ -267,6 +323,12 @@ def render_customer_360(data: pd.DataFrame) -> None:
         ]
     )
 
+    section_heading(
+        "RFM Lifecycle Segmentation",
+        "Recency, frequency and monetary scoring translates transaction history into practical retention groups.",
+        "🧭",
+        "customer-rfm",
+    )
     left, right = st.columns([1, 1.25])
     with left:
         ordered = rfm.sort_values("customers")
@@ -301,6 +363,108 @@ def render_customer_360(data: pd.DataFrame) -> None:
         st.pyplot(fig, width="stretch")
         plt.close(fig)
 
+    section_heading(
+        "Machine Learning Customer Clusters",
+        "K-Means groups customers by recency, order frequency and revenue after scaling and log transformation.",
+        "🤖",
+        "customer-ml",
+    )
+    cluster_colors = {
+        "High Value": OLIVE,
+        "Loyal Growth": BLUE,
+        "Developing": GOLD,
+        "Needs Attention": ORANGE,
+        "Single Active Group": PURPLE,
+    }
+    left, right = st.columns([1.3, 1])
+    with left:
+        plot_profile = profile.assign(revenue_thousands=profile["revenue"] / 1_000)
+        active_cluster_colors = {
+            cluster: cluster_colors.get(cluster, PALETTE[index % len(PALETTE)])
+            for index, cluster in enumerate(sorted(plot_profile["ml_cluster"].unique()))
+        }
+        fig, ax = plt.subplots(figsize=(8.7, 4.9))
+        sns.scatterplot(
+            data=plot_profile,
+            x="recency_days",
+            y="revenue_thousands",
+            hue="ml_cluster",
+            size="orders",
+            sizes=(30, 150),
+            palette=active_cluster_colors,
+            alpha=0.74,
+            edgecolor="#FFFFFF",
+            linewidth=0.45,
+            ax=ax,
+        )
+        chart_style(
+            ax,
+            "ML Customer Map",
+            "One point per customer · larger points represent more orders",
+            ylabel="Customer revenue (₹ thousand)",
+            xlabel="Recency (days)",
+        )
+        ax.legend(frameon=False, fontsize=7, title="Cluster / order size", ncol=2)
+        fig.tight_layout()
+        st.pyplot(fig, width="stretch")
+        plt.close(fig)
+    with right:
+        ordered_ml = ml_summary.sort_values("average_revenue")
+        bar_colors = [cluster_colors.get(name, PURPLE) for name in ordered_ml["ml_cluster"]]
+        fig, ax = plt.subplots(figsize=(7.2, 4.9))
+        bars = ax.barh(ordered_ml["ml_cluster"], ordered_ml["average_revenue"] / 1_000, color=bar_colors)
+        chart_style(
+            ax,
+            "Average Value by ML Cluster",
+            "Mean customer revenue within each behavioral group",
+            xlabel="Average revenue (₹ thousand)",
+        )
+        ax.bar_label(bars, fmt="₹%.0fK", padding=4, fontsize=8, color=INK)
+        ax.set_xlim(0, ordered_ml["average_revenue"].max() / 1_000 * 1.22)
+        fig.tight_layout()
+        st.pyplot(fig, width="stretch")
+        plt.close(fig)
+
+    cluster_table = ml_summary.copy()
+    cluster_table["average_recency_days"] = cluster_table["average_recency_days"].map(lambda value: f"{value:,.0f}")
+    cluster_table["average_orders"] = cluster_table["average_orders"].map(lambda value: f"{value:,.1f}")
+    cluster_table["average_revenue"] = cluster_table["average_revenue"].map(lambda value: f"₹{value:,.0f}")
+    cluster_table["total_revenue"] = cluster_table["total_revenue"].map(format_inr_millions)
+    cluster_table["total_profit"] = cluster_table["total_profit"].map(format_inr_millions)
+    cluster_table["profit_margin"] = cluster_table["profit_margin"].map(lambda value: f"{value:.1%}")
+    st.table(
+        cluster_table[
+            [
+                "ml_cluster",
+                "customers",
+                "average_recency_days",
+                "average_orders",
+                "average_revenue",
+                "total_revenue",
+                "profit_margin",
+            ]
+        ].rename(
+            columns={
+                "ml_cluster": "Customer Cluster",
+                "customers": "Customers",
+                "average_recency_days": "Avg Recency (Days)",
+                "average_orders": "Avg Orders",
+                "average_revenue": "Avg Revenue",
+                "total_revenue": "Total Revenue",
+                "profit_margin": "Profit Margin",
+            }
+        )
+    )
+    st.info(
+        "Action guide: reward High Value customers, cross-sell Loyal Growth, nurture Developing customers, and run win-back campaigns for Needs Attention. ML labels are exploratory—not causal predictions."
+    )
+
+    section_heading(
+        "Customer Value & Leaderboard",
+        "Compare business segments and inspect the highest-value individual customers.",
+        "💎",
+        "customer-value",
+    )
     left, right = st.columns([1, 1.25])
     with left:
         ordered = business_segments.sort_values("revenue")
@@ -323,7 +487,9 @@ def render_customer_360(data: pd.DataFrame) -> None:
         st.subheader("🏆 Top Customers by Revenue")
         st.caption("Exact-value lookup for the 15 highest-value customers in the active scope.")
         st.table(
-            top_customers[["rank", "customer_name", "rfm_segment", "revenue", "profit", "orders", "last_order"]].rename(columns=str.title)
+            top_customers[
+                ["rank", "customer_name", "rfm_segment", "ml_cluster", "revenue", "profit", "orders", "last_order"]
+            ].rename(columns=str.title)
         )
 
 
@@ -333,7 +499,20 @@ def render_products(data: pd.DataFrame) -> None:
     top_product = products.iloc[0]
     high_return_category = category.loc[category["return_rate"].idxmax()]
 
-    section_heading("Products & Returns", "Compare product contribution, promotion depth, profitability and return risk.", "🛍️")
+    scroll_menu(
+        [
+            ("product-summary", "Summary"),
+            ("product-risk", "Return & Discount Risk"),
+            ("product-leaders", "Leaderboard"),
+            ("downloads", "Downloads"),
+        ]
+    )
+    section_heading(
+        "Products & Returns",
+        "Compare product contribution, promotion depth, profitability and return risk.",
+        "🛍️",
+        "product-summary",
+    )
     insight_cards(
         [
             ("Top product", str(top_product["product_name"]), format_inr_millions(float(top_product["revenue"])), BLUE),
@@ -343,6 +522,12 @@ def render_products(data: pd.DataFrame) -> None:
         ]
     )
 
+    section_heading(
+        "Return & Discount Risk",
+        "Find categories with elevated returns and examine whether discount depth is eroding line profit.",
+        "⚠️",
+        "product-risk",
+    )
     left, right = st.columns(2)
     with left:
         returns = category.sort_values("return_rate")
@@ -369,7 +554,12 @@ def render_products(data: pd.DataFrame) -> None:
         st.pyplot(fig, width="stretch")
         plt.close(fig)
 
-    section_heading("Product Leaderboard", "Revenue-ranked products with exact profit, margin, unit and return values.", "🏅")
+    section_heading(
+        "Product Leaderboard",
+        "Revenue-ranked products with exact profit, margin, unit and return values.",
+        "🏅",
+        "product-leaders",
+    )
     product_table = products.copy()
     product_table.insert(0, "rank", range(1, len(product_table) + 1))
     product_table["revenue"] = product_table["revenue"].map(lambda value: f"₹{value:,.0f}")
@@ -380,15 +570,31 @@ def render_products(data: pd.DataFrame) -> None:
 
 def render_quality(data: pd.DataFrame) -> None:
     checks = cached_quality(str(PROJECT_ROOT))
-    section_heading("Data Quality & Model Readiness", "Review validation coverage, rejected records, lineage and analytical deliverables.", "🛡️")
+    scroll_menu(
+        [
+            ("quality-summary", "Summary"),
+            ("quality-checks", "Automated Checks"),
+            ("downloads", "Downloads"),
+        ]
+    )
+    section_heading(
+        "Data Quality & Model Readiness",
+        "Review validation coverage, rejected records, lineage and analytical deliverables.",
+        "🛡️",
+        "quality-summary",
+    )
     q1, q2, q3, q4, q5 = st.columns(5)
     q1.metric("Raw Rows", "4,224")
     q2.metric("Validated Rows", "4,180")
     q3.metric("Rejected Rows", "44")
     q4.metric("Checks Passed", f"{int(checks['passed'].sum())}/{len(checks)}")
     q5.metric("Broken Joins", "0")
-    st.subheader("✅ Automated Quality Checks")
-    st.caption("Volume, completeness, uniqueness, ranges, referential integrity and financial arithmetic.")
+    section_heading(
+        "Automated Quality Checks",
+        "Volume, completeness, uniqueness, ranges, referential integrity and financial arithmetic.",
+        "✅",
+        "quality-checks",
+    )
     displayed = checks[["check_id", "check_name", "actual", "expected", "severity", "status"]].copy()
     st.table(displayed.rename(columns=str.title))
     st.info(
@@ -396,10 +602,140 @@ def render_quality(data: pd.DataFrame) -> None:
     )
 
 
+def render_project_stack(data: pd.DataFrame) -> None:
+    stats = statistical_snapshot(data)
+    scroll_menu(
+        [
+            ("project-workflow", "Workflow"),
+            ("project-tools", "Tools"),
+            ("project-statistics", "Statistics"),
+            ("project-deliverables", "Deliverables"),
+            ("downloads", "Downloads"),
+        ]
+    )
+    section_heading(
+        "End-to-End Analytics Project",
+        "See how raw retail files become validated models, customer intelligence and connected business dashboards.",
+        "🧰",
+        "project-workflow",
+    )
+    pipeline_steps(
+        [
+            ("📁", "Source", "CSV, Excel and SQL inputs"),
+            ("🐍", "Prepare", "Pandas and NumPy cleaning"),
+            ("🗄️", "Model", "SQLite star schema"),
+            ("📐", "Analyze", "KPIs and statistics"),
+            ("🤖", "Segment", "RFM and K-Means ML"),
+            ("📊", "Deliver", "Excel, Power BI and Streamlit"),
+        ]
+    )
+
+    section_heading(
+        "Tools & Technology",
+        "Every technology has a working role in the project—from source preparation to executive delivery.",
+        "⚙️",
+        "project-tools",
+    )
+    technology_cards(
+        [
+            ("🐍", "Python Analytics", "Cleans, transforms and analyzes transactions through reusable modules.", "Python · Pandas · NumPy", BLUE),
+            ("🗄️", "SQL & SQLite", "Stores a star schema and powers reusable KPI and customer queries.", "SQL · SQLite · Views", PURPLE),
+            ("📗", "Excel Dashboard", "Provides formula-driven KPI cards, charts and a familiar business interface.", "Excel · Tables · Formulas", OLIVE),
+            ("📊", "Power BI", "Includes a ready semantic model, Power Query pipeline and governed measures.", "Power BI · Power Query · DAX", GOLD),
+            ("🤖", "Machine Learning", "Clusters customers using scaled recency, frequency and monetary behavior.", "scikit-learn · K-Means", CYAN),
+            ("📐", "Statistics", "Summarizes distributions, uncertainty and discount-profit relationships.", "Correlation · CI · Dispersion", ORANGE),
+            ("🌐", "Browser Dashboard", "Connects filters, customer views, downloads and portfolio links.", "Streamlit · Matplotlib · Seaborn", PINK),
+            ("✅", "Quality Engineering", "Validates volume, completeness, keys, ranges, joins and arithmetic.", "Automated tests · Data dictionary", BLUE),
+        ]
+    )
+
+    section_heading(
+        "Statistics Lab",
+        "Use descriptive statistics and uncertainty to interpret customer and promotion behavior responsibly.",
+        "📐",
+        "project-statistics",
+    )
+    correlation = float(stats["discount_profit_correlation"])
+    correlation_text = "N/A" if np.isnan(correlation) else f"{correlation:+.2f}"
+    insight_cards(
+        [
+            ("Discount ↔ profit", correlation_text, "Pearson line-level correlation", ORANGE),
+            ("Average discount", f"{float(stats['average_discount']):.1%}", "Mean promotional depth", BLUE),
+            ("Median line revenue", f"₹{float(stats['line_revenue_median']):,.0f}", "Robust transaction-line midpoint", PURPLE),
+            (
+                "Return-rate interval",
+                f"{float(stats['return_rate_ci_low']):.1%}–{float(stats['return_rate_ci_high']):.1%}",
+                "Approximate 95% confidence interval",
+                OLIVE,
+            ),
+        ]
+    )
+
+    left, right = st.columns(2)
+    with left:
+        fig, ax = plt.subplots(figsize=(7.8, 4.7))
+        sns.histplot(data["revenue"], bins=28, color=BLUE, alpha=0.82, edgecolor="#FFFFFF", ax=ax)
+        ax.axvline(float(stats["line_revenue_median"]), color=ORANGE, linestyle="--", linewidth=2, label="Median")
+        chart_style(
+            ax,
+            "Transaction-Line Revenue Distribution",
+            "Histogram reveals spread, skew and unusually large order lines",
+            ylabel="Transaction lines",
+            xlabel="Revenue (₹)",
+        )
+        ax.legend(frameon=False)
+        fig.tight_layout()
+        st.pyplot(fig, width="stretch")
+        plt.close(fig)
+    with right:
+        discount_analysis = data.assign(
+            discount_band=pd.cut(
+                data["discount_pct"],
+                bins=[-0.001, 0.05, 0.10, 0.15, 0.20, 1.0],
+                labels=["0–5%", "5–10%", "10–15%", "15–20%", "20%+"],
+            )
+        )
+        discount_analysis = discount_analysis.groupby("discount_band", observed=True, as_index=False).agg(
+            revenue=("revenue", "sum"), profit=("profit", "sum"), transaction_lines=("order_id", "size")
+        )
+        discount_analysis["profit_margin"] = discount_analysis["profit"] / discount_analysis["revenue"].replace(0, np.nan)
+        fig, ax = plt.subplots(figsize=(7.8, 4.7))
+        bars = ax.bar(
+            discount_analysis["discount_band"].astype(str),
+            discount_analysis["profit_margin"] * 100,
+            color=[BLUE, CYAN, GOLD, ORANGE, PURPLE][: len(discount_analysis)],
+            edgecolor="#FFFFFF",
+        )
+        chart_style(
+            ax,
+            "Profit Margin by Discount Band",
+            "Aggregated profit ÷ revenue within each promotion range",
+            ylabel="Profit margin (%)",
+            xlabel="Discount band",
+        )
+        ax.bar_label(bars, fmt="%.1f%%", padding=3, fontsize=8, color=INK)
+        fig.tight_layout()
+        st.pyplot(fig, width="stretch")
+        plt.close(fig)
+    st.caption(
+        "Statistical notes: correlation describes association, not causation. The return interval is a normal approximation using distinct orders and should be interpreted as portfolio evidence, not a forecast."
+    )
+
+    section_heading(
+        "Connected Deliverables",
+        "The browser dashboard uses the same governed definitions as the SQL database, Excel workbook and Power BI assets.",
+        "🔗",
+        "project-deliverables",
+    )
+    st.success(
+        "One project, multiple audiences: analysts can rerun Python and SQL, managers can use Excel or Power BI, and customers can explore the Streamlit dashboard in a browser."
+    )
+
+
 def render_download_hub(filtered: pd.DataFrame) -> None:
     st.markdown(
         """
-        <div class="dashboard-hub">
+        <div id="downloads" style="scroll-margin-top:5.2rem"></div><div class="dashboard-hub">
           <h3>🔗 Connected Dashboard &amp; Download Hub</h3>
           <p>Access the interactive data extract, Excel dashboard, SQL database, Power BI measures and quality documentation from one browser page.</p>
         </div>
@@ -461,7 +797,7 @@ except Exception as exc:
     st.error(f"The analytics database could not be loaded: {exc}")
     st.stop()
 
-selected_dates, selected_regions, selected_categories, selected_channels, selected_segments = render_sidebar(transactions)
+page, selected_dates, selected_regions, selected_categories, selected_channels, selected_segments = render_sidebar(transactions)
 
 filtered = apply_filters(
     transactions,
@@ -473,14 +809,6 @@ filtered = apply_filters(
 )
 
 render_hero()
-page = st.radio(
-    "Dashboard navigation",
-    ["📈 Executive Overview", "👥 Customer 360", "🛍️ Products & Returns", "🛡️ Data Quality"],
-    horizontal=True,
-    label_visibility="collapsed",
-    key="dashboard_page",
-)
-
 if filtered.empty:
     st.warning("No transactions match the selected filters. Use the sidebar reset button or remove one or more filters.")
     st.stop()
@@ -489,12 +817,15 @@ render_kpis(filtered)
 
 if page == "📈 Executive Overview":
     render_overview(filtered)
-elif page == "👥 Customer 360":
+elif page == "👥 Customer Intelligence":
     render_customer_360(filtered)
 elif page == "🛍️ Products & Returns":
     render_products(filtered)
-else:
+elif page == "🛡️ Data Quality":
     render_quality(filtered)
+else:
+    render_project_stack(filtered)
 
 render_download_hub(filtered)
 render_footer()
+render_back_to_top()

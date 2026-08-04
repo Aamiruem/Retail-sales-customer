@@ -6,9 +6,11 @@ from streamlit_app.dashboard_data import (
     business_segment_performance,
     calculate_kpis,
     category_performance,
+    customer_ml_clusters,
     customer_rfm_profile,
     load_transactions,
     monthly_performance,
+    statistical_snapshot,
 )
 
 
@@ -54,6 +56,18 @@ class TestDashboardHelpers(unittest.TestCase):
         self.assertEqual(profile["customer_id"].nunique(), len(profile))
         self.assertGreaterEqual(len(profile), 20)
         self.assertGreaterEqual(len(segments), 3)
+
+    def test_ml_clusters_and_statistics_are_deterministic(self):
+        first_profile, summary = customer_ml_clusters(self.data)
+        second_profile, _ = customer_ml_clusters(self.data)
+        self.assertTrue(first_profile["ml_cluster"].equals(second_profile["ml_cluster"]))
+        self.assertEqual(first_profile["ml_cluster"].nunique(), 4)
+        self.assertEqual(int(summary["customers"].sum()), len(first_profile))
+
+        stats = statistical_snapshot(self.data)
+        self.assertAlmostEqual(float(stats["return_rate"]), 345 / 3_922)
+        self.assertLessEqual(float(stats["return_rate_ci_low"]), float(stats["return_rate"]))
+        self.assertGreaterEqual(float(stats["return_rate_ci_high"]), float(stats["return_rate"]))
 
 
 if __name__ == "__main__":
