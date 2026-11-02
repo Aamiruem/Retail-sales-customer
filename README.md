@@ -162,7 +162,7 @@ python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 python -m src.run_pipeline
-python -m unittest discover -s tests -v
+python -m pytest -q tests        # 24 tests incl. every dashboard page
 streamlit run streamlit_app/app.py
 ```
 
