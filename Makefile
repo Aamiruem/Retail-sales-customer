@@ -4,7 +4,7 @@ pipeline:
 	python -m src.run_pipeline
 
 test:
-	python -m unittest discover -s tests -v
+	python -m pytest -q tests
 
 app:
 	streamlit run streamlit_app/app.py
