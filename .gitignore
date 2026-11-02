@@ -13,3 +13,4 @@ qa_previews/
 data/raw/*_staging.json
 *.inspect.ndjson
 
+.streamlit/secrets.toml
