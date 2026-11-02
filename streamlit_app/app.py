@@ -19,6 +19,12 @@ from streamlit_app.dashboard_data import (  # noqa: E402
     business_segment_performance,
     calculate_kpis,
     category_performance,
+    channel_performance,
+    headline_insights,
+    kpi_changes,
+    previous_period,
+    quarterly_summary,
+    region_performance,
     customer_ml_clusters,
     customer_segment_summary,
     discount_band_performance,
@@ -41,8 +47,13 @@ from streamlit_app.ui_helpers import (  # noqa: E402
     PALETTE,
     PINK,
     PURPLE,
+    card_title,
     category_gallery_cards,
     chart_style,
+    delta_badge,
+    insight_list,
+    nav_cards,
+    yoy_strip,
     inject_dashboard_css,
     insight_cards,
     kpi_cards,
@@ -155,6 +166,7 @@ def render_sidebar(data: pd.DataFrame):
         page = st.radio(
             "Dashboard navigation",
             [
+                "🏠 Home",
                 "📈 Executive Overview",
                 "👥 Customer Intelligence",
                 "🛍️ Products & Returns",
@@ -233,20 +245,186 @@ def render_sidebar(data: pd.DataFrame):
     )
 
 
-def render_kpis(data: pd.DataFrame) -> dict[str, float | int]:
+def render_kpis(data: pd.DataFrame, previous: pd.DataFrame | None = None) -> dict[str, float | int]:
     kpis = calculate_kpis(data)
+    changes = kpi_changes(kpis, calculate_kpis(previous) if previous is not None and len(previous) else None)
+
+    def badge(key, kind="relative", good_when_up=True):
+        return delta_badge(changes.get(key), kind=kind, good_when_up=good_when_up)
+
     kpi_cards(
         [
-            ("Revenue", inr_compact(kpis["revenue"]), "After discounts & returns", "💰", BLUE),
-            ("Profit", inr_compact(kpis["profit"]), "Revenue minus cost", "📈", PURPLE),
-            ("Margin", pct(kpis["profit_margin"]), "Profit ÷ revenue", "🎯", CYAN),
-            ("Orders", count(kpis["orders"]), "Distinct orders", "🧾", GOLD),
-            ("Customers", count(kpis["customers"]), "Unique buyers", "👥", ORANGE),
-            ("Return rate", pct(kpis["return_rate"]), "Orders with a return", "↩️", OLIVE),
-            ("Avg order", inr(kpis["average_order_value"]), "Revenue ÷ orders", "🛒", PINK),
+            ("Revenue", inr_compact(kpis["revenue"]), "After discounts & returns", "💰", BLUE, badge("revenue")),
+            ("Profit", inr_compact(kpis["profit"]), "Revenue minus cost", "📈", PURPLE, badge("profit")),
+            ("Margin", pct(kpis["profit_margin"]), "Profit ÷ revenue", "🎯", CYAN, badge("profit_margin", "points")),
+            ("Orders", count(kpis["orders"]), "Distinct orders", "🧾", GOLD, badge("orders")),
+            ("Customers", count(kpis["customers"]), "Unique buyers", "👥", ORANGE, badge("customers")),
+            ("Return rate", pct(kpis["return_rate"]), "Orders with a return", "↩️", OLIVE, badge("return_rate", "points", good_when_up=False)),
+            ("Avg order", inr(kpis["average_order_value"]), "Revenue ÷ orders", "🛒", PINK, badge("average_order_value")),
         ]
     )
     return kpis
+
+
+def pie_chart(ax, labels, values, colors, center_title: str, center_value: str) -> None:
+    """Donut chart with % labels and a total in the middle."""
+    wedges, _texts, autotexts = ax.pie(
+        values,
+        labels=None,
+        colors=colors,
+        startangle=90,
+        counterclock=False,
+        autopct=lambda share: f"{share:.0f}%" if share >= 4 else "",
+        pctdistance=0.78,
+        wedgeprops={"width": 0.38, "edgecolor": "#FFFFFF", "linewidth": 2},
+    )
+    for text in autotexts:
+        text.set_color("#FFFFFF")
+        text.set_fontsize(8)
+        text.set_fontweight("bold")
+    ax.text(0, 0.08, center_value, ha="center", va="center", fontsize=13, fontweight="bold", color=INK)
+    ax.text(0, -0.16, center_title, ha="center", va="center", fontsize=8, color="#64748B")
+    ax.legend(wedges, labels, loc="center left", bbox_to_anchor=(1.0, 0.5), frameon=False, fontsize=8)
+    ax.set_aspect("equal")
+
+
+def render_home(data: pd.DataFrame) -> None:
+    section_heading(
+        "Welcome — your retail business at a glance",
+        "Key results, what changed, and where to look next. Every number updates with the sidebar filters.",
+        "🏠",
+        "home-top",
+        BLUE,
+    )
+
+    # Year-over-year strip (latest year in scope vs the year before).
+    yearly = data.groupby("year").agg(revenue=("revenue", "sum"), profit=("profit", "sum"), orders=("order_id", "nunique"), customers=("customer_id", "nunique")).sort_index()
+    if len(yearly) >= 2:
+        last, prev = yearly.iloc[-1], yearly.iloc[-2]
+        year, prior = yearly.index[-1], yearly.index[-2]
+
+        def change(column):
+            return last[column] / prev[column] - 1 if prev[column] else 0.0
+
+        def arrow(value):
+            return f"{'▲' if value >= 0 else '▼'} {abs(value):.1%} vs {prior}"
+
+        yoy_strip(
+            [
+                (f"Revenue {year}", inr_compact(last["revenue"]), arrow(change("revenue")), BLUE),
+                (f"Profit {year}", inr_compact(last["profit"]), arrow(change("profit")), PURPLE),
+                (f"Orders {year}", count(last["orders"]), arrow(change("orders")), CYAN),
+                (f"Customers {year}", count(last["customers"]), arrow(change("customers")), OLIVE),
+            ]
+        )
+
+    section_heading("Key insights", "Automatically calculated from the data in view.", "💡", "home-insights", GOLD)
+    insight_list(headline_insights(data))
+
+    section_heading("Sales snapshot", "How revenue is trending and where it comes from.", "📊", "home-snapshot", PURPLE)
+    monthly = monthly_performance(data)
+    left, right = st.columns([1.5, 1])
+    with left:
+        with st.container(border=True):
+            card_title("Monthly revenue with 3-month trend", "₹ lakh · bars = monthly revenue, line = 3-month moving average", BLUE)
+            x = np.arange(len(monthly))
+            fig, ax = plt.subplots(figsize=(9, 3.9))
+            values = monthly["revenue"] / LAKH
+            peak = int(values.idxmax()) if len(values) else 0
+            colors = ["#BFDBFE"] * len(values)
+            if len(values):
+                colors[list(values.index).index(peak)] = BLUE
+            ax.bar(x, values, color=colors, width=0.7)
+            ax.plot(x, values.rolling(3, min_periods=1).mean(), color=ORANGE, linewidth=2.4, label="3-month average")
+            if len(values):
+                position = list(values.index).index(peak)
+                ax.annotate(f"Peak ₹{values.max():.1f} L", (position, values.max()), xytext=(0, 8), textcoords="offset points", ha="center", fontsize=8, color=INK, fontweight="bold")
+            chart_style(ax, "", "")
+            monthly_axis(ax, monthly["year_month"])
+            ax.set_ylabel("₹ lakh", color="#64748B", fontsize=8.5)
+            ax.set_ylim(0, values.max() * 1.18 if len(values) else 1)
+            ax.legend(frameon=False, loc="upper left")
+            fig.tight_layout()
+            st.pyplot(fig, width="stretch")
+            plt.close(fig)
+    with right:
+        with st.container(border=True):
+            category = category_performance(data)
+            card_title("Revenue share by category", "Share of filtered revenue", PURPLE)
+            fig, ax = plt.subplots(figsize=(6, 3.9))
+            palette = [BLUE, PURPLE, CYAN, GOLD, PINK, OLIVE, ORANGE]
+            pie_chart(ax, list(category["category"]), category["revenue"], palette[: len(category)], "total revenue", inr_compact(category["revenue"].sum()))
+            fig.tight_layout()
+            st.pyplot(fig, width="stretch")
+            plt.close(fig)
+
+    left, middle, right = st.columns(3)
+    channels = channel_performance(data)
+    regions = region_performance(data)
+    with left:
+        with st.container(border=True):
+            card_title("Sales channels", "Revenue and margin by channel", CYAN)
+            fig, ax = plt.subplots(figsize=(5, 3.4))
+            ordered = channels.sort_values("revenue")
+            bars = ax.barh(ordered["channel"], ordered["revenue"] / CRORE, color=[CYAN, BLUE, PURPLE][: len(ordered)], height=0.55)
+            ax.bar_label(bars, labels=[f"₹{v / CRORE:.2f} Cr · {m:.0%} margin" for v, m in zip(ordered["revenue"], ordered["profit_margin"])], padding=4, fontsize=7.5, color=INK)
+            chart_style(ax, "", "")
+            ax.set_xlim(0, ordered["revenue"].max() / CRORE * 1.7)
+            ax.set_xticks([])
+            ax.grid(False)
+            fig.tight_layout()
+            st.pyplot(fig, width="stretch")
+            plt.close(fig)
+    with middle:
+        with st.container(border=True):
+            card_title("Regions", "Revenue by region", OLIVE)
+            fig, ax = plt.subplots(figsize=(5, 3.4))
+            ordered = regions.sort_values("revenue")
+            colors = ["#A7F3D0"] * (len(ordered) - 1) + [OLIVE]
+            bars = ax.barh(ordered["region"], ordered["revenue"] / CRORE, color=colors, height=0.55)
+            ax.bar_label(bars, labels=[f"₹{v / CRORE:.2f} Cr ({s:.0%})" for v, s in zip(ordered["revenue"], ordered["share"])], padding=4, fontsize=7.5, color=INK)
+            chart_style(ax, "", "")
+            ax.set_xlim(0, ordered["revenue"].max() / CRORE * 1.55)
+            ax.set_xticks([])
+            ax.grid(False)
+            fig.tight_layout()
+            st.pyplot(fig, width="stretch")
+            plt.close(fig)
+    with right:
+        with st.container(border=True):
+            card_title("Target delivery", "Months where revenue met the monthly target", ORANGE)
+            met = int((monthly["revenue"] >= monthly["target_revenue"]).sum())
+            total = len(monthly)
+            fig, ax = plt.subplots(figsize=(5, 3.4))
+            pie_chart(ax, [f"Met ({met})", f"Missed ({total - met})"], [max(met, 0.0001), max(total - met, 0.0001)], [OLIVE, "#FDBA74"], "months on target", f"{met}/{total}")
+            fig.tight_layout()
+            st.pyplot(fig, width="stretch")
+            plt.close(fig)
+
+    section_heading("Quarter by quarter", "Revenue, profit, margin and growth for each quarter in view.", "🗓️", "home-quarters", CYAN)
+    quarters = quarterly_summary(data)
+    show_table(
+        quarters.assign(attainment=quarters["revenue"] / quarters["target_revenue"]),
+        {
+            "period": st.column_config.TextColumn("Quarter"),
+            "revenue": st.column_config.NumberColumn("Revenue (₹)", format="localized"),
+            "profit": st.column_config.NumberColumn("Profit (₹)", format="localized"),
+            "profit_margin": st.column_config.ProgressColumn("Margin", format="percent", min_value=0.0, max_value=0.4),
+            "orders": st.column_config.NumberColumn("Orders", format="%d"),
+            "growth": st.column_config.NumberColumn("Growth vs prev. quarter", format="percent"),
+            "attainment": st.column_config.NumberColumn("Target attainment", format="percent", help="Revenue ÷ company-wide quarterly target"),
+        },
+    )
+
+    section_heading("Explore the dashboard", "Pick a page in the sidebar to go deeper.", "🧭", "home-explore", PINK)
+    nav_cards(
+        [
+            ("📈", "Executive Overview", "Monthly trends, targets, channels and the region × category mix.", "Trends · Targets · Channels", BLUE),
+            ("👥", "Customer Intelligence", "RFM lifecycle groups, ML clusters and your most valuable customers.", "RFM · K-Means · Leaderboard", PURPLE),
+            ("🛍️", "Products & Returns", "Category and product performance, return risk and discount impact.", "Products · Returns · Discounts", ORANGE),
+            ("🛡️", "Data Quality", "How raw files were validated, cleaned and checked before analysis.", "15 automated checks", OLIVE),
+        ]
+    )
 
 
 def render_overview(data: pd.DataFrame, scoped: bool = False) -> None:
@@ -262,6 +440,7 @@ def render_overview(data: pd.DataFrame, scoped: bool = False) -> None:
             ("overview-summary", "Summary"),
             ("overview-trends", "Trends"),
             ("overview-targets", "Targets & Mix"),
+            ("overview-channels", "Channels & Regions"),
             ("downloads", "Downloads"),
         ]
     )
@@ -374,6 +553,47 @@ def render_overview(data: pd.DataFrame, scoped: bool = False) -> None:
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
+
+    section_heading(
+        "Channels & Regions",
+        "Which sales channels and regions bring the most revenue, orders and profit.",
+        "🛒",
+        "overview-channels",
+    )
+    channels = channel_performance(data)
+    regions = region_performance(data)
+    left, right = st.columns(2)
+    with left:
+        x = np.arange(len(channels))
+        fig, ax = plt.subplots(figsize=(7.6, 4.2))
+        ax.bar(x - 0.2, channels["revenue"] / LAKH, width=0.4, color=BLUE, label="Revenue")
+        ax.bar(x + 0.2, channels["profit"] / LAKH, width=0.4, color=GOLD, label="Profit")
+        for position, row in zip(x, channels.itertuples(index=False)):
+            ax.text(position, row.revenue / LAKH, f"{row.share:.0%}", ha="center", va="bottom", fontsize=8, color=INK, fontweight="bold")
+        ax.set_xticks(x, channels["channel"])
+        chart_style(ax, "Revenue and profit by channel", "₹ lakh · % = share of revenue", ylabel="₹ lakh")
+        ax.legend(frameon=False, loc="upper right")
+        ax.set_ylim(0, channels["revenue"].max() / LAKH * 1.18)
+        fig.tight_layout()
+        st.pyplot(fig, width="stretch")
+        plt.close(fig)
+    with right:
+        show_table(
+            regions,
+            {
+                "region": st.column_config.TextColumn("Region"),
+                "revenue": st.column_config.NumberColumn("Revenue (₹)", format="localized"),
+                "share": st.column_config.ProgressColumn("Share", format="percent", min_value=0.0, max_value=float(max(regions["share"].max(), 0.01))),
+                "profit_margin": st.column_config.NumberColumn("Margin", format="percent"),
+                "orders": st.column_config.NumberColumn("Orders", format="%d"),
+                "customers": st.column_config.NumberColumn("Customers", format="%d"),
+            },
+        )
+        st.markdown(
+            f'<div class="note">💡 <b>{regions.iloc[0]["region"]}</b> earns the most ({pct(regions.iloc[0]["share"])} of revenue); '
+            f'<b>{regions.iloc[-1]["region"]}</b> the least ({pct(regions.iloc[-1]["share"])}).</div>',
+            unsafe_allow_html=True,
+        )
 
 
 def render_customer_360(data: pd.DataFrame) -> None:
@@ -1040,9 +1260,25 @@ if filtered.empty:
     st.warning("No transactions match these filters. Remove a filter or press **Reset filters** in the sidebar.", icon="🔎")
     st.stop()
 
-render_kpis(filtered)
+previous = previous_period(
+    transactions,
+    (pd.Timestamp(selected_dates[0]), pd.Timestamp(selected_dates[1])),
+    selected_regions,
+    selected_categories,
+    selected_channels,
+    selected_segments,
+)
+render_kpis(filtered, previous)
+if previous.empty:
+    st.caption("▲/▼ changes appear when the selected dates have an earlier period to compare with (e.g. pick 2025 only).")
+else:
+    st.caption(
+        f"▲/▼ compare with {previous['order_date'].min():%d %b %Y} – {previous['order_date'].max():%d %b %Y} using the same filters."
+    )
 
-if page == "📈 Executive Overview":
+if page == "🏠 Home":
+    render_home(filtered)
+elif page == "📈 Executive Overview":
     render_overview(filtered, scoped)
 elif page == "👥 Customer Intelligence":
     render_customer_360(filtered)
