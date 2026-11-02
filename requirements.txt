@@ -1,4 +1,4 @@
-# Dashboard runtime dependencies (Streamlit Cloud installs these on deploy)
+# Dashboard runtime dependencies (installed by Streamlit Cloud on every deploy)
 pandas>=2.2,<3.0
 numpy>=1.26,<3.0
 matplotlib>=3.8,<4.0
