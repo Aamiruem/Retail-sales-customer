@@ -308,3 +308,112 @@ def top_products(data: pd.DataFrame, limit: int = 12) -> pd.DataFrame:
     )
     result["profit_margin"] = result["profit"] / result["revenue"].replace(0, np.nan)
     return result.sort_values("revenue", ascending=False).head(limit)
+
+
+def previous_period(data: pd.DataFrame, date_range, regions, categories, channels, customer_segments) -> pd.DataFrame:
+    """Same filters, for the equally long period just before the selected dates.
+
+    Used for the ▲/▼ change shown on KPI cards. Returns an empty frame when the
+    selection starts at the first available date (nothing earlier to compare).
+    """
+    start, end = pd.Timestamp(date_range[0]), pd.Timestamp(date_range[1])
+    whole_months = start.day == 1 and (end + pd.Timedelta(days=1)).day == 1
+    if whole_months:
+        # e.g. Jan–Dec 2025 compares with Jan–Dec 2024 (calendar-aligned).
+        months = (end.year - start.year) * 12 + end.month - start.month + 1
+        previous_start = start - pd.DateOffset(months=months)
+        previous_end = start - pd.Timedelta(days=1)
+    else:
+        length = end - start
+        previous_end = start - pd.Timedelta(days=1)
+        previous_start = previous_end - length
+    if previous_end < data["order_date"].min():
+        return data.iloc[0:0]
+    return apply_filters(data, (previous_start, previous_end), regions, categories, channels, customer_segments)
+
+
+def kpi_changes(current: dict, previous: dict | None) -> dict[str, float | None]:
+    """Relative change per KPI (rates use percentage-point change)."""
+    if not previous or not previous.get("orders"):
+        return {key: None for key in current}
+    changes: dict[str, float | None] = {}
+    for key, value in current.items():
+        before = previous.get(key)
+        if key in {"profit_margin", "return_rate"}:
+            changes[key] = float(value) - float(before)
+        elif before:
+            changes[key] = (float(value) - float(before)) / abs(float(before))
+        else:
+            changes[key] = None
+    return changes
+
+
+def channel_performance(data: pd.DataFrame) -> pd.DataFrame:
+    result = data.groupby("channel", as_index=False).agg(
+        revenue=("revenue", "sum"), profit=("profit", "sum"), orders=("order_id", "nunique")
+    )
+    result["profit_margin"] = result["profit"] / result["revenue"].replace(0, np.nan)
+    result["average_order_value"] = result["revenue"] / result["orders"].replace(0, np.nan)
+    result["share"] = result["revenue"] / result["revenue"].sum()
+    return result.sort_values("revenue", ascending=False)
+
+
+def region_performance(data: pd.DataFrame) -> pd.DataFrame:
+    result = data.groupby("region", as_index=False).agg(
+        revenue=("revenue", "sum"),
+        profit=("profit", "sum"),
+        orders=("order_id", "nunique"),
+        customers=("customer_id", "nunique"),
+    )
+    result["profit_margin"] = result["profit"] / result["revenue"].replace(0, np.nan)
+    result["share"] = result["revenue"] / result["revenue"].sum()
+    return result.sort_values("revenue", ascending=False)
+
+
+def quarterly_summary(data: pd.DataFrame) -> pd.DataFrame:
+    result = data.assign(period=data["year"].astype(str) + " " + data["quarter"].astype(str)).groupby(
+        "period", as_index=False
+    ).agg(revenue=("revenue", "sum"), profit=("profit", "sum"), orders=("order_id", "nunique"), target=("target_revenue", "first"))
+    # Quarterly target = sum of that quarter's monthly targets (one value per month).
+    monthly_targets = data.drop_duplicates("year_month")[["year_month", "year", "quarter", "target_revenue"]]
+    monthly_targets = monthly_targets.assign(period=monthly_targets["year"].astype(str) + " " + monthly_targets["quarter"].astype(str))
+    result = result.drop(columns="target").merge(
+        monthly_targets.groupby("period", as_index=False)["target_revenue"].sum(), on="period", how="left"
+    )
+    result["profit_margin"] = result["profit"] / result["revenue"].replace(0, np.nan)
+    result["growth"] = result["revenue"].pct_change()
+    return result.sort_values("period")
+
+
+def headline_insights(data: pd.DataFrame) -> list[tuple[str, str, str]]:
+    """Plain-language findings computed from the filtered data: (icon, title, detail)."""
+    insights: list[tuple[str, str, str]] = []
+    revenue = data["revenue"].sum()
+    if revenue <= 0:
+        return insights
+
+    category = category_performance(data)
+    top = category.iloc[0]
+    insights.append(("🏆", f"{top['category']} leads sales", f"{top['revenue'] / revenue:.0%} of revenue at a {top['profit_margin']:.1%} margin."))
+
+    best_margin = category.sort_values("profit_margin", ascending=False).iloc[0]
+    if best_margin["category"] != top["category"]:
+        insights.append(("💎", f"{best_margin['category']} is most profitable", f"{best_margin['profit_margin']:.1%} margin, the highest of any category."))
+
+    yearly = data.groupby("year")["revenue"].sum().sort_index()
+    if len(yearly) >= 2 and yearly.iloc[-2] > 0:
+        growth = yearly.iloc[-1] / yearly.iloc[-2] - 1
+        direction = "grew" if growth >= 0 else "fell"
+        insights.append(("📈" if growth >= 0 else "📉", f"Revenue {direction} {abs(growth):.1%} in {yearly.index[-1]}", f"Compared with {yearly.index[-2]} for the same filters."))
+
+    bands = discount_band_performance(data)
+    if len(bands) >= 2:
+        low, high = bands.iloc[0], bands.iloc[-1]
+        insights.append(("🏷️", "Deep discounts squeeze margin", f"Margin drops from {low['profit_margin']:.1%} ({low['discount_band']}) to {high['profit_margin']:.1%} ({high['discount_band']})."))
+
+    worst_returns = category.sort_values("return_rate", ascending=False).iloc[0]
+    insights.append(("↩️", f"Watch returns in {worst_returns['category']}", f"{worst_returns['return_rate']:.1%} of its orders had a return."))
+
+    channel = channel_performance(data).iloc[0]
+    insights.append(("🛒", f"{channel['channel']} is the top channel", f"{channel['share']:.0%} of revenue, average order ₹{channel['average_order_value']:,.0f}."))
+    return insights
