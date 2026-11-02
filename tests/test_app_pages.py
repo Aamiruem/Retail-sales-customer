@@ -9,6 +9,7 @@ from streamlit.testing.v1 import AppTest
 
 APP = str(Path(__file__).resolve().parents[1] / "streamlit_app" / "app.py")
 PAGES = [
+    "🏠 Home",
     "📈 Executive Overview",
     "👥 Customer Intelligence",
     "🛍️ Products & Returns",
@@ -54,9 +55,16 @@ class TestAppPages(unittest.TestCase):
         self.assertTrue(any("No transactions match" in warning.value for warning in app.warning))
 
     def test_target_caveat_when_scoped(self):
-        app = run_app(filter_regions=["West"])
+        app = run_app(filter_regions=["West"], dashboard_page="📈 Executive Overview")
         markdown = " ".join(block.value for block in app.markdown)
         self.assertIn("Targets are set for the whole company", markdown)
+
+    def test_home_shows_insights_and_comparison(self):
+        app = run_app(filter_dates=(dt.date(2025, 1, 1), dt.date(2025, 12, 31)))
+        markdown = " ".join(block.value for block in app.markdown)
+        self.assertIn("Key insights", markdown)
+        self.assertIn("vs prev. period", markdown)
+        self.assertEqual(len(app.exception), 0)
 
 
 if __name__ == "__main__":
