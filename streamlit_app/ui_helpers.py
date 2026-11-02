@@ -22,7 +22,12 @@ GRID = "#EEF2F7"
 PALETTE = [BLUE, PURPLE, CYAN, GOLD, ORANGE, OLIVE, PINK]
 
 
+SECTION_COLORS = [BLUE, PURPLE, CYAN, OLIVE, ORANGE, PINK, GOLD]
+_section_counter = {"n": 0}
+
+
 def inject_dashboard_css() -> None:
+    _section_counter["n"] = 0  # same colour order on every rerun
     st.markdown(
         """
         <style>
@@ -195,6 +200,46 @@ def inject_dashboard_css() -> None:
           .footer strong { color:#fff; }
           .footer .stack { margin-top:.4rem; color:#93A4C8; font-size:.74rem; }
 
+          /* Coloured section headers */
+          .section-heading { display:flex; gap:.75rem; align-items:center; padding:.7rem .9rem; border-radius:14px;
+            background:linear-gradient(90deg,color-mix(in srgb,var(--accent,#2563EB) 10%,white),rgba(255,255,255,0));
+            border-left:4px solid var(--accent,#2563EB); }
+          .section-heading .badge { flex:none; display:grid; place-items:center; width:38px; height:38px; border-radius:11px;
+            font-size:1.1rem; background:var(--accent,#2563EB); box-shadow:0 6px 14px color-mix(in srgb,var(--accent,#2563EB) 35%,transparent); }
+          /* KPI change badge */
+          .delta { display:inline-block; margin-top:.15rem; padding:.1rem .45rem; border-radius:999px; font-size:.7rem; font-weight:700; }
+          .delta.up { color:#047857; background:#D1FAE5; } .delta.down { color:#B91C1C; background:#FEE2E2; }
+          .delta.flat { color:#475569; background:#F1F5F9; }
+          /* Bordered chart cards (st.container(border=True)) */
+          [data-testid="stVerticalBlockBorderWrapper"]:has(> div > [data-testid="stVerticalBlock"]) { background:#fff; border-radius:16px !important;
+            border:1px solid var(--line) !important; box-shadow:var(--shadow); }
+          [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stPyplot"],
+          [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stImage"],
+          [data-testid="stVerticalBlockBorderWrapper"] [data-testid="stImageContainer"] { border:none !important; box-shadow:none !important; padding:0 !important; background:transparent !important; }
+          .card-title { display:flex; align-items:center; gap:.5rem; font-weight:700; color:var(--ink); font-size:.95rem; margin:.1rem 0 .1rem; }
+          .card-title span.dot { width:10px; height:10px; border-radius:50%; background:var(--accent,#2563EB); }
+          .card-sub { color:var(--muted); font-size:.78rem; margin:0 0 .4rem; }
+          /* Home page */
+          .insights { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; margin:.3rem 0 1rem; }
+          .insight { display:flex; gap:.75rem; padding:.95rem 1rem; border-radius:14px; background:#fff; border:1px solid var(--line);
+            box-shadow:var(--shadow); border-top:4px solid var(--accent,#2563EB); }
+          .insight .ico { flex:none; display:grid; place-items:center; width:40px; height:40px; border-radius:12px; font-size:1.2rem;
+            background:color-mix(in srgb,var(--accent,#2563EB) 14%,white); }
+          .insight b { display:block; color:var(--ink); font-size:.9rem; margin-bottom:.15rem; }
+          .insight p { margin:0; color:var(--muted); font-size:.78rem; line-height:1.45; }
+          .yoy { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin:.3rem 0 1rem; }
+          .yoy div { padding:.9rem 1rem; border-radius:14px; color:#fff; background:linear-gradient(135deg,var(--accent,#2563EB),color-mix(in srgb,var(--accent,#2563EB) 60%,#0B1533)); box-shadow:var(--shadow); }
+          .yoy span { font-size:.72rem; text-transform:uppercase; letter-spacing:.06em; opacity:.85; font-weight:600; }
+          .yoy strong { display:block; font-size:1.35rem; font-weight:800; margin:.2rem 0; }
+          .yoy small { font-size:.75rem; opacity:.9; }
+          .nav-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:.8rem; margin:.3rem 0 1rem; }
+          .nav-card { padding:1rem; border-radius:16px; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow); position:relative; overflow:hidden; }
+          .nav-card::before { content:""; position:absolute; inset:0 0 auto 0; height:5px; background:var(--accent,#2563EB); }
+          .nav-card .ico { font-size:1.5rem; } .nav-card h4 { margin:.4rem 0 .25rem; padding:0; color:var(--ink); font-size:.95rem; font-weight:700; }
+          .nav-card p { margin:0; color:var(--muted); font-size:.76rem; line-height:1.45; }
+          .nav-card small { display:block; margin-top:.55rem; font-weight:700; color:var(--accent,#2563EB); font-size:.72rem; }
+          @media (max-width:1100px) { .insights, .nav-grid, .yoy { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+          @media (max-width:640px) { .insights, .nav-grid, .yoy { grid-template-columns:1fr; } }
           @media (max-width:1100px) { .insight-grid, .tech-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } .pipeline { grid-template-columns:repeat(3,minmax(0,1fr)); } .pipeline-step::after { display:none; } }
           @media (max-width:640px) {
             .block-container { padding:3.4rem .8rem 2rem; }
@@ -224,12 +269,63 @@ def render_hero(chips: list[str]) -> None:
     )
 
 
-def section_heading(title: str, note: str, icon: str, anchor: str | None = None) -> None:
+def section_heading(title: str, note: str, icon: str, anchor: str | None = None, color: str | None = None) -> None:
+    """Section title with a coloured icon badge; colours rotate unless one is given."""
+    if color is None:
+        color = SECTION_COLORS[_section_counter["n"] % len(SECTION_COLORS)]
+        _section_counter["n"] += 1
     anchor_markup = f'<div id="{anchor}" style="scroll-margin-top:5.2rem"></div>' if anchor else ""
     st.markdown(
-        f'{anchor_markup}<div class="section-heading"><h2>{icon} {title}</h2><p>{note}</p></div>',
+        f'{anchor_markup}<div class="section-heading" style="--accent:{color}"><div class="badge">{icon}</div>'
+        f'<div><h2>{title}</h2><p>{note}</p></div></div>',
         unsafe_allow_html=True,
     )
+
+
+def card_title(title: str, subtitle: str = "", color: str = BLUE) -> None:
+    st.markdown(
+        f'<div class="card-title" style="--accent:{color}"><span class="dot"></span>{title}</div>'
+        + (f'<p class="card-sub">{subtitle}</p>' if subtitle else ""),
+        unsafe_allow_html=True,
+    )
+
+
+def delta_badge(change: float | None, kind: str = "relative", good_when_up: bool = True, label: str = "vs prev. period") -> str:
+    """'▲ 4.9% vs prev. period' coloured green/red by whether the move is good."""
+    if change is None:
+        return ""
+    if abs(change) < 0.0005:
+        return f'<span class="delta flat">● 0.0% {label}</span>'
+    up = change > 0
+    good = up if good_when_up else not up
+    text = f"{abs(change) * 100:.1f} pts" if kind == "points" else f"{abs(change):.1%}"
+    return f'<span class="delta {"up" if good else "down"}">{"▲" if up else "▼"} {text} {label}</span>'
+
+
+def insight_list(items: list[tuple[str, str, str]]) -> None:
+    colors = SECTION_COLORS
+    cards = "".join(
+        f'<div class="insight" style="--accent:{colors[index % len(colors)]}"><div class="ico">{icon}</div>'
+        f"<div><b>{title}</b><p>{detail}</p></div></div>"
+        for index, (icon, title, detail) in enumerate(items)
+    )
+    st.markdown(f'<div class="insights">{cards}</div>', unsafe_allow_html=True)
+
+
+def yoy_strip(items: list[tuple[str, str, str, str]]) -> None:
+    cards = "".join(
+        f'<div style="--accent:{color}"><span>{label}</span><strong>{value}</strong><small>{note}</small></div>'
+        for label, value, note, color in items
+    )
+    st.markdown(f'<div class="yoy">{cards}</div>', unsafe_allow_html=True)
+
+
+def nav_cards(items: list[tuple[str, str, str, str, str]]) -> None:
+    cards = "".join(
+        f'<div class="nav-card" style="--accent:{color}"><div class="ico">{icon}</div><h4>{title}</h4><p>{text}</p><small>{hint}</small></div>'
+        for icon, title, text, hint, color in items
+    )
+    st.markdown(f'<div class="nav-grid">{cards}</div>', unsafe_allow_html=True)
 
 
 def scroll_menu(items: list[tuple[str, str]]) -> None:
@@ -237,10 +333,13 @@ def scroll_menu(items: list[tuple[str, str]]) -> None:
     st.markdown(f'<nav class="scroll-nav">{links}</nav>', unsafe_allow_html=True)
 
 
-def kpi_cards(items: list[tuple[str, str, str, str, str]]) -> None:
+def kpi_cards(items: list[tuple]) -> None:
+    """items: (label, value, note, icon, color[, delta_html])."""
     cards = "".join(
-        f'<article class="kpi-card" style="--accent:{color}"><div class="kpi-top"><span class="kpi-label">{label}</span><span class="kpi-icon">{icon}</span></div><strong>{value}</strong><small>{note}</small></article>'
-        for label, value, note, icon, color in items
+        f'<article class="kpi-card" style="--accent:{item[4]}"><div class="kpi-top"><span class="kpi-label">{item[0]}</span>'
+        f'<span class="kpi-icon">{item[3]}</span></div><strong>{item[1]}</strong>'
+        f'{item[5] if len(item) > 5 and item[5] else f"<small>{item[2]}</small>"}</article>'
+        for item in items
     )
     st.markdown(f'<div class="kpi-grid">{cards}</div>', unsafe_allow_html=True)
 
