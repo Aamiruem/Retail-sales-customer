@@ -14,11 +14,11 @@ jobs:
           python-version: "3.11"
           cache: pip
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: pip install -r requirements.txt pytest
       - name: Rebuild analytics outputs
         run: python -m src.run_pipeline
-      - name: Run automated tests
-        run: python -m unittest discover -s tests -v
+      - name: Run automated tests (incl. dashboard page smoke tests)
+        run: python -m pytest -q tests
       - name: Verify project contract
         run: python scripts/verify_project.py
 
