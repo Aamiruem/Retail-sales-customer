@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import sqlite3
 from pathlib import Path
 
@@ -68,6 +69,42 @@ def load_quality_checks(project_root: str | Path) -> pd.DataFrame:
     return pd.read_csv(Path(project_root) / "data" / "quality" / "data_quality_checks.csv")
 
 
+def load_quality_summary(project_root: str | Path) -> dict:
+    """Pipeline quality summary (row counts, checks passed) written by the ETL run."""
+    path = Path(project_root) / "data" / "quality" / "data_quality_summary.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def has_scope_filters(regions, categories, channels, customer_segments) -> bool:
+    """True when the view is narrowed below company level (targets are company-wide)."""
+    return any([regions, categories, channels, customer_segments])
+
+
+def discount_band_performance(data: pd.DataFrame) -> pd.DataFrame:
+    """Revenue, profit and margin per discount band (readable alternative to a scatter)."""
+    bands = pd.cut(
+        data["discount_pct"],
+        bins=[-0.001, 0.05, 0.10, 0.15, 0.20, 1.0],
+        labels=["0–5%", "5–10%", "10–15%", "15–20%", "20%+"],
+    )
+    result = (
+        data.assign(discount_band=bands)
+        .groupby("discount_band", observed=True, as_index=False)
+        .agg(
+            revenue=("revenue", "sum"),
+            profit=("profit", "sum"),
+            lines=("line_id", "size"),
+            loss_lines=("profit", lambda values: int((values < 0).sum())),
+        )
+    )
+    result["profit_margin"] = result["profit"] / result["revenue"].replace(0, np.nan)
+    result["loss_share"] = result["loss_lines"] / result["lines"].replace(0, np.nan)
+    return result
+
+
 def apply_filters(
     data: pd.DataFrame,
     date_range: tuple[pd.Timestamp, pd.Timestamp],
@@ -106,14 +143,26 @@ def calculate_kpis(data: pd.DataFrame) -> dict[str, float | int]:
     }
 
 
+def _returned_orders_by(data: pd.DataFrame, key: str) -> pd.DataFrame:
+    return (
+        data.loc[data["return_flag"].eq(1)]
+        .groupby(key)["order_id"]
+        .nunique()
+        .rename("returned_orders")
+        .reset_index()
+    )
+
+
 def monthly_performance(data: pd.DataFrame) -> pd.DataFrame:
+    # Distinct-order counts stay correct when filters split an order's lines.
     grouped = data.groupby("year_month", as_index=False).agg(
         revenue=("revenue", "sum"),
         profit=("profit", "sum"),
-        orders=("order_flag", "sum"),
-        returned_orders=("return_order_flag", "sum"),
+        orders=("order_id", "nunique"),
         target_revenue=("target_revenue", "first"),
     )
+    grouped = grouped.merge(_returned_orders_by(data, "year_month"), on="year_month", how="left")
+    grouped["returned_orders"] = grouped["returned_orders"].fillna(0).astype(int)
     grouped["profit_margin"] = grouped["profit"] / grouped["revenue"].replace(0, np.nan)
     grouped["return_rate"] = grouped["returned_orders"] / grouped["orders"].replace(0, np.nan)
     grouped["target_attainment"] = grouped["revenue"] / grouped["target_revenue"].replace(0, np.nan)
@@ -125,8 +174,9 @@ def category_performance(data: pd.DataFrame) -> pd.DataFrame:
         revenue=("revenue", "sum"),
         profit=("profit", "sum"),
         orders=("order_id", "nunique"),
-        returned_orders=("return_order_flag", "sum"),
     )
+    grouped = grouped.merge(_returned_orders_by(data, "category"), on="category", how="left")
+    grouped["returned_orders"] = grouped["returned_orders"].fillna(0).astype(int)
     grouped["profit_margin"] = grouped["profit"] / grouped["revenue"].replace(0, np.nan)
     grouped["return_rate"] = grouped["returned_orders"] / grouped["orders"].replace(0, np.nan)
     return grouped.sort_values("revenue", ascending=False)
