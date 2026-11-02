@@ -21,18 +21,21 @@ from streamlit_app.dashboard_data import (  # noqa: E402
     category_performance,
     customer_ml_clusters,
     customer_segment_summary,
+    discount_band_performance,
+    has_scope_filters,
     load_quality_checks,
+    load_quality_summary,
     load_transactions,
     monthly_performance,
     statistical_snapshot,
     top_products,
 )
+from streamlit_app.formatting import CRORE, LAKH, count, inr, inr_compact, month_label, pct  # noqa: E402
 from streamlit_app.ui_helpers import (  # noqa: E402
     BLUE,
     CYAN,
     GOLD,
     INK,
-    MUTED,
     OLIVE,
     ORANGE,
     PALETTE,
@@ -58,7 +61,7 @@ st.set_page_config(
     page_title="Retail Sales & Customer Insights",
     page_icon="📊",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="auto",
 )
 
 DATABASE_PATH = PROJECT_ROOT / "data" / "database" / "retail_analytics.db"
@@ -83,8 +86,37 @@ def cached_quality(project_root: str) -> pd.DataFrame:
     return load_quality_checks(project_root)
 
 
+@st.cache_data(show_spinner=False)
+def cached_quality_summary(project_root: str) -> dict:
+    return load_quality_summary(project_root)
+
+
 def format_inr_millions(value: float) -> str:
-    return f"₹{value / 1_000_000:,.1f}M"
+    """Kept for backwards compatibility; the dashboard now uses ₹ lakh / crore."""
+    return inr_compact(value)
+
+
+def show_table(frame: pd.DataFrame, column_config: dict, height: int | None = None) -> None:
+    """Consistent, index-free, sortable table with human-readable headers."""
+    frame = frame[list(column_config)].copy()
+    for name, config in column_config.items():
+        # Rupee amounts: whole rupees read better than paise in a dashboard.
+        if (config.get("type_config") or {}).get("format") == "localized":
+            frame[name] = frame[name].round(0)
+    st.dataframe(
+        frame,
+        column_config=column_config,
+        hide_index=True,
+        width="stretch",
+        height=height if height is not None else "auto",
+    )
+
+
+def monthly_axis(ax, labels) -> None:
+    """Readable month axis: 'Jan 24' labels, every other month on dense charts."""
+    positions = np.arange(len(labels))
+    step = 2 if len(labels) > 14 else 1
+    ax.set_xticks(positions[::step], [month_label(label) for label in list(labels)[::step]], rotation=0, fontsize=7.5)
 
 
 def reset_filters(minimum_date, maximum_date) -> None:
@@ -114,13 +146,12 @@ def render_sidebar(data: pd.DataFrame):
             """
             <div class="sidebar-brand">
               <div class="initials">AA</div>
-              <h3>Aamir Husain Azad</h3>
-              <p>AI/ML &amp; Data Analytics Portfolio</p>
+              <div><h4>Aamir Husain Azad</h4><p>AI/ML &amp; Data Analytics Portfolio</p></div>
             </div>
             """,
             unsafe_allow_html=True,
         )
-        st.markdown("### 🧭 Dashboard Navigation")
+        st.markdown("### Dashboard")
         page = st.radio(
             "Dashboard navigation",
             [
@@ -134,15 +165,19 @@ def render_sidebar(data: pd.DataFrame):
             key="dashboard_page",
         )
 
-        with st.expander("🎛️ Customer & Sales Filters", expanded=True):
+        st.markdown("### Filters")
+        with st.expander("🎛️ Sales & customer filters", expanded=True):
             selected_dates = st.date_input(
                 "Order date",
                 min_value=minimum_date,
                 max_value=maximum_date,
                 key="filter_dates",
             )
-            if not isinstance(selected_dates, (tuple, list)) or len(selected_dates) != 2:
+            # While the user has picked only a start date, show that single day.
+            if not isinstance(selected_dates, (tuple, list)) or len(selected_dates) == 0:
                 selected_dates = (minimum_date, maximum_date)
+            elif len(selected_dates) == 1:
+                selected_dates = (selected_dates[0], selected_dates[0])
 
             selected_regions = st.multiselect(
                 "Region", sorted(data["region"].unique()), key="filter_regions", placeholder="All regions"
@@ -168,13 +203,13 @@ def render_sidebar(data: pd.DataFrame):
                 <div class="filter-summary">
                   <strong>Active scope</strong><br>
                   {selected_dates[0].strftime('%d %b %Y')} → {selected_dates[1].strftime('%d %b %Y')}<br>
-                  {active_filter_count} optional filter group(s) selected
+                  {"All regions, categories, channels &amp; segments" if not active_filter_count else f"{active_filter_count} filter group{'s' if active_filter_count > 1 else ''} applied"}
                 </div>
                 """,
                 unsafe_allow_html=True,
             )
             st.button(
-                "↻ Reset all filters",
+                "↻ Reset filters",
                 width="stretch",
                 on_click=reset_filters,
                 args=(minimum_date, maximum_date),
@@ -183,7 +218,10 @@ def render_sidebar(data: pd.DataFrame):
         with st.expander("🔗 Portfolio & GitHub"):
             st.link_button("🌐 Open Portfolio", PORTFOLIO_URL, width="stretch")
             st.link_button("💻 Open GitHub Profile", GITHUB_URL, width="stretch")
-        st.caption("4,180 validated lines · INR · Synthetic data")
+        st.markdown(
+            f'<p class="sidebar-note">{count(len(data))} validated order lines · Amounts in ₹ · Synthetic data</p>',
+            unsafe_allow_html=True,
+        )
 
     return (
         page,
@@ -199,19 +237,19 @@ def render_kpis(data: pd.DataFrame) -> dict[str, float | int]:
     kpis = calculate_kpis(data)
     kpi_cards(
         [
-            ("Revenue", format_inr_millions(float(kpis["revenue"])), "Sales after discount and returns", "💰", BLUE),
-            ("Profit", format_inr_millions(float(kpis["profit"])), "Revenue less recognized cost", "📈", PURPLE),
-            ("Profit Margin", f"{kpis['profit_margin']:.1%}", "Profit ÷ revenue", "🎯", CYAN),
-            ("Orders", f"{kpis['orders']:,}", "Distinct customer orders", "🧾", GOLD),
-            ("Customers", f"{kpis['customers']:,}", "Unique customers in scope", "👥", ORANGE),
-            ("Return Rate", f"{kpis['return_rate']:.1%}", "Returned orders ÷ orders", "↩️", OLIVE),
-            ("Avg Order Value", f"₹{kpis['average_order_value']:,.0f}", "Revenue ÷ distinct orders", "🛒", PINK),
+            ("Revenue", inr_compact(kpis["revenue"]), "After discounts & returns", "💰", BLUE),
+            ("Profit", inr_compact(kpis["profit"]), "Revenue minus cost", "📈", PURPLE),
+            ("Margin", pct(kpis["profit_margin"]), "Profit ÷ revenue", "🎯", CYAN),
+            ("Orders", count(kpis["orders"]), "Distinct orders", "🧾", GOLD),
+            ("Customers", count(kpis["customers"]), "Unique buyers", "👥", ORANGE),
+            ("Return rate", pct(kpis["return_rate"]), "Orders with a return", "↩️", OLIVE),
+            ("Avg order", inr(kpis["average_order_value"]), "Revenue ÷ orders", "🛒", PINK),
         ]
     )
     return kpis
 
 
-def render_overview(data: pd.DataFrame) -> None:
+def render_overview(data: pd.DataFrame, scoped: bool = False) -> None:
     monthly = monthly_performance(data)
     category = category_performance(data)
     best_category = category.iloc[0]
@@ -229,70 +267,110 @@ def render_overview(data: pd.DataFrame) -> None:
     )
     section_heading(
         "Executive Overview",
-        "Monitor performance, movement, target delivery and the strongest revenue drivers.",
+        "Performance, momentum, target delivery and the strongest revenue drivers.",
         "📈",
         "overview-summary",
     )
     insight_cards(
         [
-            ("Top category", str(best_category["category"]), format_inr_millions(float(best_category["revenue"])), BLUE),
-            ("Top region", best_region, "Highest filtered revenue", PURPLE),
-            ("Best month", str(best_month["year_month"]), format_inr_millions(float(best_month["revenue"])), CYAN),
-            ("Target attainment", f"{target_attainment:.1%}", "Actual revenue ÷ target", GOLD),
+            ("Top category", str(best_category["category"]), f"{inr_compact(best_category['revenue'])} revenue", BLUE),
+            ("Top region", str(best_region), f"{inr_compact(data.loc[data['region'].eq(best_region), 'revenue'].sum())} revenue", PURPLE),
+            ("Best month", month_label(best_month["year_month"]).replace(" ", " 20"), f"{inr_compact(best_month['revenue'])} revenue", CYAN),
+            (
+                "Target attainment",
+                "Company only" if scoped else pct(target_attainment),
+                "Targets are set for the whole company" if scoped else "Actual revenue ÷ target",
+                GOLD,
+            ),
         ]
     )
 
-    section_heading("Performance Trends", "Track monthly movement and category contribution.", "📊", "overview-trends")
-    left, right = st.columns([1.3, 1])
+    section_heading("Performance Trends", "Monthly momentum and category contribution.", "📊", "overview-trends")
+    left, right = st.columns([1.35, 1])
     with left:
+        x = np.arange(len(monthly))
         fig, ax = plt.subplots(figsize=(9.3, 4.3))
-        ax.plot(monthly["year_month"], monthly["revenue"] / 1_000_000, color=BLUE, linewidth=2.6, marker="o", label="Revenue")
-        ax.plot(monthly["year_month"], monthly["profit"] / 1_000_000, color=GOLD, linewidth=2.3, marker="s", label="Profit")
-        chart_style(ax, "Monthly Revenue and Profit", "INR million · filtered monthly movement", ylabel="₹ million")
-        ax.tick_params(axis="x", rotation=55, labelsize=8)
+        ax.fill_between(x, monthly["revenue"] / LAKH, color=BLUE, alpha=0.08)
+        ax.plot(x, monthly["revenue"] / LAKH, color=BLUE, linewidth=2.4, marker="o", markersize=4, label="Revenue")
+        ax.plot(x, monthly["profit"] / LAKH, color=GOLD, linewidth=2.2, marker="o", markersize=4, label="Profit")
+        chart_style(ax, "Monthly revenue and profit", "₹ lakh per month", ylabel="₹ lakh")
+        monthly_axis(ax, monthly["year_month"])
+        ax.set_ylim(bottom=0)
         ax.legend(frameon=False, ncol=2, loc="upper left")
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
     with right:
         ordered = category.sort_values("revenue")
-        colors = [PALETTE[index % len(PALETTE)] for index in range(len(ordered))]
         fig, ax = plt.subplots(figsize=(7.3, 4.3))
-        bars = ax.barh(ordered["category"], ordered["revenue"] / 1_000_000, color=colors, edgecolor="#FFFFFF")
-        chart_style(ax, "Revenue by Product Category", "INR million · categories ranked by revenue", xlabel="₹ million")
-        ax.bar_label(bars, fmt="%.1f", padding=4, fontsize=8, color=INK)
-        ax.set_xlim(0, ordered["revenue"].max() / 1_000_000 * 1.15)
+        # Highlight the leading category; the rest stay in a lighter tint.
+        colors = ["#93C5FD"] * (len(ordered) - 1) + [BLUE]
+        bars = ax.barh(ordered["category"], ordered["revenue"] / CRORE, color=colors, height=0.6)
+        chart_style(ax, "Revenue by category", "₹ crore · share of filtered revenue", xlabel="₹ crore")
+        total = ordered["revenue"].sum()
+        ax.bar_label(
+            bars,
+            labels=[f"₹{value / CRORE:.2f} Cr  ({value / total:.0%})" for value in ordered["revenue"]],
+            padding=4,
+            fontsize=8,
+            color=INK,
+        )
+        ax.set_xlim(0, ordered["revenue"].max() / CRORE * 1.35)
+        ax.grid(axis="y", visible=False)
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
 
     section_heading(
         "Targets & Geographic Mix",
-        "Compare plan delivery and identify the regional/category combinations driving revenue.",
+        "Plan delivery and the region × category combinations driving revenue.",
         "🎯",
         "overview-targets",
     )
-    left, right = st.columns([1.3, 1])
+    if scoped:
+        st.markdown(
+            '<div class="note warn">Monthly targets are company-wide. With region, category, channel or segment '
+            "filters applied, the target bars are shown for context only.</div>",
+            unsafe_allow_html=True,
+        )
+    left, right = st.columns([1.35, 1])
     with left:
         fig, ax = plt.subplots(figsize=(9.3, 4.2))
         x = np.arange(len(monthly))
-        ax.bar(x, monthly["target_revenue"] / 1_000_000, color="#DCE6F8", edgecolor="#91AFE4", label="Target")
-        ax.plot(x, monthly["revenue"] / 1_000_000, color=PURPLE, marker="o", linewidth=2.3, label="Actual")
-        ax.set_xticks(x, monthly["year_month"], rotation=55, fontsize=8)
-        chart_style(ax, "Monthly Revenue versus Target", "INR million · actual performance compared with plan", ylabel="₹ million")
-        ax.legend(frameon=False, ncol=2, loc="upper left")
+        attained = monthly["revenue"] >= monthly["target_revenue"]
+        ax.bar(x, monthly["target_revenue"] / LAKH, color="#E2E8F0", label="Target", width=0.7)
+        ax.plot(x, monthly["revenue"] / LAKH, color=PURPLE, linewidth=2.2, label="Actual")
+        ax.scatter(x[attained], (monthly["revenue"] / LAKH)[attained], color=OLIVE, s=26, zorder=3, label="Target met")
+        ax.scatter(x[~attained], (monthly["revenue"] / LAKH)[~attained], color=ORANGE, s=26, zorder=3, label="Below target")
+        monthly_axis(ax, monthly["year_month"])
+        chart_style(ax, "Monthly revenue versus target", "₹ lakh · green = target met, orange = below target", ylabel="₹ lakh")
+        ax.legend(frameon=False, ncol=4, loc="upper left")
+        ax.set_ylim(0, max(monthly["target_revenue"].max(), monthly["revenue"].max()) / LAKH * 1.18)
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
     with right:
-        heat = data.pivot_table(index="region", columns="category", values="revenue", aggfunc="sum", fill_value=0) / 1_000_000
+        heat = data.pivot_table(index="region", columns="category", values="revenue", aggfunc="sum", fill_value=0) / LAKH
+        heat.columns = [str(column).replace(" & ", " &\n") for column in heat.columns]
         fig, ax = plt.subplots(figsize=(7.3, 4.2))
-        cmap = sns.blend_palette(["#EEF5FF", BLUE, PURPLE], as_cmap=True)
-        sns.heatmap(heat, annot=True, fmt=".1f", cmap=cmap, linewidths=0.7, cbar_kws={"label": "₹M"}, ax=ax)
-        chart_style(ax, "Revenue by Region and Category", "INR million · geographic and category mix")
+        cmap = sns.light_palette(BLUE, as_cmap=True)
+        sns.heatmap(
+            heat,
+            annot=True,
+            fmt=".0f",
+            cmap=cmap,
+            linewidths=1.5,
+            linecolor="#FFFFFF",
+            cbar=False,
+            annot_kws={"fontsize": 8.5, "fontweight": "bold"},
+            ax=ax,
+        )
+        chart_style(ax, "Revenue by region and category", "₹ lakh · darker cells earn more")
+        ax.grid(False)
         ax.set_xlabel("")
         ax.set_ylabel("")
-        ax.tick_params(axis="x", rotation=35, labelsize=8)
+        ax.tick_params(axis="x", rotation=0, labelsize=7.5)
+        ax.tick_params(axis="y", rotation=0)
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
@@ -325,7 +403,7 @@ def render_customer_360(data: pd.DataFrame) -> None:
             ("Active customers", f"{len(profile):,}", "Unique customers in scope", BLUE),
             ("Champions", f"{champions:,}", "Highest-value RFM group", OLIVE),
             ("At-risk customers", f"{at_risk:,}", "Retention opportunity", ORANGE),
-            ("Revenue per customer", f"₹{profile['revenue'].mean():,.0f}", "Average customer value", PINK),
+            ("Revenue per customer", inr(profile["revenue"].mean()), "Average customer value", PINK),
         ]
     )
 
@@ -338,33 +416,55 @@ def render_customer_360(data: pd.DataFrame) -> None:
     left, right = st.columns([1, 1.25])
     with left:
         ordered = rfm.sort_values("customers")
-        colors = [PALETTE[index % len(PALETTE)] for index in range(len(ordered))]
+        segment_names = sorted(profile["rfm_segment"].unique())
+        segment_colors = {name: PALETTE[index % len(PALETTE)] for index, name in enumerate(segment_names)}
         fig, ax = plt.subplots(figsize=(7.2, 5.0))
-        bars = ax.barh(ordered["rfm_segment"], ordered["customers"], color=colors, edgecolor="#FFFFFF")
-        chart_style(ax, "Customers by RFM Segment", "Unique customers · lifecycle segmentation", xlabel="Customers")
+        bars = ax.barh(
+            ordered["rfm_segment"], ordered["customers"], color=[segment_colors[name] for name in ordered["rfm_segment"]], height=0.62
+        )
+        chart_style(ax, "Customers by RFM segment", "Unique customers in each lifecycle group", xlabel="Customers")
         ax.bar_label(bars, padding=4, fontsize=8, color=INK)
+        ax.grid(axis="y", visible=False)
         ax.set_xlim(0, ordered["customers"].max() * 1.15)
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
     with right:
-        segment_names = sorted(profile["rfm_segment"].unique())
-        palette_map = {name: PALETTE[index % len(PALETTE)] for index, name in enumerate(segment_names)}
-        fig, ax = plt.subplots(figsize=(8.7, 5.0))
-        sns.scatterplot(
-            data=profile,
-            x="recency_days",
-            y="orders",
-            hue="rfm_segment",
-            palette=palette_map,
-            alpha=0.72,
-            s=46,
-            edgecolor="#FFFFFF",
-            linewidth=0.4,
-            ax=ax,
+        # One bubble per segment is far easier to read than 1,000+ overlapping points.
+        segments = profile.groupby("rfm_segment", as_index=False).agg(
+            customers=("customer_id", "nunique"),
+            recency_days=("recency_days", "mean"),
+            orders=("orders", "mean"),
+            revenue=("revenue", "mean"),
         )
-        chart_style(ax, "Customer Recency and Order Frequency", "One point per customer · lower recency means more recent activity", ylabel="Distinct orders", xlabel="Recency (days)")
-        ax.legend(frameon=False, fontsize=7, title="RFM segment", ncol=2)
+        fig, ax = plt.subplots(figsize=(8.7, 5.0))
+        ax.scatter(
+            segments["recency_days"],
+            segments["revenue"] / 1_000,
+            s=segments["customers"] / segments["customers"].max() * 1800 + 120,
+            c=[segment_colors[name] for name in segments["rfm_segment"]],
+            alpha=0.78,
+            edgecolors="#FFFFFF",
+            linewidths=1.5,
+        )
+        for row in segments.itertuples(index=False):
+            ax.annotate(
+                f"{row.rfm_segment}\n{row.customers} customers",
+                (row.recency_days, row.revenue / 1_000),
+                ha="center",
+                va="center",
+                fontsize=7.5,
+                color=INK,
+                fontweight="bold",
+            )
+        chart_style(
+            ax,
+            "Segment value versus recency",
+            "Bubble size = customers · left = bought recently, up = spends more",
+            ylabel="Avg revenue per customer (₹ thousand)",
+            xlabel="Avg days since last order",
+        )
+        ax.margins(x=0.18, y=0.22)
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
@@ -410,7 +510,9 @@ def render_customer_360(data: pd.DataFrame) -> None:
             ylabel="Customer revenue (₹ thousand)",
             xlabel="Recency (days)",
         )
-        ax.legend(frameon=False, fontsize=7, title="Cluster / order size", ncol=2)
+        handles, labels = ax.get_legend_handles_labels()
+        keep = [index for index, label in enumerate(labels) if label in active_cluster_colors]
+        ax.legend([handles[index] for index in keep], [labels[index] for index in keep], frameon=False, title="Cluster", loc="upper right")
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
@@ -418,7 +520,8 @@ def render_customer_360(data: pd.DataFrame) -> None:
         ordered_ml = ml_summary.sort_values("average_revenue")
         bar_colors = [cluster_colors.get(name, PURPLE) for name in ordered_ml["ml_cluster"]]
         fig, ax = plt.subplots(figsize=(7.2, 4.9))
-        bars = ax.barh(ordered_ml["ml_cluster"], ordered_ml["average_revenue"] / 1_000, color=bar_colors)
+        bars = ax.barh(ordered_ml["ml_cluster"], ordered_ml["average_revenue"] / 1_000, color=bar_colors, height=0.6)
+        ax.grid(axis="y", visible=False)
         chart_style(
             ax,
             "Average Value by ML Cluster",
@@ -431,38 +534,22 @@ def render_customer_360(data: pd.DataFrame) -> None:
         st.pyplot(fig, width="stretch")
         plt.close(fig)
 
-    cluster_table = ml_summary.copy()
-    cluster_table["average_recency_days"] = cluster_table["average_recency_days"].map(lambda value: f"{value:,.0f}")
-    cluster_table["average_orders"] = cluster_table["average_orders"].map(lambda value: f"{value:,.1f}")
-    cluster_table["average_revenue"] = cluster_table["average_revenue"].map(lambda value: f"₹{value:,.0f}")
-    cluster_table["total_revenue"] = cluster_table["total_revenue"].map(format_inr_millions)
-    cluster_table["total_profit"] = cluster_table["total_profit"].map(format_inr_millions)
-    cluster_table["profit_margin"] = cluster_table["profit_margin"].map(lambda value: f"{value:.1%}")
-    st.table(
-        cluster_table[
-            [
-                "ml_cluster",
-                "customers",
-                "average_recency_days",
-                "average_orders",
-                "average_revenue",
-                "total_revenue",
-                "profit_margin",
-            ]
-        ].rename(
-            columns={
-                "ml_cluster": "Customer Cluster",
-                "customers": "Customers",
-                "average_recency_days": "Avg Recency (Days)",
-                "average_orders": "Avg Orders",
-                "average_revenue": "Avg Revenue",
-                "total_revenue": "Total Revenue",
-                "profit_margin": "Profit Margin",
-            }
-        )
+    cluster_table = ml_summary.assign(profit_margin=ml_summary["profit_margin"].map(pct))
+    show_table(
+        cluster_table,
+        {
+            "ml_cluster": st.column_config.TextColumn("Customer cluster"),
+            "customers": st.column_config.NumberColumn("Customers", format="%d"),
+            "average_recency_days": st.column_config.NumberColumn("Avg recency (days)", format="%.0f"),
+            "average_orders": st.column_config.NumberColumn("Avg orders", format="%.1f"),
+            "average_revenue": st.column_config.NumberColumn("Avg revenue (₹)", format="localized"),
+            "total_revenue": st.column_config.NumberColumn("Total revenue (₹)", format="localized"),
+            "profit_margin": st.column_config.TextColumn("Profit margin", help="— when the group has no net revenue"),
+        },
     )
     st.info(
-        "Action guide: reward High Value customers, cross-sell Loyal Growth, nurture Developing customers, and run win-back campaigns for Needs Attention. ML labels are exploratory—not causal predictions."
+        "**Action guide:** reward High Value customers, cross-sell to Loyal Growth, nurture Developing customers and run win-back campaigns for Needs Attention. Cluster labels are exploratory, not predictions.",
+        icon="💡",
     )
 
     section_heading(
@@ -476,10 +563,11 @@ def render_customer_360(data: pd.DataFrame) -> None:
         ordered = business_segments.sort_values("revenue")
         y = np.arange(len(ordered))
         fig, ax = plt.subplots(figsize=(7.2, 4.5))
-        ax.barh(y - 0.18, ordered["revenue"] / 1_000_000, height=0.34, color=BLUE, label="Revenue")
-        ax.barh(y + 0.18, ordered["profit"] / 1_000_000, height=0.34, color=GOLD, label="Profit")
+        ax.barh(y + 0.18, ordered["revenue"] / LAKH, height=0.34, color=BLUE, label="Revenue")
+        ax.barh(y - 0.18, ordered["profit"] / LAKH, height=0.34, color=GOLD, label="Profit")
+        ax.grid(axis="y", visible=False)
         ax.set_yticks(y, ordered["customer_segment"])
-        chart_style(ax, "Value by Customer Segment", "INR million · revenue and profit comparison", xlabel="₹ million")
+        chart_style(ax, "Value by customer segment", "₹ lakh · revenue and profit", xlabel="₹ lakh")
         ax.legend(frameon=False, ncol=2, loc="lower right")
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
@@ -487,15 +575,19 @@ def render_customer_360(data: pd.DataFrame) -> None:
     with right:
         top_customers = profile.head(15).copy()
         top_customers.insert(0, "rank", range(1, len(top_customers) + 1))
-        top_customers["revenue"] = top_customers["revenue"].map(lambda value: f"₹{value:,.0f}")
-        top_customers["profit"] = top_customers["profit"].map(lambda value: f"₹{value:,.0f}")
-        top_customers["last_order"] = top_customers["last_order"].dt.strftime("%d %b %Y")
-        st.subheader("🏆 Top Customers by Revenue")
-        st.caption("Exact-value lookup for the 15 highest-value customers in the active scope.")
-        st.table(
-            top_customers[
-                ["rank", "customer_name", "rfm_segment", "ml_cluster", "revenue", "profit", "orders", "last_order"]
-            ].rename(columns=str.title)
+        st.markdown("**🏆 Top 15 customers by revenue**")
+        show_table(
+            top_customers,
+            {
+                "rank": st.column_config.NumberColumn("#", format="%d", width="small"),
+                "customer_name": st.column_config.TextColumn("Customer"),
+                "rfm_segment": st.column_config.TextColumn("RFM segment"),
+                "ml_cluster": st.column_config.TextColumn("Cluster"),
+                "revenue": st.column_config.NumberColumn("Revenue (₹)", format="localized"),
+                "orders": st.column_config.NumberColumn("Orders", format="%d"),
+                "last_order": st.column_config.DateColumn("Last order", format="DD MMM YYYY"),
+            },
+            height=420,
         )
 
 
@@ -524,10 +616,10 @@ def render_products(data: pd.DataFrame) -> None:
     )
     insight_cards(
         [
-            ("Top product", str(top_product["product_name"]), format_inr_millions(float(top_product["revenue"])), BLUE),
-            ("Top-product margin", f"{top_product['profit_margin']:.1%}", "Profit ÷ revenue", OLIVE),
-            ("Highest return category", str(high_return_category["category"]), f"{high_return_category['return_rate']:.1%}", ORANGE),
-            ("Units sold", f"{int(data['quantity'].sum()):,}", "Filtered line quantity", PURPLE),
+            ("Top product", str(top_product["product_name"]), f"{inr_compact(top_product['revenue'])} revenue", BLUE),
+            ("Top-product margin", pct(top_product["profit_margin"]), "Profit ÷ revenue", OLIVE),
+            ("Highest return rate", str(high_return_category["category"]), f"{pct(high_return_category['return_rate'])} of orders", ORANGE),
+            ("Units sold", count(data["quantity"].sum()), "Across filtered order lines", PURPLE),
         ]
     )
 
@@ -565,8 +657,8 @@ def render_products(data: pd.DataFrame) -> None:
             (
                 category_icons.get(str(row.category), "🛍️"),
                 str(row.category),
-                format_inr_millions(float(row.revenue)),
-                f"Margin {row.profit_margin:.1%} · Return rate {row.return_rate:.1%} · {int(row.orders):,} orders",
+                inr_compact(row.revenue),
+                f"Margin {pct(row.profit_margin)} · Returns {pct(row.return_rate)} · {count(row.orders)} orders",
                 category_colors.get(str(row.category), BLUE),
             )
             for row in category.itertuples(index=False)
@@ -582,32 +674,48 @@ def render_products(data: pd.DataFrame) -> None:
     left, right = st.columns(2)
     with left:
         returns = category.sort_values("return_rate")
-        colors = ["#FDBA74", "#FB923C", ORANGE, "#C65D8A", PURPLE][: len(returns)]
+        overall_rate = calculate_kpis(data)["return_rate"]
+        colors = [ORANGE if rate > overall_rate else "#FDBA74" for rate in returns["return_rate"]]
         fig, ax = plt.subplots(figsize=(7.6, 4.7))
-        bars = ax.barh(returns["category"], returns["return_rate"] * 100, color=colors, edgecolor="#FFFFFF")
-        chart_style(ax, "Order Return Rate by Category", "Returned distinct orders ÷ distinct orders", xlabel="% of orders")
+        bars = ax.barh(returns["category"], returns["return_rate"] * 100, color=colors, height=0.6)
+        ax.axvline(overall_rate * 100, color=INK, linestyle="--", linewidth=1)
+        ax.text(overall_rate * 100, len(returns) - 0.45, f" Avg {pct(overall_rate)}", fontsize=7.5, color=INK, va="bottom")
+        ax.grid(axis="y", visible=False)
+        chart_style(ax, "Return rate by category", "Orders with a return · dark bars are above average", xlabel="% of orders")
         ax.bar_label(bars, labels=[f"{value:.1%}" for value in returns["return_rate"]], padding=4, fontsize=8, color=INK)
         ax.set_xlim(0, returns["return_rate"].max() * 100 * 1.18)
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
     with right:
-        sample = data.sample(min(1_200, len(data)), random_state=20260804)
-        category_names = sorted(sample["category"].unique())
-        palette_map = {name: PALETTE[index % len(PALETTE)] for index, name in enumerate(category_names)}
+        bands = discount_band_performance(data)
+        x = np.arange(len(bands))
         fig, ax = plt.subplots(figsize=(7.6, 4.7))
-        sns.scatterplot(data=sample, x="discount_pct", y="profit", hue="category", palette=palette_map, alpha=0.66, s=34, ax=ax)
-        ax.axhline(0, color=INK, linestyle="--", linewidth=0.9)
-        chart_style(ax, "Discount and Line Profit", "Up to 1,200 order lines · dashed line marks zero profit", ylabel="Profit (₹)", xlabel="Discount")
-        ax.xaxis.set_major_formatter(lambda value, _: f"{value:.0%}")
-        ax.legend(frameon=False, fontsize=7, title="Category", ncol=2)
+        bars = ax.bar(x, bands["profit_margin"] * 100, color=BLUE, width=0.55, label="Profit margin")
+        ax.bar_label(bars, labels=[pct(value) for value in bands["profit_margin"]], padding=3, fontsize=8, color=INK)
+        twin = ax.twinx()
+        twin.plot(x, bands["loss_share"] * 100, color=ORANGE, marker="o", linewidth=2.2, label="Loss-making lines")
+        twin.set_ylim(0, max(5.0, float(np.nanmax(bands["loss_share"])) * 100 * 1.4))
+        twin.set_ylabel("Loss-making lines (%)", color=ORANGE, fontsize=8.5)
+        twin.tick_params(colors=ORANGE, labelsize=8, length=0)
+        for spine in twin.spines.values():
+            spine.set_visible(False)
+        ax.set_xticks(x, bands["discount_band"].astype(str))
+        chart_style(
+            ax,
+            "Does discounting erode profit?",
+            "Bars = margin per discount band · line = share of lines sold at a loss",
+            ylabel="Profit margin (%)",
+            xlabel="Discount band",
+        )
+        ax.set_ylim(0, float(np.nanmax(bands["profit_margin"])) * 100 * 1.25)
         fig.tight_layout()
         st.pyplot(fig, width="stretch")
         plt.close(fig)
 
     section_heading(
         "Product Leaderboard",
-        "Visual cards rank the 12 highest-revenue products and show the business context behind each result.",
+        "The 12 highest-revenue products and the context behind each result.",
         "🏅",
         "product-leaders",
     )
@@ -616,23 +724,17 @@ def render_products(data: pd.DataFrame) -> None:
             (
                 category_icons.get(str(row.category), "📦"),
                 str(row.product_name),
-                format_inr_millions(float(row.revenue)),
-                f"{row.category} · Margin {row.profit_margin:.1%} · {int(row.units):,} units · {int(row.returned_lines):,} returned lines",
+                inr_compact(row.revenue),
+                f"{row.category} · Margin {pct(row.profit_margin)} · {count(row.units)} units · {count(row.returned_lines)} returns",
                 category_colors.get(str(row.category), BLUE),
             )
             for row in products.itertuples(index=False)
         ]
     )
-    product_table = products.copy()
-    product_table.insert(0, "rank", range(1, len(product_table) + 1))
-    product_table["revenue"] = product_table["revenue"].map(lambda value: f"₹{value:,.0f}")
-    product_table["profit"] = product_table["profit"].map(lambda value: f"₹{value:,.0f}")
-    product_table["profit_margin"] = product_table["profit_margin"].map(lambda value: f"{value:.1%}")
-    st.table(product_table.rename(columns=str.title))
 
     section_heading(
         "Complete Product Catalog",
-        "Choose a category to inspect every product in the validated 50-product catalog.",
+        "Pick a category to see every product, sortable by any column.",
         "📚",
         "product-catalog",
     )
@@ -643,18 +745,22 @@ def render_products(data: pd.DataFrame) -> None:
     )
     catalog = all_products.loc[all_products["category"].eq(catalog_category)].copy()
     catalog.insert(0, "rank", range(1, len(catalog) + 1))
-    catalog["revenue"] = catalog["revenue"].map(lambda value: f"₹{value:,.0f}")
-    catalog["profit"] = catalog["profit"].map(lambda value: f"₹{value:,.0f}")
-    catalog["profit_margin"] = catalog["profit_margin"].map(lambda value: f"{value:.1%}")
     st.markdown(
-        f'<div class="catalog-note"><strong>{catalog_category}</strong> · {len(catalog)} products · sorted by filtered revenue. Select another category to browse the complete catalog.</div>',
+        f'<div class="catalog-note"><strong>{catalog_category}</strong> · {len(catalog)} products · sorted by revenue. '
+        "Click a column header to re-sort.</div>",
         unsafe_allow_html=True,
     )
-    st.table(
-        catalog[["rank", "product_name", "revenue", "profit", "profit_margin", "units", "returned_lines"]].rename(
-            columns=str.title
-        )
-    )
+    show_table(catalog, {
+            "rank": st.column_config.NumberColumn("#", format="%d", width="small"),
+            "product_name": st.column_config.TextColumn("Product"),
+            "revenue": st.column_config.NumberColumn("Revenue (₹)", format="localized"),
+            "profit": st.column_config.NumberColumn("Profit (₹)", format="localized"),
+            "profit_margin": st.column_config.ProgressColumn(
+                "Profit margin", format="percent", min_value=0.0, max_value=0.6
+            ),
+            "units": st.column_config.NumberColumn("Units", format="%d"),
+            "returned_lines": st.column_config.NumberColumn("Returns", format="%d"),
+        })
 
 
 def render_quality(data: pd.DataFrame) -> None:
@@ -672,20 +778,42 @@ def render_quality(data: pd.DataFrame) -> None:
         "🛡️",
         "quality-summary",
     )
-    q1, q2, q3, q4, q5 = st.columns(5)
-    q1.metric("Raw Rows", "4,224")
-    q2.metric("Validated Rows", "4,180")
-    q3.metric("Rejected Rows", "44")
-    q4.metric("Checks Passed", f"{int(checks['passed'].sum())}/{len(checks)}")
-    q5.metric("Broken Joins", "0")
+    summary = cached_quality_summary(str(PROJECT_ROOT))
+    raw_rows = int(summary.get("raw_rows", 0))
+    clean_rows = int(summary.get("clean_rows", len(data)))
+    rejected_rows = int(summary.get("rejected_rows", max(raw_rows - clean_rows, 0)))
+    passed = int(checks["passed"].sum())
+    failed = len(checks) - passed
+    kpi_cards(
+        [
+            ("Raw rows", count(raw_rows), "Loaded from 3 sources", "📥", BLUE),
+            ("Validated rows", count(clean_rows), f"{pct(clean_rows / raw_rows if raw_rows else 0)} accepted", "✅", OLIVE),
+            ("Rejected rows", count(rejected_rows), "Quarantined, not deleted", "🚫", ORANGE),
+            ("Checks passed", f"{passed}/{len(checks)}", "All clear" if not failed else f"{failed} need attention", "🛡️", PURPLE),
+            ("Status", str(summary.get("overall_status", "—")).title(), "Pipeline readiness", "🚦", CYAN),
+        ]
+    )
+    rejections = summary.get("rejection_counts") or {}
+    if rejections:
+        reasons = " · ".join(f"{name.replace('_', ' ')}: {value}" for name, value in rejections.items())
+        st.markdown(f'<div class="note">Rejected-row reasons — {reasons}</div>', unsafe_allow_html=True)
     section_heading(
         "Automated Quality Checks",
         "Volume, completeness, uniqueness, ranges, referential integrity and financial arithmetic.",
         "✅",
         "quality-checks",
     )
-    displayed = checks[["check_id", "check_name", "actual", "expected", "severity", "status"]].copy()
-    st.table(displayed.rename(columns=str.title))
+    show_table(
+        checks,
+        {
+            "check_id": st.column_config.TextColumn("ID", width="small"),
+            "check_name": st.column_config.TextColumn("Check"),
+            "actual": st.column_config.NumberColumn("Actual", format="localized"),
+            "expected": st.column_config.NumberColumn("Expected", format="localized"),
+            "severity": st.column_config.TextColumn("Severity", width="small"),
+            "status": st.column_config.TextColumn("Status", width="small"),
+        },
+    )
     st.info(
         "Dataset grain: one validated order line. The SQL star schema, Streamlit KPIs, Excel dashboard and Power BI measures use the same metric definitions."
     )
@@ -749,11 +877,11 @@ def render_project_stack(data: pd.DataFrame) -> None:
     insight_cards(
         [
             ("Discount ↔ profit", correlation_text, "Pearson line-level correlation", ORANGE),
-            ("Average discount", f"{float(stats['average_discount']):.1%}", "Mean promotional depth", BLUE),
-            ("Median line revenue", f"₹{float(stats['line_revenue_median']):,.0f}", "Robust transaction-line midpoint", PURPLE),
+            ("Average discount", pct(stats["average_discount"]), "Mean promotional depth", BLUE),
+            ("Median line revenue", inr(stats["line_revenue_median"]), "Typical order-line value", PURPLE),
             (
                 "Return-rate interval",
-                f"{float(stats['return_rate_ci_low']):.1%}–{float(stats['return_rate_ci_high']):.1%}",
+                f"{pct(stats['return_rate_ci_low'])} – {pct(stats['return_rate_ci_high'])}",
                 "Approximate 95% confidence interval",
                 OLIVE,
             ),
@@ -763,14 +891,14 @@ def render_project_stack(data: pd.DataFrame) -> None:
     left, right = st.columns(2)
     with left:
         fig, ax = plt.subplots(figsize=(7.8, 4.7))
-        sns.histplot(data["revenue"], bins=28, color=BLUE, alpha=0.82, edgecolor="#FFFFFF", ax=ax)
-        ax.axvline(float(stats["line_revenue_median"]), color=ORANGE, linestyle="--", linewidth=2, label="Median")
+        sns.histplot(data["revenue"] / 1_000, bins=28, color=BLUE, alpha=0.82, edgecolor="#FFFFFF", ax=ax)
+        ax.axvline(float(stats["line_revenue_median"]) / 1_000, color=ORANGE, linestyle="--", linewidth=2, label=f"Median {inr(stats['line_revenue_median'])}")
         chart_style(
             ax,
             "Transaction-Line Revenue Distribution",
             "Histogram reveals spread, skew and unusually large order lines",
             ylabel="Transaction lines",
-            xlabel="Revenue (₹)",
+            xlabel="Revenue per order line (₹ thousand)",
         )
         ax.legend(frameon=False)
         fig.tight_layout()
@@ -896,16 +1024,26 @@ filtered = apply_filters(
     selected_channels,
     selected_segments,
 )
+scoped = has_scope_filters(selected_regions, selected_categories, selected_channels, selected_segments)
+quality_summary = cached_quality_summary(str(PROJECT_ROOT))
 
-render_hero()
+first_day, last_day = transactions["order_date"].min(), transactions["order_date"].max()
+render_hero(
+    [
+        "👤 Built by Aamir Husain Azad",
+        f"📅 {first_day:%b %Y} – {last_day:%b %Y}",
+        f"🛡️ {quality_summary.get('checks_passed', '—')}/{quality_summary.get('checks_total', '—')} quality checks",
+        "🧪 Synthetic portfolio data",
+    ]
+)
 if filtered.empty:
-    st.warning("No transactions match the selected filters. Use the sidebar reset button or remove one or more filters.")
+    st.warning("No transactions match these filters. Remove a filter or press **Reset filters** in the sidebar.", icon="🔎")
     st.stop()
 
 render_kpis(filtered)
 
 if page == "📈 Executive Overview":
-    render_overview(filtered)
+    render_overview(filtered, scoped)
 elif page == "👥 Customer Intelligence":
     render_customer_360(filtered)
 elif page == "🛍️ Products & Returns":
